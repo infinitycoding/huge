@@ -1,0 +1,11 @@
+*.o
+*.a
+
+*.cpp~
+*.h~
+
+makefile~
+Makefile~
+makefile.linux~
+Makefile.linux~
+
