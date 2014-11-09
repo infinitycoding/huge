@@ -2,9 +2,9 @@
 #define _huge_h_
 /*
         Copyright 2012-2014 Infinitycoding all rights reserved
-        This file is part of the Universe Kernel.
+        This file is part of the HugeUniversalGameEngine.
 
-        The Universe Kernel is free software: you can redistribute it and/or modify
+        HUGE is free software: you can redistribute it and/or modify
         it under the terms of the GNU General Public License as published by
         the Free Software Foundation, either version 3 of the License, or
         any later version.
@@ -18,6 +18,7 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
-
+void test(void);
 
 #endif
+
