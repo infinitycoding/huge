@@ -33,6 +33,9 @@ class Window
 		Window();
 		~Window();
 
+		void clear(void);
+		void swap(void);
+
 	private:
 		void create(void);
 
