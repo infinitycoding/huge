@@ -18,7 +18,17 @@ int main(int argc, char **argv)
 		printf("GLEW init failed!\n");
 	}
 
-	while(1);
+	while(1)
+	{
+		SDL_Event e;
+    	while(SDL_PollEvent(&e))
+   		{
+        	if(e.type == SDL_QUIT)
+        	{
+            	exit(0);
+        	}
+    	}
+	}
 
 	return 0;
 }
