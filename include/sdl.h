@@ -1,5 +1,5 @@
-#ifndef _huge_h_
-#define _huge_h_
+#ifndef _sdl_h_
+#define _sdl_h_
 /*
         Copyright 2012-2014 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -18,13 +18,33 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "sdl.h"
+#include <SDL2/SDL.h>
 
 namespace huge
 {
+namespace sdl
+{
 
-void test(void);
+int init(void);
 
+class Window
+{
+	public:
+		Window();
+		~Window();
+
+	private:
+		void create(void);
+
+        char *title;
+        int width;
+        int height;
+
+        SDL_Window *sdl_window;
+        SDL_GLContext *sdl_context;
+};
+
+};
 };
 
 #endif
