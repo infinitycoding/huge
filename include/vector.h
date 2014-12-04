@@ -1,5 +1,5 @@
-#ifndef _huge_h_
-#define _huge_h_
+#ifndef _vector_h_
+#define _vector_h_
 /*
         Copyright 2012-2014 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -18,13 +18,44 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "sdl.h"
-#include "vector.h"
-
 namespace huge
 {
 
-void test(void);
+template <int N, typename T>
+class Vector
+{
+	public:
+		Vector()
+		{
+		}
+
+		~Vector()
+		{
+		}
+
+		inline void add(T v)
+		{
+			int i;
+			for(i = 0; i < N; i++)
+				this->data[i] += v;
+		}
+
+		inline void add(Vector<N, T> v)
+		{
+			int i;
+			for(i = 0; i < N; i++)
+				this->data[i] += v->data[i];
+		}
+
+		void sub(T v);
+		void sub(Vector<N, T> v);
+		void mul(T v);
+		void mul(Vector<N, T> v);
+		void div(T v);
+		void div(Vector<N, T> v);
+
+		T data[N];
+};
 
 };
 

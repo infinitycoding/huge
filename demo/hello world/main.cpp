@@ -11,6 +11,17 @@ int main(int argc, char **argv)
 	printf("Hello World!\n");
 	test();
 
+	// vector test
+	Vector<3, int> *vec = new Vector<3, int>();
+	vec->data[0] = 5;
+	vec->data[1] = 2;
+	vec->data[2] = 7;
+
+	vec->add(2);
+
+	printf("vec: %d, %d, %d\n", vec->data[0], vec->data[1], vec->data[2]);
+
+	// opengl test
 	sdl::init();
 	sdl::Window *window = new sdl::Window();
 
