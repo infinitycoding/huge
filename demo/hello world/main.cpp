@@ -12,14 +12,23 @@ int main(int argc, char **argv)
 	test();
 
 	// vector test
-	Vector<3, int> *vec = new Vector<3, int>();
-	vec->data[0] = 5;
-	vec->data[1] = 2;
-	vec->data[2] = 7;
+	Vector3f *vec = new Vector3f();
+	vec->data[0] = 5.0f;
+	vec->data[1] = 2.0f;
+	vec->data[2] = 7.0f;
 
-	vec->add(2);
+	*vec += 2.2f;
 
-	printf("vec: %d, %d, %d\n", vec->data[0], vec->data[1], vec->data[2]);
+	Vector<1, Vector<3, int> > *vec2 = new Vector<1, Vector<3, int> >();
+	vec2->data[0].data[0] = 1;
+	vec2->data[0].data[1] = 1;
+	vec2->data[0].data[2] = 1;
+
+	*vec2 += 1;
+
+	printf("vec: %f, %f, %f\n", vec->data[0], vec->data[1], vec->data[2]);
+	printf("vec2: %d, %d, %d\n", vec2->data[0].data[0], vec2->data[0].data[1], vec2->data[0].data[2]);
+
 
 	// opengl test
 	sdl::init();

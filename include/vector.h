@@ -22,42 +22,58 @@ namespace huge
 {
 
 template <int N, typename T>
-class Vector
+class VectorBase
 {
 	public:
-		Vector()
-		{
-		}
-
-		~Vector()
-		{
-		}
-
-		inline void add(T v)
-		{
-			int i;
-			for(i = 0; i < N; i++)
-				this->data[i] += v;
-		}
-
-		inline void add(Vector<N, T> v)
-		{
-			int i;
-			for(i = 0; i < N; i++)
-				this->data[i] += v->data[i];
-		}
-
-		void sub(T v);
-		void sub(Vector<N, T> v);
-		void mul(T v);
-		void mul(Vector<N, T> v);
-		void div(T v);
-		void div(Vector<N, T> v);
-
+		inline VectorBase<N, T>& operator+=(T v);
+		inline void add(VectorBase<N, T> v);
+		/*VectorBase<N, T> operator+=(T v);
+		inline void operator+=(VectorBase<N, T> v);
+		inline void sub(T v);
+		inline void sub(VectorBase<N, T> v);
+		inline void mul(T v);
+		inline void mul(VectorBase<N, T> v);
+		inline void div(T v);
+		inline void div(VectorBase<N, T> v);
+*/
 		T data[N];
 };
 
+template <int N, typename T>
+class Vector : public VectorBase<N, T>
+{
+	public:
+		Vector();
+		~Vector();
 };
+
+template <int M, int N, typename T>
+class Vector<M, Vector<N, T> > : public VectorBase<M, Vector<N, T> >
+{
+	public:
+		inline Vector<M, Vector<N, T> >& operator+=(T v);
+};
+
+// XYZ - Vector
+/*
+FIXME: how the fuck can I get data into this union?
+template <typename T>
+class Vector<3, T> : public VectorBase<3, T>
+{
+	public:
+		union
+		{
+			struct { T x,y,z; };
+			//using VectorBase<3, T>::data;
+		};
+};
+*/
+typedef Vector<3, int> Vector3i;
+typedef Vector<3, float> Vector3f;
+
+};
+
+#include "vector_impl.h"
 
 #endif
 
