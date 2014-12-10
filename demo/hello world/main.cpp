@@ -13,20 +13,21 @@ int main(int argc, char **argv)
 
 	// vector test
 	Vector3f *vec = new Vector3f();
-	vec->data[0] = 5.0f;
-	vec->data[1] = 2.0f;
-	vec->data[2] = 7.0f;
-
-	*vec += 2.2f;
-
-	Vector<1, Vector<3, int> > *vec2 = new Vector<1, Vector<3, int> >();
-	vec2->data[0].data[0] = 1;
-	vec2->data[0].data[1] = 1;
-	vec2->data[0].data[2] = 1;
-
-	*vec2 += 1;
+	*vec = Vector3f(5.0f, 2.0f, 7.0f) + Vector3f(2.2f, 4.3f, 5.6f);
+	*vec *= 5.303f;
+	*vec /= 2.04f;
 
 	printf("vec: %f, %f, %f\n", vec->data[0], vec->data[1], vec->data[2]);
+
+
+	Vector<1, Vector3i > *vec2 = new Vector<1, Vector3i >();
+	vec2->data[0].data[0] = 0;
+	vec2->data[0].data[1] = 0;
+	vec2->data[0].data[2] = 0;
+
+	*vec2 += 1;
+	*vec2 += Vector3i(1, 2, 3);
+
 	printf("vec2: %d, %d, %d\n", vec2->data[0].data[0], vec2->data[0].data[1], vec2->data[0].data[2]);
 
 

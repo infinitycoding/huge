@@ -25,17 +25,18 @@ template <int N, typename T>
 class VectorBase
 {
 	public:
+		inline VectorBase<N, T>& operator=(T v);
+		inline VectorBase<N, T>& operator=(VectorBase<N, T> v);
+
 		inline VectorBase<N, T>& operator+=(T v);
-		inline void add(VectorBase<N, T> v);
-		/*VectorBase<N, T> operator+=(T v);
-		inline void operator+=(VectorBase<N, T> v);
-		inline void sub(T v);
-		inline void sub(VectorBase<N, T> v);
-		inline void mul(T v);
-		inline void mul(VectorBase<N, T> v);
-		inline void div(T v);
-		inline void div(VectorBase<N, T> v);
-*/
+		inline VectorBase<N, T>& operator+=(VectorBase<N, T> v);
+		inline VectorBase<N, T>& operator-=(T v);
+		inline VectorBase<N, T>& operator-=(VectorBase<N, T> v);
+		inline VectorBase<N, T>& operator*=(T v);
+		inline VectorBase<N, T>& operator*=(VectorBase<N, T> v);
+		inline VectorBase<N, T>& operator/=(T v);
+		inline VectorBase<N, T>& operator/=(VectorBase<N, T> v);
+
 		T data[N];
 };
 
@@ -43,31 +44,67 @@ template <int N, typename T>
 class Vector : public VectorBase<N, T>
 {
 	public:
-		Vector();
-		~Vector();
+		Vector() {}
+		Vector(Vector<N, T>& v) { *this = v; }
+
+		using VectorBase<N, T>::operator=;
+
+		using VectorBase<N, T>::operator+=;
+		using VectorBase<N, T>::operator-=;
+		using VectorBase<N, T>::operator*=;
+		using VectorBase<N, T>::operator/=;
 };
 
+template <int N, typename T> inline Vector<N, T> operator+(Vector<N, T> v1, T v2);
+template <int N, typename T> inline Vector<N, T> operator+(Vector<N, T> v1, Vector<N, T> v2);
+template <int N, typename T> inline Vector<N, T> operator-(Vector<N, T> v1, T v2);
+template <int N, typename T> inline Vector<N, T> operator-(Vector<N, T> v1, Vector<N, T> v2);
+template <int N, typename T> inline Vector<N, T> operator*(Vector<N, T> v1, T v2);
+template <int N, typename T> inline Vector<N, T> operator*(Vector<N, T> v1, Vector<N, T> v2);
+template <int N, typename T> inline Vector<N, T> operator/(Vector<N, T> v1, T v2);
+template <int N, typename T> inline Vector<N, T> operator/(Vector<N, T> v1, Vector<N, T> v2);
+
+
+// MxN - Matrix
 template <int M, int N, typename T>
 class Vector<M, Vector<N, T> > : public VectorBase<M, Vector<N, T> >
 {
 	public:
+		using VectorBase<M, Vector<N, T> >::operator=;
+		inline Vector<M, Vector<N, T> >& operator=(T v);
+
+		using VectorBase<M, Vector<N, T> >::operator+=;
+		using VectorBase<M, Vector<N, T> >::operator-=;
+		using VectorBase<M, Vector<N, T> >::operator*=;
+		using VectorBase<M, Vector<N, T> >::operator/=;
 		inline Vector<M, Vector<N, T> >& operator+=(T v);
+		inline Vector<M, Vector<N, T> >& operator-=(T v);
+		inline Vector<M, Vector<N, T> >& operator*=(T v);
+		inline Vector<M, Vector<N, T> >& operator/=(T v);
 };
 
 // XYZ - Vector
-/*
-FIXME: how the fuck can I get data into this union?
 template <typename T>
 class Vector<3, T> : public VectorBase<3, T>
 {
 	public:
-		union
+		Vector() {}
+		Vector(T x_, T y_, T z_){this->data[0]=x_;this->data[1]=y_;this->data[2]=z_;}
+		~Vector() {}
+
+		using VectorBase<3, T>::operator=;
+
+		using VectorBase<3, T>::operator+=;
+		using VectorBase<3, T>::operator-=;
+		using VectorBase<3, T>::operator*=;
+		using VectorBase<3, T>::operator/=;
+		/*union
 		{
 			struct { T x,y,z; };
-			//using VectorBase<3, T>::data;
-		};
+			
+		};*/
 };
-*/
+
 typedef Vector<3, int> Vector3i;
 typedef Vector<3, float> Vector3f;
 

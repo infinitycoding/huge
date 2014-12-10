@@ -21,16 +21,29 @@
 namespace huge
 {
 
+// SET
 template <int N, typename T>
-Vector<N, T>::Vector()
+inline VectorBase<N, T>& VectorBase<N, T>::operator=(T v)
 {
+	int i;
+	for(i = 0; i < N; i++)
+		this->data[i] = v;
+
+	return *this;
 }
 
 template <int N, typename T>
-Vector<N, T>::~Vector()
+inline VectorBase<N, T>& VectorBase<N, T>::operator=(VectorBase<N, T> v)
 {
+	int i;
+	for(i = 0; i < N; i++)
+		this->data[i] = v.data[i];
+
+	return *this;
 }
 
+
+// ADDITION
 template <int N, typename T>
 inline VectorBase<N, T>& VectorBase<N, T>::operator+=(T v)
 {
@@ -41,13 +54,197 @@ inline VectorBase<N, T>& VectorBase<N, T>::operator+=(T v)
 	return *this;
 }
 
+template <int N, typename T>
+inline VectorBase<N, T>& VectorBase<N, T>::operator+=(VectorBase<N, T> v)
+{
+	int i;
+	for(i = 0; i < N; i++)
+		this->data[i] += v.data[i];
+
+	return *this;
+}
+
+// SUBTRACTION
+template <int N, typename T>
+inline VectorBase<N, T>& VectorBase<N, T>::operator-=(T v)
+{
+	int i;
+	for(i = 0; i < N; i++)
+		this->data[i] -= v;
+
+	return *this;
+}
+
+template <int N, typename T>
+inline VectorBase<N, T>& VectorBase<N, T>::operator-=(VectorBase<N, T> v)
+{
+	int i;
+	for(i = 0; i < N; i++)
+		this->data[i] -= v.data[i];
+
+	return *this;
+}
+
+// MULTIPLICATION
+template <int N, typename T>
+inline VectorBase<N, T>& VectorBase<N, T>::operator*=(T v)
+{
+	int i;
+	for(i = 0; i < N; i++)
+		this->data[i] *= v;
+
+	return *this;
+}
+
+template <int N, typename T>
+inline VectorBase<N, T>& VectorBase<N, T>::operator*=(VectorBase<N, T> v)
+{
+	int i;
+	for(i = 0; i < N; i++)
+		this->data[i] *= v.data[i];
+
+	return *this;
+}
+
+// DIVISION
+template <int N, typename T>
+inline VectorBase<N, T>& VectorBase<N, T>::operator/=(T v)
+{
+	int i;
+	for(i = 0; i < N; i++)
+		this->data[i] /= v;
+
+	return *this;
+}
+
+template <int N, typename T>
+inline VectorBase<N, T>& VectorBase<N, T>::operator/=(VectorBase<N, T> v)
+{
+	int i;
+	for(i = 0; i < N; i++)
+		this->data[i] /= v.data[i];
+
+	return *this;
+}
+
+// asdasd
+template <int N, typename T>
+inline Vector<N, T> operator+(Vector<N, T> v1, T v2)
+{
+	Vector<N, T> r = Vector<N, T>(v1);
+	r += v2;
+	return r;
+}
+
+template <int N, typename T>
+inline Vector<N, T> operator+(Vector<N, T> v1, Vector<N, T> v2)
+{
+	Vector<N, T> r = Vector<N, T>(v1);
+	r += v2;
+	return r;
+}
+
+template <int N, typename T>
+inline Vector<N, T> operator-(Vector<N, T> v1, T v2)
+{
+	Vector<N, T> r = Vector<N, T>(v1);
+	r -= v2;
+	return r;
+}
+
+template <int N, typename T>
+inline Vector<N, T> operator-(Vector<N, T> v1, Vector<N, T> v2)
+{
+	Vector<N, T> r = Vector<N, T>(v1);
+	r -= v2;
+	return r;
+}
+
+template <int N, typename T>
+inline Vector<N, T> operator*(Vector<N, T> v1, T v2)
+{
+	Vector<N, T> r = Vector<N, T>(v1);
+	r *= v2;
+	return r;
+}
+
+template <int N, typename T>
+inline Vector<N, T> operator*(Vector<N, T> v1, Vector<N, T> v2)
+{
+	Vector<N, T> r = Vector<N, T>(v1);
+	r *= v2;
+	return r;
+}
+
+template <int N, typename T>
+inline Vector<N, T> operator/(Vector<N, T> v1, T v2)
+{
+	Vector<N, T> r = Vector<N, T>(v1);
+	r /= v2;
+	return r;
+}
+
+template <int N, typename T>
+inline Vector<N, T> operator/(Vector<N, T> v1, Vector<N, T> v2)
+{
+	Vector<N, T> r = Vector<N, T>(v1);
+	r /= v2;
+	return r;
+}
+
+
+
+// matrix
+template <int M, int N, typename T>
+inline Vector<M, Vector<N, T> >& Vector<M, Vector<N, T> >::operator=(T v)
+{
+	int i;
+	for(i = 0; i < M; i++)
+		this->data[i] = v;
+
+	return *this;
+}
+
 template <int M, int N, typename T>
 inline Vector<M, Vector<N, T> >& Vector<M, Vector<N, T> >::operator+=(T v)
 {
 	int i;
 	for(i = 0; i < M; i++)
 		this->data[i] += v;
+
+	return *this;
 }
+
+template <int M, int N, typename T>
+inline Vector<M, Vector<N, T> >& Vector<M, Vector<N, T> >::operator-=(T v)
+{
+	int i;
+	for(i = 0; i < M; i++)
+		this->data[i] -= v;
+
+	return *this;
+}
+
+template <int M, int N, typename T>
+inline Vector<M, Vector<N, T> >& Vector<M, Vector<N, T> >::operator*=(T v)
+{
+	int i;
+	for(i = 0; i < M; i++)
+		this->data[i] *= v;
+
+	return *this;
+}
+
+template <int M, int N, typename T>
+inline Vector<M, Vector<N, T> >& Vector<M, Vector<N, T> >::operator/=(T v)
+{
+	int i;
+	for(i = 0; i < M; i++)
+		this->data[i] /= v;
+
+	return *this;
+}
+
 
 };
 
