@@ -37,6 +37,8 @@ class VectorBase
 		inline VectorBase<N, T>& operator/=(T v);
 		inline VectorBase<N, T>& operator/=(VectorBase<N, T> v);
 
+		inline T dot(VectorBase<N, T> v);
+
 		T data[N];
 };
 
@@ -64,6 +66,7 @@ template <int N, typename T> inline Vector<N, T> operator*(Vector<N, T> v1, Vect
 template <int N, typename T> inline Vector<N, T> operator/(Vector<N, T> v1, T v2);
 template <int N, typename T> inline Vector<N, T> operator/(Vector<N, T> v1, Vector<N, T> v2);
 
+template <int N, typename T> inline Vector<N, T> dot(Vector<N, T> v1, Vector<N, T> v2);
 
 // MxN - Matrix
 template <int M, int N, typename T>
@@ -98,12 +101,17 @@ class Vector<3, T> : public VectorBase<3, T>
 		using VectorBase<3, T>::operator-=;
 		using VectorBase<3, T>::operator*=;
 		using VectorBase<3, T>::operator/=;
+
+        inline void cross(Vector<3, T> v);
+
 		/*union
 		{
 			struct { T x,y,z; };
 			
 		};*/
 };
+
+template <typename T> inline Vector<3, T> cross(VectorBase<3, T> v1, VectorBase<3, T> v2);
 
 typedef Vector<3, int> Vector3i;
 typedef Vector<3, float> Vector3f;

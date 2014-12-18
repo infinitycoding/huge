@@ -106,6 +106,18 @@ inline VectorBase<N, T>& VectorBase<N, T>::operator*=(VectorBase<N, T> v)
 	return *this;
 }
 
+template <int N, typename T>
+inline T VectorBase<N, T>::dot(VectorBase<N, T> v)
+{
+	T r = 0;
+
+	int i;
+	for(i = 0; i < N; i++)
+		r += this->data[i] * v.data[i];
+
+	return r;
+}
+
 // DIVISION
 template <int N, typename T>
 inline VectorBase<N, T>& VectorBase<N, T>::operator/=(T v)
@@ -192,7 +204,13 @@ inline Vector<N, T> operator/(Vector<N, T> v1, Vector<N, T> v2)
 	return r;
 }
 
-
+template <int N, typename T>
+inline Vector<N, T> dot(Vector<N, T> v1, Vector<N, T> v2)
+{
+	Vector<N, T> r = Vector<N, T>(v1);
+	r.dot(v2);
+	return r;
+}
 
 // matrix
 template <int M, int N, typename T>
@@ -243,6 +261,22 @@ inline Vector<M, Vector<N, T> >& Vector<M, Vector<N, T> >::operator/=(T v)
 		this->data[i] /= v;
 
 	return *this;
+}
+
+template <typename T>
+inline void Vector<3, T>::cross(Vector<3, T> v)
+{
+	this->data[0] = (this->data[1] * v.data[2]) - (this->data[2] * v.data[1]);
+	this->data[1] = (this->data[2] * v.data[0]) - (this->data[0] * v.data[2]);
+	this->data[2] = (this->data[0] * v.data[1]) - (this->data[1] * v.data[0]);
+}
+
+template <typename T>
+inline Vector<3, T> cross(Vector<3, T> v1, Vector<3, T> v2)
+{
+	Vector<3, T> r = Vector<3, T>(v1);
+	r.cross(v2);
+	return r;
 }
 
 
