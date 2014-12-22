@@ -17,7 +17,9 @@ int main(int argc, char **argv)
 	*vec *= 5.303f;
 	*vec /= 2.04f;
 
-	printf("vec: %f, %f, %f\n", vec->data[0], vec->data[1], vec->data[2]);
+	vec->x() = 2.0f;
+
+	printf("vec: %f, %f, %f\n", vec->x(), vec->y(), vec->z());
 
 
 	Vector<1, Vector3i > *vec2 = new Vector<1, Vector3i >();

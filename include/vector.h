@@ -104,11 +104,9 @@ class Vector<3, T> : public VectorBase<3, T>
 
         inline void cross(Vector<3, T> v);
 
-		/*union
-		{
-			struct { T x,y,z; };
-			
-		};*/
+		inline T& x(void) { return this->data[0]; }
+		inline T& y(void) { return this->data[1]; }
+		inline T& z(void) { return this->data[2]; }
 };
 
 template <typename T> inline Vector<3, T> cross(VectorBase<3, T> v1, VectorBase<3, T> v2);
