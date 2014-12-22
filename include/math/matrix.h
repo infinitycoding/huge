@@ -1,5 +1,5 @@
-#ifndef _huge_h_
-#define _huge_h_
+#ifndef _matrix_h_
+#define _matrix_h_
 /*
         Copyright 2012-2014 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -18,18 +18,32 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "sdl.h"
-#include "list.h"
 #include "math/vector.h"
-#include "math/matrix.h"
-#include "math/transformation.h"
 
 namespace huge
 {
 
-void test(void);
+// MxN - Matrix
+template <int M, int N, typename T>
+class Vector<M, Vector<N, T> > : public VectorBase<M, Vector<N, T> >
+{
+    public:
+        using VectorBase<M, Vector<N, T> >::operator=;
+        inline Vector<M, Vector<N, T> >& operator=(T v);
+
+        using VectorBase<M, Vector<N, T> >::operator+=;
+        using VectorBase<M, Vector<N, T> >::operator-=;
+        using VectorBase<M, Vector<N, T> >::operator*=;
+        using VectorBase<M, Vector<N, T> >::operator/=;
+        inline Vector<M, Vector<N, T> >& operator+=(T v);
+        inline Vector<M, Vector<N, T> >& operator-=(T v);
+        inline Vector<M, Vector<N, T> >& operator*=(T v);
+        inline Vector<M, Vector<N, T> >& operator/=(T v);
+};
 
 };
+
+#include "math/matrix_impl.h"
 
 #endif
 

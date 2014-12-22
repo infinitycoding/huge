@@ -212,57 +212,6 @@ inline Vector<N, T> dot(Vector<N, T> v1, Vector<N, T> v2)
     return r;
 }
 
-// matrix
-template <int M, int N, typename T>
-inline Vector<M, Vector<N, T> >& Vector<M, Vector<N, T> >::operator=(T v)
-{
-    int i;
-    for(i = 0; i < M; i++)
-        this->data[i] = v;
-
-    return *this;
-}
-
-template <int M, int N, typename T>
-inline Vector<M, Vector<N, T> >& Vector<M, Vector<N, T> >::operator+=(T v)
-{
-    int i;
-    for(i = 0; i < M; i++)
-        this->data[i] += v;
-
-    return *this;
-}
-
-template <int M, int N, typename T>
-inline Vector<M, Vector<N, T> >& Vector<M, Vector<N, T> >::operator-=(T v)
-{
-    int i;
-    for(i = 0; i < M; i++)
-        this->data[i] -= v;
-
-    return *this;
-}
-
-template <int M, int N, typename T>
-inline Vector<M, Vector<N, T> >& Vector<M, Vector<N, T> >::operator*=(T v)
-{
-    int i;
-    for(i = 0; i < M; i++)
-        this->data[i] *= v;
-
-    return *this;
-}
-
-template <int M, int N, typename T>
-inline Vector<M, Vector<N, T> >& Vector<M, Vector<N, T> >::operator/=(T v)
-{
-    int i;
-    for(i = 0; i < M; i++)
-        this->data[i] /= v;
-
-    return *this;
-}
-
 template <typename T>
 inline void Vector<3, T>::cross(Vector<3, T> v)
 {

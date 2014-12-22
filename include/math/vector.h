@@ -71,24 +71,6 @@ template <int N, typename T> inline Vector<N, T> operator/(Vector<N, T> v1, Vect
 
 template <int N, typename T> inline Vector<N, T> dot(Vector<N, T> v1, Vector<N, T> v2);
 
-// MxN - Matrix
-template <int M, int N, typename T>
-class Vector<M, Vector<N, T> > : public VectorBase<M, Vector<N, T> >
-{
-    public:
-        using VectorBase<M, Vector<N, T> >::operator=;
-        inline Vector<M, Vector<N, T> >& operator=(T v);
-
-        using VectorBase<M, Vector<N, T> >::operator+=;
-        using VectorBase<M, Vector<N, T> >::operator-=;
-        using VectorBase<M, Vector<N, T> >::operator*=;
-        using VectorBase<M, Vector<N, T> >::operator/=;
-        inline Vector<M, Vector<N, T> >& operator+=(T v);
-        inline Vector<M, Vector<N, T> >& operator-=(T v);
-        inline Vector<M, Vector<N, T> >& operator*=(T v);
-        inline Vector<M, Vector<N, T> >& operator/=(T v);
-};
-
 // XY - Vector
 template <typename T>
 class Vector<2, T> : public VectorBase<2, T>
@@ -167,7 +149,7 @@ typedef Vector<3, double> Vector3d;
 
 };
 
-#include "vector_impl.h"
+#include "math/vector_impl.h"
 
 #endif
 

@@ -95,7 +95,10 @@ class Transformation3
         Transformation3() {}
         ~Transformation3() {}
 
-        // TODO: Quaternions
+    private:
+        Vector<3, T> *position_;
+        Vector<4, T> *rotation_;
+        Vector<3, T> *scaling_;
 };
 
 typedef Transformation2<int> Transformation2i;
