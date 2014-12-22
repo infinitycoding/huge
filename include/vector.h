@@ -135,6 +135,9 @@ typedef Vector<3, int> Vector3i;
 typedef Vector<2, float> Vector2f;
 typedef Vector<3, float> Vector3f;
 
+typedef Vector<2, double> Vector2d;
+typedef Vector<3, double> Vector3d;
+
 };
 
 #include "vector_impl.h"

@@ -20,6 +20,7 @@
 
 #include "sdl.h"
 #include "vector.h"
+#include "transformation.h"
 
 namespace huge
 {

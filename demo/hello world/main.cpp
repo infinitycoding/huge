@@ -33,6 +33,15 @@ int main(int argc, char **argv)
 	printf("vec2: %d, %d, %d\n", vec2->data[0].data[0], vec2->data[0].data[1], vec2->data[0].data[2]);
 
 
+	// Transformation
+	Transformation2f trans = Transformation2f();
+	Transformation2f trans2 = Transformation2f();
+
+	trans.position() = Vector2f(1.0f, 2.0f);
+	trans2.parent_position(trans);
+
+	printf("%f, %f - %f, %f\n", trans.position().x(), trans.position().y(), trans2.position().x(), trans2.position().y());
+
 	// opengl test
 	sdl::init();
 	sdl::Window *window = new sdl::Window();
