@@ -37,10 +37,10 @@ int main(int argc, char **argv)
     Transformation2f trans = Transformation2f();
     Transformation2f trans2 = Transformation2f();
 
-    trans.position() = Vector2f(1.0f, 2.0f);
-    trans2.parent_position(trans);
+    trans.translation() = Vector2f(1.0f, 2.0f);
+    trans2.parent_translation(trans);
 
-    printf("%f, %f - %f, %f\n", trans.position().x(), trans.position().y(), trans2.position().x(), trans2.position().y());
+    printf("%f, %f - %f, %f\n", trans.translation().x(), trans.translation().y(), trans2.translation().x(), trans2.translation().y());
 
     // opengl test
     sdl::init();

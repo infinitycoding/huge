@@ -17,7 +17,7 @@
         You should have received a copy of the GNU General Public License
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
-#include "vector.h"
+#include "math/vector.h"
 
 namespace huge
 {
@@ -26,64 +26,26 @@ template <typename T>
 class Transformation2
 {
     public:
-        Transformation2()
-        {
-            this->position_ = new Vector<2, T>();
-            this->rotation_ = new T();
-            this->scaling_ = new Vector<2, T>();
-        }
-        ~Transformation2() {}
+        Transformation2();
+        ~Transformation2();
 
-        inline Vector<2, T>& position(void)
-        {
-            return *this->position_;
-        }
-        inline T& rotation(void)
-        {
-            return *this->rotation_;
-        }
-        inline Vector<2, T>& scaling(void)
-        {
-            return *this->scaling_;
-        };
+        inline Vector<2, T>& translation(void);
+        inline T& rotation(void);
+        inline Vector<2, T>& scaling(void);
 
-        inline void move(Vector<2, T> v)
-        {
-            this->position_ += v;
-        }
-        inline void rotate(T v)
-        {
-            this->rotation_ += v;
-        }
-        inline void scale(Vector<2, T> v)
-        {
-            this->scaling_ += v;
-        }
+        inline void translate(Vector<2, T> v);
+        inline void rotate(T v);
+        inline void scale(Vector<2, T> v);
 
         void use(void);
 
-        inline void parent(Transformation2<T>& parent)
-        {
-            this->parent_position(parent);
-            this->parent_rotation(parent);
-            this->parent_scaling(parent);
-        }
-
-        inline void parent_position(Transformation2<T>& parent)
-        {
-            this->position_ = parent.position_;
-        }
-        inline void parent_rotation(Transformation2<T>& parent)
-        {
-            this->rotation_ = parent.rotation_;
-        }
-        inline void parent_scaling(Transformation2<T>& parent)
-        {
-            this->scaling_ = parent.scaling_;
-        }
+        inline void parent(Transformation2<T>& parent);
+        inline void parent_translation(Transformation2<T>& parent);
+        inline void parent_rotation(Transformation2<T>& parent);
+        inline void parent_scaling(Transformation2<T>& parent);
 
     private:
-        Vector<2, T> *position_;
+        Vector<2, T> *translation_;
         T *rotation_;
         Vector<2, T> *scaling_;
 };
@@ -92,11 +54,25 @@ template <typename T>
 class Transformation3
 {
     public:
-        Transformation3() {}
-        ~Transformation3() {}
+        Transformation3();
+        ~Transformation3();
+
+        inline Vector<3, T>& translation(void);
+        inline Vector<4, T>& rotation(void);
+        inline Vector<3, T>& scaling(void);
+        inline void translate(Vector<3, T> v);
+        inline void rotate(Vector<4, T> v);
+        inline void scale(Vector<3, T> v);
+
+        void use(void);
+
+        inline void parent(Transformation3<T>& parent);
+        inline void parent_translation(Transformation3<T>& parent);
+        inline void parent_rotation(Transformation3<T>& parent);
+        inline void parent_scaling(Transformation3<T>& parent);
 
     private:
-        Vector<3, T> *position_;
+        Vector<3, T> *translation_;
         Vector<4, T> *rotation_;
         Vector<3, T> *scaling_;
 };
@@ -111,6 +87,8 @@ typedef Transformation2<double> Transformation2d;
 typedef Transformation3<double> Transformation3d;
 
 };
+
+#include "math/transformation_impl.h"
 
 #endif
 
