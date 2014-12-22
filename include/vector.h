@@ -86,17 +86,35 @@ class Vector<M, Vector<N, T> > : public VectorBase<M, Vector<N, T> >
 		inline Vector<M, Vector<N, T> >& operator/=(T v);
 };
 
+// XY - Vector
+template <typename T>
+class Vector<2, T> : public VectorBase<2, T>
+{
+	public:
+		Vector() {}
+		Vector(T x_, T y_) { this->data[0]=x_; this->data[1]=y_;}
+		~Vector() {}
+
+		using VectorBase<2, T>::operator=;
+		using VectorBase<2, T>::operator+=;
+		using VectorBase<2, T>::operator-=;
+		using VectorBase<2, T>::operator*=;
+		using VectorBase<2, T>::operator/=;
+
+		inline T& x(void) { return this->data[0]; }
+		inline T& y(void) { return this->data[1]; }
+};
+
 // XYZ - Vector
 template <typename T>
 class Vector<3, T> : public VectorBase<3, T>
 {
 	public:
 		Vector() {}
-		Vector(T x_, T y_, T z_){this->data[0]=x_;this->data[1]=y_;this->data[2]=z_;}
+		Vector(T x_, T y_, T z_) { this->data[0]=x_; this->data[1]=y_; this->data[2]=z_; }
 		~Vector() {}
-
+	
 		using VectorBase<3, T>::operator=;
-
 		using VectorBase<3, T>::operator+=;
 		using VectorBase<3, T>::operator-=;
 		using VectorBase<3, T>::operator*=;
@@ -111,7 +129,10 @@ class Vector<3, T> : public VectorBase<3, T>
 
 template <typename T> inline Vector<3, T> cross(VectorBase<3, T> v1, VectorBase<3, T> v2);
 
+typedef Vector<2, int> Vector2i;
 typedef Vector<3, int> Vector3i;
+
+typedef Vector<2, float> Vector2f;
 typedef Vector<3, float> Vector3f;
 
 };
