@@ -1,6 +1,6 @@
 all:
-	$(MAKE) -C "hello world"
+	$(MAKE) -C hello_world
 
 clean:
-	$(MAKE) -C "hello world" clean
+	$(MAKE) -C hello_world clean
 

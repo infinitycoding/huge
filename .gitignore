@@ -4,6 +4,9 @@
 *.cpp~
 *.h~
 
+*.swp
+*.orig
+
 makefile~
 Makefile~
 makefile.linux~

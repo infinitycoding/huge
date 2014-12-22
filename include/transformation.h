@@ -25,49 +25,77 @@ namespace huge
 template <typename T>
 class Transformation2
 {
-	public:
-		Transformation2() {
-			this->position_ = new Vector<2, T>();
-			this->rotation_ = new T();
-			this->scaling_ = new Vector<2, T>();
-		}
-		~Transformation2() {}
+    public:
+        Transformation2()
+        {
+            this->position_ = new Vector<2, T>();
+            this->rotation_ = new T();
+            this->scaling_ = new Vector<2, T>();
+        }
+        ~Transformation2() {}
 
-		inline Vector<2, T>& position(void) { return *this->position_; }
-		inline T& rotation(void) { return *this->rotation_;  }
-		inline Vector<2, T>& scaling(void) { return *this->scaling_; };
+        inline Vector<2, T>& position(void)
+        {
+            return *this->position_;
+        }
+        inline T& rotation(void)
+        {
+            return *this->rotation_;
+        }
+        inline Vector<2, T>& scaling(void)
+        {
+            return *this->scaling_;
+        };
 
-		inline void move(Vector<2, T> v)  { this->position_ += v; }
-		inline void rotate(T v)           { this->rotation_ += v; }
-		inline void scale(Vector<2, T> v) { this->scaling_ += v; }
+        inline void move(Vector<2, T> v)
+        {
+            this->position_ += v;
+        }
+        inline void rotate(T v)
+        {
+            this->rotation_ += v;
+        }
+        inline void scale(Vector<2, T> v)
+        {
+            this->scaling_ += v;
+        }
 
-		void use(void);
+        void use(void);
 
         inline void parent(Transformation2<T>& parent)
-		{
-			this->parent_position(parent);
-			this->parent_rotation(parent);
-			this->parent_scaling(parent);
-		}
+        {
+            this->parent_position(parent);
+            this->parent_rotation(parent);
+            this->parent_scaling(parent);
+        }
 
-        inline void parent_position(Transformation2<T>& parent) { this->position_ = parent.position_; }
-        inline void parent_rotation(Transformation2<T>& parent) { this->rotation_ = parent.rotation_; }
-        inline void parent_scaling(Transformation2<T>& parent)	{ this->scaling_ = parent.scaling_; }
+        inline void parent_position(Transformation2<T>& parent)
+        {
+            this->position_ = parent.position_;
+        }
+        inline void parent_rotation(Transformation2<T>& parent)
+        {
+            this->rotation_ = parent.rotation_;
+        }
+        inline void parent_scaling(Transformation2<T>& parent)
+        {
+            this->scaling_ = parent.scaling_;
+        }
 
-	private:
-		Vector<2, T> *position_;
-		T *rotation_;
-		Vector<2, T> *scaling_;
+    private:
+        Vector<2, T> *position_;
+        T *rotation_;
+        Vector<2, T> *scaling_;
 };
 
 template <typename T>
 class Transformation3
 {
-	public:
-		Transformation3() {}
-		~Transformation3() {}
-		
-		// TODO: Quaternions
+    public:
+        Transformation3() {}
+        ~Transformation3() {}
+
+        // TODO: Quaternions
 };
 
 typedef Transformation2<int> Transformation2i;

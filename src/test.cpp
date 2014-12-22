@@ -6,7 +6,7 @@ namespace huge
 
 void test(void)
 {
-	printf("HUGE - Huge Universe Game Engine\n");
+    printf("HUGE - Huge Universe Game Engine\n");
 }
 
 };

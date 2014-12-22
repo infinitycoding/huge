@@ -22,11 +22,11 @@ template <typename T>
 List<T>::List()
 {
     lock = true;
-        dummy = new Node;
-        dummy->element = NULL;
-        dummy->prev = dummy;
-        dummy->next = dummy;
-        structCleaner = NULL;
+    dummy = new Node;
+    dummy->element = NULL;
+    dummy->prev = dummy;
+    dummy->next = dummy;
+    structCleaner = NULL;
     lock = false;
 }
 
@@ -34,19 +34,19 @@ template <typename T>
 List<T>::List(List<T> *l)
 {
     lock = true;
-        structCleaner = l->structCleaner;
-        ListIterator<T> *lit = new ListIterator<T>(l);
-        dummy = new Node;
-        dummy->element = NULL;
-        dummy->next = dummy;
-        dummy->prev = dummy;
-        while(!lit->IsLast())
-        {
-            T *currentEntry = new T;
-            *currentEntry = *lit->GetCurrent();
-            PushFront(currentEntry);
-            lit->Next();
-        }
+    structCleaner = l->structCleaner;
+    ListIterator<T> *lit = new ListIterator<T>(l);
+    dummy = new Node;
+    dummy->element = NULL;
+    dummy->next = dummy;
+    dummy->prev = dummy;
+    while(!lit->IsLast())
+    {
+        T *currentEntry = new T;
+        *currentEntry = *lit->GetCurrent();
+        PushFront(currentEntry);
+        lit->Next();
+    }
     lock = false;
 }
 
@@ -54,20 +54,20 @@ template <typename T>
 List<T>::List(List<T> *l, void(*copyTree)(T *destElement, T *srcElement))
 {
     lock = true;
-        structCleaner = l->structCleaner;
-        ListIterator<T> *srcIt = ListIterator<T>(l);
-        dummy = new Node;
-        dummy->element = NULL;
-        dummy->next = dummy;
-        dummy->prev = dummy;
-        while(!srcIt->IsLast())
-        {
-            T *currentEntry = new T;
-            *currentEntry = *srcIt->GetCurrent();
-            copyTree(currentEntry,srcIt->GetCurrent());
-            PushFront(currentEntry);
-            srcIt->Next();
-        }
+    structCleaner = l->structCleaner;
+    ListIterator<T> *srcIt = ListIterator<T>(l);
+    dummy = new Node;
+    dummy->element = NULL;
+    dummy->next = dummy;
+    dummy->prev = dummy;
+    while(!srcIt->IsLast())
+    {
+        T *currentEntry = new T;
+        *currentEntry = *srcIt->GetCurrent();
+        copyTree(currentEntry,srcIt->GetCurrent());
+        PushFront(currentEntry);
+        srcIt->Next();
+    }
     lock = false;
 }
 
@@ -75,13 +75,13 @@ template <typename T>
 List<T>::~List<T>()
 {
     lock = true;
-        while(!IsEmpty())
-        {
-            T *element = PopFront();
-            if(structCleaner)
-                structCleaner(element);
-            delete element;
-        }
+    while(!IsEmpty())
+    {
+        T *element = PopFront();
+        if(structCleaner)
+            structCleaner(element);
+        delete element;
+    }
     lock = false;
 }
 
@@ -91,12 +91,12 @@ void List<T>::PushFront(T *element)
     Node *newNode = new Node;
     newNode->element = (void*)element;
 
-    while(lock){}
+    while(lock) {}
     lock = true;
-        newNode->next = dummy->next;
-        newNode->prev = dummy;
-        dummy->next->prev = newNode;
-        dummy->next = newNode;
+    newNode->next = dummy->next;
+    newNode->prev = dummy;
+    dummy->next->prev = newNode;
+    dummy->next = newNode;
     lock = false;
 }
 
@@ -106,12 +106,12 @@ void List<T>::PushBack(T *element)
     Node *newNode = new Node;
     newNode->element = element;
 
-    while(lock){}
+    while(lock) {}
     lock = true;
-        newNode->prev = dummy;
-        newNode->next = dummy->next;
-        dummy->next->prev = newNode;
-        dummy->next = newNode;
+    newNode->prev = dummy;
+    newNode->next = dummy->next;
+    dummy->next->prev = newNode;
+    dummy->next = newNode;
     lock = false;
 }
 
@@ -143,22 +143,22 @@ template <typename T>
 void *List<T>::GetNode(T *element)
 {
     lock = true;
-        Node *n = dummy->next;
+    Node *n = dummy->next;
+    if(n->element == element)
+    {
+        lock = false;
+        return (void *)n;
+    }
+    while(n!=dummy)
+    {
         if(n->element == element)
         {
             lock = false;
             return (void *)n;
         }
-        while(n!=dummy)
-        {
-            if(n->element == element)
-            {
-                lock = false;
-                return (void *)n;
-            }
 
-            n = n->next;
-        }
+        n = n->next;
+    }
     lock = false;
     return NULL;
 }
@@ -168,12 +168,12 @@ size_t List<T>::Size()
 {
     size_t s = 0;
     lock = true;
-        ListIterator<T> i = new ListIterator<T>(this);
-        while(!i->IsLast())
-        {
-            s++;
-            i->Next();
-        }
+    ListIterator<T> i = new ListIterator<T>(this);
+    while(!i->IsLast())
+    {
+        s++;
+        i->Next();
+    }
     lock = false;
     return s*sizeof(T);
 }
@@ -183,12 +183,12 @@ int List<T>::NumOfElements()
 {
     int s = 0;
     lock = true;
-        ListIterator<T> i = new ListIterator<T>(this);
-        while(!i->IsLast())
-        {
-            s++;
-            i->Next();
-        }
+    ListIterator<T> i = new ListIterator<T>(this);
+    while(!i->IsLast())
+    {
+        s++;
+        i->Next();
+    }
     lock = false;
     return s;
 }
@@ -197,15 +197,15 @@ template <typename T>
 T *List<T>::Remove(Node *n)
 {
     lock = true;
-        if(n == dummy)
-        {
-            lock = false;
-            return 0;
-        }
-        n->prev->next = n->next;
-        n->next->prev = n->prev;
-        T* element = (T*)n->element;
-        delete n;
+    if(n == dummy)
+    {
+        lock = false;
+        return 0;
+    }
+    n->prev->next = n->next;
+    n->next->prev = n->prev;
+    T* element = (T*)n->element;
+    delete n;
     lock = false;
     return element;
 }
@@ -230,17 +230,17 @@ template <typename T>
 void List<T>::Destroy(Node *n)
 {
     lock = true;
-        if(n == dummy)
-        {
-            lock = false;
-            return;
-        }
-        if(structCleaner)
-            structCleaner((T*)n->element);
-        n->prev->next = n->next;
-        n->next->prev = n->prev;
-        delete (T*)n->element;
-        delete n;
+    if(n == dummy)
+    {
+        lock = false;
+        return;
+    }
+    if(structCleaner)
+        structCleaner((T*)n->element);
+    n->prev->next = n->next;
+    n->next->prev = n->prev;
+    delete (T*)n->element;
+    delete n;
     lock = false;
 }
 
@@ -272,12 +272,12 @@ void ListIterator<T>::PushFront(T *element)
     Node *newNode = new Node;
     newNode->element = element;
 
-    while(Instance->lock){}
+    while(Instance->lock) {}
     Instance->lock = true;
-        newNode->next = Instance->dummy->next;
-        newNode->prev = Instance->dummy;
-        Instance->dummy->next->prev = newNode;
-        Instance->dummy->next = newNode;
+    newNode->next = Instance->dummy->next;
+    newNode->prev = Instance->dummy;
+    Instance->dummy->next->prev = newNode;
+    Instance->dummy->next = newNode;
     Instance->lock = false;
 }
 
@@ -287,12 +287,12 @@ void ListIterator<T>::PushBack(T *element)
     Node *newNode = new Node;
     newNode->element = element;
 
-    while(Instance->lock){}
+    while(Instance->lock) {}
     Instance->lock = true;
-        newNode->prev = Instance->dummy;
-        newNode->next = Instance->dummy->next;
-        Instance->dummy->next->prev = newNode;
-        Instance->dummy->next = newNode;
+    newNode->prev = Instance->dummy;
+    newNode->next = Instance->dummy->next;
+    Instance->dummy->next->prev = newNode;
+    Instance->dummy->next = newNode;
     Instance->lock = false;
 }
 
@@ -302,12 +302,12 @@ void ListIterator<T>::InsertAfter(T *element)
     Node *newNode = new Node;
     newNode->element = element;
 
-    while(Instance->lock){}
+    while(Instance->lock) {}
     Instance->lock = true;
-        newNode->next = currentNode->next;
-        newNode->prev = currentNode;
-        currentNode->next->prev = newNode;
-        currentNode->next = newNode;
+    newNode->next = currentNode->next;
+    newNode->prev = currentNode;
+    currentNode->next->prev = newNode;
+    currentNode->next = newNode;
     Instance->lock = false;
 }
 
@@ -317,12 +317,12 @@ void ListIterator<T>::InsertBefore(T *element)
     Node *newNode = new Node;
     newNode->element = element;
 
-    while(Instance->lock){}
+    while(Instance->lock) {}
     Instance->lock = true;
-        newNode->prev = currentNode;
-        newNode->next = currentNode->next;
-        currentNode->next->prev = newNode;
-        currentNode->next = newNode;
+    newNode->prev = currentNode;
+    newNode->next = currentNode->next;
+    currentNode->next->prev = newNode;
+    currentNode->next = newNode;
     Instance->lock = false;
 }
 

@@ -29,15 +29,15 @@ int init(void);
 
 class Window
 {
-	public:
-		Window();
-		~Window();
+    public:
+        Window();
+        ~Window();
 
-		void clear(void);
-		void swap(void);
+        void clear(void);
+        void swap(void);
 
-	private:
-		void create(void);
+    private:
+        void create(void);
 
         char *title;
         int width;
