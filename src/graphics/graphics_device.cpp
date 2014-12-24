@@ -1,5 +1,3 @@
-#ifndef _huge_h_
-#define _huge_h_
 /*
         Copyright 2012-2014 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -17,20 +15,23 @@
         You should have received a copy of the GNU General Public License
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
-
-#include "sdl.h"
-#include "list.h"
 #include "graphics/graphics_device.h"
-#include "math/vector.h"
-#include "math/matrix.h"
-#include "math/transformation.h"
 
 namespace huge
 {
 
-void test(void);
-
+GraphicsDevice::GraphicsDevice()
+{
 };
 
-#endif
+GraphicsDevice::~GraphicsDevice()
+{
+}
+
+inline void GraphicsDevice::not_supported(const char *str)
+{
+	printf("GraphicsDevice: \"%s\" is not supported.\n", str);
+}
+
+};
 

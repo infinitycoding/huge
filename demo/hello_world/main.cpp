@@ -46,6 +46,8 @@ int main(int argc, char **argv)
     sdl::init();
     sdl::Window *window = new sdl::Window();
 
+	GraphicsDevice *dev = new GraphicsDevice();
+
     if(glewInit() != GLEW_OK)
     {
         printf("GLEW init failed!\n");
@@ -62,16 +64,16 @@ int main(int argc, char **argv)
             }
         }
 
-        window->clear();
+        dev->clear(GraphicsDevice::COLOR_BUFFER | GraphicsDevice::DEPTH_BUFFER);
 
-        glBegin(GL_TRIANGLES);
+        dev->begin(GraphicsDevice::TRIANGLES);
 
         glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-        glVertex3f( 0.0f, 1.0f, 0.0f);
-        glVertex3f( 1.0f,-1.0f, 0.0f);
-        glVertex3f(-1.0f,-1.0f, 0.0f);
+        dev->vertex3f(Vector3f( 0.0f, 1.0f, 0.0f));
+        dev->vertex3f(Vector3f( 1.0f,-1.0f, 0.0f));
+        dev->vertex3f(Vector3f(-1.0f,-1.0f, 0.0f));
 
-        glEnd();
+        dev->end();
 
         window->swap();
     }
