@@ -44,7 +44,7 @@ int main(int argc, char **argv)
     sdl::init();
     sdl::Window *window = new sdl::Window();
 
-	GraphicsDevice *dev = new OpenGLDevice();
+    GraphicsDevice *dev = new OpenGLDevice();
 
     while(1)
     {

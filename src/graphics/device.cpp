@@ -30,7 +30,7 @@ GraphicsDevice::~GraphicsDevice()
 
 inline void GraphicsDevice::not_supported(const char *str)
 {
-	printf("GraphicsDevice: \"%s\" is not supported.\n", str);
+    printf("GraphicsDevice: \"%s\" is not supported.\n", str);
 }
 
 };

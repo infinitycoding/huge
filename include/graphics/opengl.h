@@ -28,20 +28,20 @@ namespace huge
 
 class OpenGLDevice : public GraphicsDevice
 {
-	public:
-		OpenGLDevice();
-		~OpenGLDevice();
+    public:
+        OpenGLDevice();
+        ~OpenGLDevice();
 
-		// buffers
-		void clear(bitfield_t buffers);
-		void begin(enum primitive t);
-		void end(void);
+        // buffers
+        void clear(bitfield_t buffers);
+        void begin(enum primitive t);
+        void end(void);
 
-		// vertex data
-		void vertex3f(Vector3f v);
+        // vertex data
+        void vertex3f(Vector3f v);
 
-	private:
-		inline void not_supported(const char *str);
+    private:
+        void not_supported(const char *str);
 };
 
 };

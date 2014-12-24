@@ -28,65 +28,65 @@ namespace huge
 #define str(s) #s
 #define DUMMY(X) virtual X { not_supported(str(X)); }
 
-		enum buffer
-		{
-			COLOR_BUFFER_BIT, DEPTH_BUFFER_BIT
-		};
+enum buffer
+{
+    COLOR_BUFFER_BIT, DEPTH_BUFFER_BIT
+};
 
-		enum primitive
-		{
-			POINTS, LINES, TRIANGLES, QUADS, POLYGON
-		};
+enum primitive
+{
+    POINTS, LINES, TRIANGLES, QUADS, POLYGON
+};
 
-		typedef unsigned int bitfield_t;
+typedef unsigned int bitfield_t;
 
 class GraphicsDevice
 {
-	public:
-		GraphicsDevice();
-		~GraphicsDevice();
+    public:
+        GraphicsDevice();
+        ~GraphicsDevice();
 
 
-		// buffer
-		DUMMY(void clear(bitfield_t buffers))
-		DUMMY(void begin(enum primitive t))
-		DUMMY(void end(void))
+        // buffer
+        DUMMY(void clear(bitfield_t buffers));
+        DUMMY(void begin(enum primitive t));
+        DUMMY(void end(void));
 
-		// matrix
-		DUMMY(void pushMatrix(void))
-		DUMMY(void popMatrix(void))
+        // matrix
+        DUMMY(void pushMatrix(void));
+        DUMMY(void popMatrix(void));
 
-		DUMMY(void translate2i(Vector2i v))
-		DUMMY(void translate3i(Vector3i v))
-		DUMMY(void translate2f(Vector2f v))
-		DUMMY(void translate3f(Vector3f v))
-		DUMMY(void translate2d(Vector2d v))
-		DUMMY(void translate3d(Vector3d v))
+        DUMMY(void translate2i(Vector2i v));
+        DUMMY(void translate3i(Vector3i v));
+        DUMMY(void translate2f(Vector2f v));
+        DUMMY(void translate3f(Vector3f v));
+        DUMMY(void translate2d(Vector2d v));
+        DUMMY(void translate3d(Vector3d v));
 
-		DUMMY(void rotate2i(Vector2i v))
-		DUMMY(void rotate3i(Vector3i v))
-		DUMMY(void rotate2f(Vector2f v))
-		DUMMY(void rotate3f(Vector3f v))
-		DUMMY(void rotate2d(Vector2d v))
-		DUMMY(void rotate3d(Vector3d v))
+        DUMMY(void rotate2i(Vector2i v));
+        DUMMY(void rotate3i(Vector3i v));
+        DUMMY(void rotate2f(Vector2f v));
+        DUMMY(void rotate3f(Vector3f v));
+        DUMMY(void rotate2d(Vector2d v));
+        DUMMY(void rotate3d(Vector3d v));
 
-		DUMMY(void scale2i(Vector2i v))
-		DUMMY(void scale3i(Vector3i v))
-		DUMMY(void scale2f(Vector2f v))
-		DUMMY(void scale3f(Vector3f v))
-		DUMMY(void scale2d(Vector2d v))
-		DUMMY(void scale3d(Vector3d v))
+        DUMMY(void scale2i(Vector2i v));
+        DUMMY(void scale3i(Vector3i v));
+        DUMMY(void scale2f(Vector2f v));
+        DUMMY(void scale3f(Vector3f v));
+        DUMMY(void scale2d(Vector2d v));
+        DUMMY(void scale3d(Vector3d v));
 
-		// vertex data
-		DUMMY(void vertex2i(Vector2i v))
-		DUMMY(void vertex3i(Vector3i v))
-		DUMMY(void vertex2f(Vector2f v))
-		DUMMY(void vertex3f(Vector3f v))
-		DUMMY(void vertex2d(Vector2d v))
-		DUMMY(void vertex3d(Vector3d v))
+        // vertex data
+        DUMMY(void vertex2i(Vector2i v));
+        DUMMY(void vertex3i(Vector3i v));
+        DUMMY(void vertex2f(Vector2f v));
+        DUMMY(void vertex3f(Vector3f v));
+        DUMMY(void vertex2d(Vector2d v));
+        DUMMY(void vertex3d(Vector3d v));
 
-	private:
-		virtual void not_supported(const char *str);
+    private:
+        virtual void not_supported(const char *str);
 
 };
 

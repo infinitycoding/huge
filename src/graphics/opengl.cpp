@@ -25,15 +25,15 @@ namespace huge
 
 #define lenof(x) (sizeof(x) / sizeof(x[0]))
 
-		static GLenum gl_buffer[] =
-		{
-			GL_COLOR_BUFFER_BIT, GL_DEPTH_BUFFER_BIT
-		};
+static GLenum gl_buffer[] =
+{
+    GL_COLOR_BUFFER_BIT, GL_DEPTH_BUFFER_BIT
+};
 
-		static GLenum gl_primitive[] =
-		{
-			GL_POINTS, GL_LINES, GL_TRIANGLES, GL_QUADS, GL_POLYGON
-		};
+static GLenum gl_primitive[] =
+{
+    GL_POINTS, GL_LINES, GL_TRIANGLES, GL_QUADS, GL_POLYGON
+};
 
 
 
@@ -51,36 +51,36 @@ OpenGLDevice::~OpenGLDevice()
 
 void OpenGLDevice::clear(bitfield_t buffers)
 {
-	GLbitfield b = 0;
+    GLbitfield b = 0;
 
-	unsigned int i;
-	for(i = 0; i < lenof(gl_buffer); i++)
-	{
-		if(buffers & (1<<i))
-			b |= gl_buffer[i];
-	}
+    unsigned int i;
+    for(i = 0; i < lenof(gl_buffer); i++)
+    {
+        if(buffers & (1<<i))
+            b |= gl_buffer[i];
+    }
 
-	glClear(b);
+    glClear(b);
 }
 
 void OpenGLDevice::begin(enum primitive t)
 {
-	glBegin(gl_primitive[t]);
+    glBegin(gl_primitive[t]);
 }
 
 void OpenGLDevice::end(void)
 {
-	glEnd();
+    glEnd();
 }
 
 void OpenGLDevice::vertex3f(Vector3f v)
 {
-	glVertex3fv((GLfloat*) &v.data);
+    glVertex3fv((GLfloat*) &v.data);
 }
 
-inline void OpenGLDevice::not_supported(const char *str)
+void OpenGLDevice::not_supported(const char *str)
 {
-	printf("OpenGLDevice: \"%s\" is not supported.\n", str);
+    printf("OpenGLDevice: \"%s\" is not supported.\n", str);
 }
 
 };
