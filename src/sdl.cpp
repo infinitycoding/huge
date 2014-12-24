@@ -2,8 +2,6 @@
 #include "huge.h"
 #include "sdl.h"
 
-#include <GL/gl.h>
-
 namespace huge
 {
 namespace sdl

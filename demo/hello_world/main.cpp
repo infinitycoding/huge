@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include "huge.h"
-
-#include <GL/glew.h>
-#include <GL/gl.h>
+#include "graphics/opengl.h"
 
 using namespace huge;
 
@@ -46,12 +44,7 @@ int main(int argc, char **argv)
     sdl::init();
     sdl::Window *window = new sdl::Window();
 
-	GraphicsDevice *dev = new GraphicsDevice();
-
-    if(glewInit() != GLEW_OK)
-    {
-        printf("GLEW init failed!\n");
-    }
+	GraphicsDevice *dev = new OpenGLDevice();
 
     while(1)
     {
@@ -64,9 +57,9 @@ int main(int argc, char **argv)
             }
         }
 
-        dev->clear(GraphicsDevice::COLOR_BUFFER | GraphicsDevice::DEPTH_BUFFER);
+        dev->clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT);
 
-        dev->begin(GraphicsDevice::TRIANGLES);
+        dev->begin(TRIANGLES);
 
         glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
         dev->vertex3f(Vector3f( 0.0f, 1.0f, 0.0f));

@@ -28,15 +28,9 @@ namespace huge
 #define str(s) #s
 #define DUMMY(X) virtual X { not_supported(str(X)); }
 
-class GraphicsDevice
-{
-	public:
-		GraphicsDevice();
-		~GraphicsDevice();
-
 		enum buffer
 		{
-			COLOR_BUFFER, DEPTH_BUFFER
+			COLOR_BUFFER_BIT, DEPTH_BUFFER_BIT
 		};
 
 		enum primitive
@@ -46,8 +40,15 @@ class GraphicsDevice
 
 		typedef unsigned int bitfield_t;
 
+class GraphicsDevice
+{
+	public:
+		GraphicsDevice();
+		~GraphicsDevice();
+
+
 		// buffer
-		DUMMY(void clear(bitfield_t t))
+		DUMMY(void clear(bitfield_t buffers))
 		DUMMY(void begin(enum primitive t))
 		DUMMY(void end(void))
 
@@ -85,7 +86,7 @@ class GraphicsDevice
 		DUMMY(void vertex3d(Vector3d v))
 
 	private:
-		virtual inline void not_supported(const char *str);
+		virtual void not_supported(const char *str);
 
 };
 

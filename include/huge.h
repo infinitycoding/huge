@@ -20,7 +20,7 @@
 
 #include "sdl.h"
 #include "list.h"
-#include "graphics/graphics_device.h"
+#include "graphics/device.h"
 #include "math/vector.h"
 #include "math/matrix.h"
 #include "math/transformation.h"
