@@ -1,5 +1,5 @@
-#ifndef _vector_h_
-#define _vector_h_
+#ifndef _huge_vector_h_
+#define _huge_vector_h_
 /*
         Copyright 2012-2014 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -17,6 +17,10 @@
         You should have received a copy of the GNU General Public License
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
+
+/*
+	@author Michael Sippel <micha@infinitycoding.de>
+ */
 
 namespace huge
 {

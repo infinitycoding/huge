@@ -40,6 +40,10 @@ int main(int argc, char **argv)
 
     printf("%f, %f - %f, %f\n", trans.translation().x(), trans.translation().y(), trans2.translation().x(), trans2.translation().y());
 
+
+    Color3f c = Color3f(0xca, 0x12, 0xef);
+    printf("%f, %f, %f\n", c.r(), c.g(), c.b());
+
     // opengl test
     sdl::init();
     sdl::Window *window = new sdl::Window();

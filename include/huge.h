@@ -18,6 +18,7 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "color.h"
 #include "sdl.h"
 #include "list.h"
 #include "graphics/device.h"

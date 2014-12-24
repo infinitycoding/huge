@@ -15,6 +15,11 @@
         You should have received a copy of the GNU General Public License
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
+
+/*
+	@author Michael Sippel <micha@infinitycoding.de>
+ */
+
 #include "graphics/device.h"
 
 namespace huge
