@@ -42,8 +42,6 @@ class Transformation2
         inline void rotate(T v);
         inline void scale(Vector<2, T> v);
 
-        void use(void);
-
         inline void parent(Transformation2<T>& parent);
         inline void parent_translation(Transformation2<T>& parent);
         inline void parent_rotation(Transformation2<T>& parent);
@@ -68,8 +66,6 @@ class Transformation3
         inline void translate(Vector<3, T> v);
         inline void rotate(Vector<4, T> v);
         inline void scale(Vector<3, T> v);
-
-        void use(void);
 
         inline void parent(Transformation3<T>& parent);
         inline void parent_translation(Transformation3<T>& parent);

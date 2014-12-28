@@ -19,6 +19,7 @@
 */
 
 #include <SDL2/SDL.h>
+#include "graphics/device.h"
 
 namespace huge
 {
@@ -33,16 +34,28 @@ class Window
         Window();
         ~Window();
 
-        void swap(void);
+        GraphicsDevice *gdev;
 
-    private:
-        void create(void);
+        virtual void swap(void) = 0;
 
+    protected:
         char *title;
         int width;
         int height;
 
         SDL_Window *sdl_window;
+};
+
+class GLWindow : public Window
+{
+    public:
+        GLWindow();
+        ~GLWindow();
+
+        void swap(void);
+
+    protected:
+        void create(void);
         SDL_GLContext *sdl_context;
 };
 

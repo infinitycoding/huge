@@ -20,6 +20,7 @@
 #include <stdio.h>
 
 #include "math/vector.h"
+#include "color.h"
 
 namespace huge
 {
@@ -27,6 +28,12 @@ namespace huge
 #define xstr(s) str(s)
 #define str(s) #s
 #define DUMMY(X) virtual X { not_supported(str(X)); }
+
+enum graphics_device_type
+{
+    NULL_DEVICE,
+    OPENGL_DEVICE
+};
 
 enum buffer
 {
@@ -46,9 +53,11 @@ class GraphicsDevice
         GraphicsDevice();
         ~GraphicsDevice();
 
+        static const enum graphics_device_type device_type = NULL_DEVICE;
 
         // buffer
         DUMMY(void clear(bitfield_t buffers));
+        DUMMY(void clearColor(Color4f col));
         DUMMY(void begin(enum primitive t));
         DUMMY(void end(void));
 
@@ -63,12 +72,10 @@ class GraphicsDevice
         DUMMY(void translate2d(Vector2d v));
         DUMMY(void translate3d(Vector3d v));
 
-        DUMMY(void rotate2i(Vector2i v));
-        DUMMY(void rotate3i(Vector3i v));
-        DUMMY(void rotate2f(Vector2f v));
-        DUMMY(void rotate3f(Vector3f v));
-        DUMMY(void rotate2d(Vector2d v));
-        DUMMY(void rotate3d(Vector3d v));
+        DUMMY(void rotate2f(Vector2f v, float angle));
+        DUMMY(void rotate3f(Vector3f v, float angle));
+        DUMMY(void rotate2d(Vector2d v, double angle));
+        DUMMY(void rotate3d(Vector3d v, double angle));
 
         DUMMY(void scale2i(Vector2i v));
         DUMMY(void scale3i(Vector3i v));
@@ -85,12 +92,20 @@ class GraphicsDevice
         DUMMY(void vertex2d(Vector2d v));
         DUMMY(void vertex3d(Vector3d v));
 
+        // color data
+        DUMMY(void color3i(Color3i c));
+        DUMMY(void color3f(Color4i c));
+        DUMMY(void color4i(Color3f c));
+        DUMMY(void color4f(Color4f c));
+
     private:
         virtual void not_supported(const char *str);
 
 };
 
 #undef DUMMY
+#undef str
+#undef xstr
 
 };
 

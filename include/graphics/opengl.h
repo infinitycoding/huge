@@ -37,6 +37,8 @@ class OpenGLDevice : public GraphicsDevice
         OpenGLDevice();
         ~OpenGLDevice();
 
+        static const enum graphics_device_type device_type = OPENGL_DEVICE;
+
         // buffers
         void clear(bitfield_t buffers);
         void begin(enum primitive t);
@@ -44,6 +46,9 @@ class OpenGLDevice : public GraphicsDevice
 
         // vertex data
         void vertex3f(Vector3f v);
+
+        // color data
+        void color4f(Color4f v);
 
     private:
         void not_supported(const char *str);

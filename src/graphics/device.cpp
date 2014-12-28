@@ -27,7 +27,7 @@ namespace huge
 
 GraphicsDevice::GraphicsDevice()
 {
-};
+}
 
 GraphicsDevice::~GraphicsDevice()
 {

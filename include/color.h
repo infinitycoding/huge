@@ -85,8 +85,13 @@ class Color4 : public VectorBase<4, T>
 {
     public:
         Color4() {}
-        Color4(int r_, int g_, int b_, int a);
-        Color4(float r_, float g_, float b_, float a_);
+        Color4(T r_, T g_, T b_, T a_)
+        {
+            this->r() = r_;
+            this->g() = g_;
+            this->b() = b_;
+            this->a() = a_;
+        }
 
         inline T& r(void)
         {

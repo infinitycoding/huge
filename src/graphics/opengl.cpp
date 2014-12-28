@@ -83,6 +83,11 @@ void OpenGLDevice::vertex3f(Vector3f v)
     glVertex3fv((GLfloat*) &v.data);
 }
 
+void OpenGLDevice::color4f(Color4f c)
+{
+    glColor4fv((GLfloat*) &c.data);
+}
+
 void OpenGLDevice::not_supported(const char *str)
 {
     printf("OpenGLDevice: \"%s\" is not supported.\n", str);
