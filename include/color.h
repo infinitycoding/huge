@@ -196,6 +196,28 @@ class Color4 : public VectorBase<4, T>
             this->a() = a_;
         }
 
+		template <typename nT, unsigned int oS, unsigned int nS>
+		inline Color4<nT>& convert__(void)
+		{
+			Color4<nT> c = Color4<nT>();
+
+			c.r() = (nT) ( (float) this->r() / (float) oS * (float) nS );
+			c.g() = (nT) ( (float) this->g() / (float) oS * (float) nS );
+			c.b() = (nT) ( (float) this->b() / (float) oS * (float) nS );
+			c.a() = (nT) ( (float) this->a() / (float) oS * (float) nS );
+
+			return c;
+		}
+
+		template <unsigned int oS> inline Color3<char>& convert_(char x) { return this->convert__<char, oS, CHAR_MAX>(); }
+		template <unsigned int oS> inline Color3<unsigned char>& convert_(unsigned char x) { return this->convert__<unsigned char, oS, UCHAR_MAX>(); }
+		template <unsigned int oS> inline Color3<short>& convert_(short x) { return this->convert__<short, oS, SHRT_MAX>(); }
+		template <unsigned int oS> inline Color3<unsigned short>& convert_(unsigned short x) { return this->convert__<unsigned short, oS, USHRT_MAX>(); }
+		template <unsigned int oS> inline Color3<int>& convert_(int x) { return this->convert__<int, oS, INT_MAX>(); }
+		template <unsigned int oS> inline Color3<unsigned int>& convert_(unsigned int x) { return this->convert__<unsigned int, oS, UINT_MAX>(); }
+		template <unsigned int oS> inline Color3<float>& convert_(float x) { return this->convert__<float, oS, 1>(); }
+		template <unsigned int oS> inline Color3<double>& convert_(double x) { return this->convert__<double, oS, 1>(); }
+
         inline T& r(void)
         {
             return this->data[0];
@@ -214,30 +236,108 @@ class Color4 : public VectorBase<4, T>
         }
 };
 
+class Color4b : public Color4<char>
+{
+    public:
+        using Color4<char>::Color4;
+
+		template <typename nT>
+        inline Color4<nT>& convert(void)
+		{
+			nT x;
+			return this->convert_<CHAR_MAX>(x);
+		}
+};
+
+class Color4ub : public Color4<unsigned char>
+{
+    public:
+        using Color4<unsigned char>::Color4;
+
+		template <typename nT>
+        inline Color4<nT>& convert(void)
+		{
+			nT x;
+			return this->convert_<UCHAR_MAX>(x);
+		}
+};
+
+class Color4s : public Color4<short>
+{
+    public:
+        using Color4<short>::Color4;
+
+		template <typename nT>
+        inline Color4<nT>& convert(void)
+		{
+			nT x;
+			return this->convert_<SHRT_MAX>(x);
+		}
+};
+
+class Color4us : public Color4<unsigned short>
+{
+    public:
+        using Color4<unsigned short>::Color4;
+
+		template <typename nT>
+        inline Color4<nT>& convert(void)
+		{
+			nT x;
+			return this->convert_<USHRT_MAX>(x);
+		}
+};
+
 class Color4i : public Color4<int>
 {
     public:
         using Color4<int>::Color4;
-        Color4i(float r_, float g_, float b_, float a_)
-        {
-            this->r() = (int) (r_ * (float) 0xff);
-            this->g() = (int) (g_ * (float) 0xff);
-            this->b() = (int) (b_ * (float) 0xff);
-            this->a() = (int) (a_ * (float) 0xff);
-        }
+
+		template <typename nT>
+        inline Color4<nT>& convert(void)
+		{
+			nT x;
+			return this->convert_<INT_MAX>(x);
+		}
+};
+
+class Color4ui : public Color4<unsigned int>
+{
+    public:
+        using Color4<unsigned int>::Color4;
+
+		template <typename nT>
+        inline Color4<nT>& convert(void)
+		{
+			nT x;
+			return this->convert_<UINT_MAX>(x);
+		}
 };
 
 class Color4f : public Color4<float>
 {
     public:
         using Color4<float>::Color4;
-        Color4f(int r_, int g_, int b_, int a_)
-        {
-            this->r() = (float) r_ / (float) 0xff;
-            this->g() = (float) g_ / (float) 0xff;
-            this->b() = (float) b_ / (float) 0xff;
-            this->a() = (float) a_ / (float) 0xff;
-        }
+
+		template <typename nT>
+        inline Color4<nT>& convert(void)
+		{
+			nT x;
+			return this->convert_<1>(x);
+		}
+};
+
+class Color4d : public Color4<double>
+{
+    public:
+        using Color4<double>::Color4;
+
+		template <typename nT>
+        inline Color4<nT>& convert(void)
+		{
+			nT x;
+			return this->convert_<1>(x);
+		}
 };
 
 };
