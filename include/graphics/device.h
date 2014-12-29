@@ -27,7 +27,7 @@ namespace huge
 
 #define xstr(s) str(s)
 #define str(s) #s
-#define DUMMY(X) virtual X { not_supported(str(X)); }
+#define DUMMY(X) virtual inline X { not_supported(str(X)); }
 
 enum graphics_device_type
 {
@@ -57,7 +57,7 @@ class GraphicsDevice
 
         // buffer
         DUMMY(void clear(bitfield_t buffers));
-        DUMMY(void clearColor(Color4f col));
+        DUMMY(void clearColor(Color4d col));
         DUMMY(void begin(enum primitive t));
         DUMMY(void end(void));
 
@@ -65,28 +65,19 @@ class GraphicsDevice
         DUMMY(void pushMatrix(void));
         DUMMY(void popMatrix(void));
 
-        DUMMY(void translate2i(Vector2i v));
-        DUMMY(void translate3i(Vector3i v));
-        DUMMY(void translate2f(Vector2f v));
-        DUMMY(void translate3f(Vector3f v));
-        DUMMY(void translate2d(Vector2d v));
-        DUMMY(void translate3d(Vector3d v));
-
-        DUMMY(void rotate2f(Vector2f v, float angle));
-        DUMMY(void rotate3f(Vector3f v, float angle));
-        DUMMY(void rotate2d(Vector2d v, double angle));
-        DUMMY(void rotate3d(Vector3d v, double angle));
-
-        DUMMY(void scale2i(Vector2i v));
-        DUMMY(void scale3i(Vector3i v));
-        DUMMY(void scale2f(Vector2f v));
-        DUMMY(void scale3f(Vector3f v));
-        DUMMY(void scale2d(Vector2d v));
-        DUMMY(void scale3d(Vector3d v));
-
+        DUMMY(void translatef(Vector3f v));
+        DUMMY(void translated(Vector3d v));
+        DUMMY(void rotatef(Vector3f v, float angle));
+        DUMMY(void rotated(Vector3d v, double angle));
+        DUMMY(void scalef(Vector3f v));
+        DUMMY(void scaled(Vector3d v));
+        /*
+        		inline void translate2f(Vector2f v);
+        		inline void translate3f(Vector3f v);
+        		inline void translate2d(Vector2d v);
+        		inline void translate3d(Vector3d v);
+        */
         // vertex data
-        DUMMY(void vertex2i(Vector2i v));
-        DUMMY(void vertex3i(Vector3i v));
         DUMMY(void vertex2f(Vector2f v));
         DUMMY(void vertex3f(Vector3f v));
         DUMMY(void vertex2d(Vector2d v));

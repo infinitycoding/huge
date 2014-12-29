@@ -41,40 +41,28 @@ class OpenGLDevice : public GraphicsDevice
 
         // buffers
         void clear(bitfield_t buffers);
-        //void clearColor(Color4f col);
+        void clearColor(Color4d col);
         void begin(enum primitive t);
         void end(void);
 
         // matrix
-/*        void pushMatrix(void);
+        void pushMatrix(void);
         void popMatrix(void);
 
-        void translate2i(Vector2i v);
-        void translate3i(Vector3i v);
-        void translate2f(Vector2f v);
-        void translate3f(Vector3f v);
-        void translate2d(Vector2d v);
-        void translate3d(Vector3d v);
+        void translatef(Vector3f v);
+        void translated(Vector3d v);
+        void rotatef(Vector3f v, float angle);
+        void rotated(Vector3d v, double angle);
+        void scalef(Vector3f v);
+        void scaled(Vector3d v);
 
-        void rotate2f(Vector2f v, float angle);
-        void rotate3f(Vector3f v, float angle);
-        void rotate2d(Vector2d v, double angle);
-        void rotate3d(Vector3d v, double angle);
-
-        void scale2i(Vector2i v);
-        void scale3i(Vector3i v);
-        void scale2f(Vector2f v);
-        void scale3f(Vector3f v);
-        void scale2d(Vector2d v);
-        void scale3d(Vector3d v);
-*/
         // vertex data
-        //void vertex2i(Vector2i v);
-        //void vertex3i(Vector3i v);
-        //void vertex2f(Vector2f v);
+        void vertex2i(Vector2i v);
+        void vertex3i(Vector3i v);
+        void vertex2f(Vector2f v);
         void vertex3f(Vector3f v);
-        //void vertex2d(Vector2d v);
-        //void vertex3d(Vector3d v);
+        void vertex2d(Vector2d v);
+        void vertex3d(Vector3d v);
 
         // color data
         void color3b(Color3b c);

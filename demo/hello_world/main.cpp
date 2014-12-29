@@ -2,6 +2,8 @@
 #include "huge.h"
 #include "graphics/opengl.h"
 
+#include <GL/glu.h>
+
 using namespace huge;
 
 int main(int argc, char **argv)
@@ -27,6 +29,12 @@ int main(int argc, char **argv)
         }
 
         dev->clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT);
+
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+        gluPerspective(90.0f, (GLfloat)800/(GLfloat)600	, 1.0f, 1000.0f);
+
+        dev->translatef(Vector3f(0.0f, 0.0f, -5.0f));
 
         dev->begin(TRIANGLES);
         dev->color4i(Color4ub(0xff, 0x4c, 0x00, 0xff).c2_i());

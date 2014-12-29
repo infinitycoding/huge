@@ -54,6 +54,7 @@ OpenGLDevice::~OpenGLDevice()
 {
 }
 
+// buffers
 void OpenGLDevice::clear(bitfield_t buffers)
 {
     GLbitfield b = 0;
@@ -68,6 +69,11 @@ void OpenGLDevice::clear(bitfield_t buffers)
     glClear(b);
 }
 
+void OpenGLDevice::clearColor(Color4d c)
+{
+    glClearColor(c.data[0], c.data[1], c.data[2], c.data[3]);
+}
+
 void OpenGLDevice::begin(enum primitive t)
 {
     glBegin(gl_primitive[t]);
@@ -78,13 +84,67 @@ void OpenGLDevice::end(void)
     glEnd();
 }
 
+// matrix
+void OpenGLDevice::pushMatrix(void)
+{
+    glPushMatrix();
+}
+void OpenGLDevice::popMatrix(void)
+{
+    glPopMatrix();
+}
+
+void OpenGLDevice::translatef(Vector3f v)
+{
+    glTranslatef(v.data[0], v.data[1], v.data[2]);
+}
+
+void OpenGLDevice::translated(Vector3d v)
+{
+    glTranslated(v.data[0], v.data[1], v.data[2]);
+}
+
+void OpenGLDevice::rotatef(Vector3f v, float angle)
+{
+    glRotatef(v.data[0], v.data[1], v.data[2], angle);
+}
+void OpenGLDevice::rotated(Vector3d v, double angle)
+{
+    glRotated(v.data[0], v.data[1], v.data[2], angle);
+}
+
+void OpenGLDevice::scalef(Vector3f v)
+{
+    glScalef(v.data[0], v.data[1], v.data[2]);
+}
+void OpenGLDevice::scaled(Vector3d v)
+{
+    glScaled(v.data[0], v.data[1], v.data[2]);
+}
+
+// vertex data
+void OpenGLDevice::vertex2f(Vector2f v)
+{
+    glVertex2fv((GLfloat*) &v.data);
+}
+
 void OpenGLDevice::vertex3f(Vector3f v)
 {
     glVertex3fv((GLfloat*) &v.data);
 }
 
+void OpenGLDevice::vertex2d(Vector2d v)
+{
+    glVertex2dv((GLdouble*) &v.data);
+}
 
-// color
+void OpenGLDevice::vertex3d(Vector3d v)
+{
+    glVertex3dv((GLdouble*) &v.data);
+}
+
+
+// color data
 void OpenGLDevice::color3b(Color3b c)
 {
     glColor3bv((GLbyte*) &c.data);
