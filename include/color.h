@@ -21,6 +21,7 @@
 /*
 	@author Michael Sippel <micha@infinitycoding.de>
  */
+#include <limits.h>
 
 #include "math/vector.h"
 
@@ -41,6 +42,27 @@ class Color3 : public VectorBase<3, T>
             this->b() = b_;
         }
 
+		template <typename nT, unsigned int oS, unsigned int nS>
+		inline Color3<nT>& convert__(void)
+		{
+			Color3<nT> c = Color3<nT>();
+
+			c.r() = (nT) ( (float) this->r() / (float) oS * (float) nS );
+			c.g() = (nT) ( (float) this->g() / (float) oS * (float) nS );
+			c.b() = (nT) ( (float) this->b() / (float) oS * (float) nS );
+
+			return c;
+		}
+
+		template <unsigned int oS> inline Color3<char>& convert_(char x) { return this->convert__<char, oS, CHAR_MAX>(); }
+		template <unsigned int oS> inline Color3<unsigned char>& convert_(unsigned char x) { return this->convert__<unsigned char, oS, UCHAR_MAX>(); }
+		template <unsigned int oS> inline Color3<short>& convert_(short x) { return this->convert__<short, oS, SHRT_MAX>(); }
+		template <unsigned int oS> inline Color3<unsigned short>& convert_(unsigned short x) { return this->convert__<unsigned short, oS, USHRT_MAX>(); }
+		template <unsigned int oS> inline Color3<int>& convert_(int x) { return this->convert__<int, oS, INT_MAX>(); }
+		template <unsigned int oS> inline Color3<unsigned int>& convert_(unsigned int x) { return this->convert__<unsigned int, oS, UINT_MAX>(); }
+		template <unsigned int oS> inline Color3<float>& convert_(float x) { return this->convert__<float, oS, 1>(); }
+		template <unsigned int oS> inline Color3<double>& convert_(double x) { return this->convert__<double, oS, 1>(); }
+
         inline T& r(void)
         {
             return this->data[0];
@@ -55,29 +77,110 @@ class Color3 : public VectorBase<3, T>
         }
 };
 
+class Color3b : public Color3<char>
+{
+    public:
+        using Color3<char>::Color3;
+
+		template <typename nT>
+        inline Color3<nT>& convert(void)
+		{
+			nT x;
+			return this->convert_<CHAR_MAX>(x);
+		}
+};
+
+class Color3ub : public Color3<unsigned char>
+{
+    public:
+        using Color3<unsigned char>::Color3;
+
+		template <typename nT>
+        inline Color3<nT>& convert(void)
+		{
+			nT x;
+			return this->convert_<UCHAR_MAX>(x);
+		}
+};
+
+class Color3s : public Color3<short>
+{
+    public:
+        using Color3<short>::Color3;
+
+		template <typename nT>
+        inline Color3<nT>& convert(void)
+		{
+			nT x;
+			return this->convert_<SHRT_MAX>(x);
+		}
+};
+
+class Color3us : public Color3<unsigned short>
+{
+    public:
+        using Color3<unsigned short>::Color3;
+
+		template <typename nT>
+        inline Color3<nT>& convert(void)
+		{
+			nT x;
+			return this->convert_<USHRT_MAX>(x);
+		}
+};
+
 class Color3i : public Color3<int>
 {
     public:
         using Color3<int>::Color3;
-        Color3i(float r_, float g_, float b_)
-        {
-            this->r() = (int) (r_ * (float) 0xff);
-            this->g() = (int) (g_ * (float) 0xff);
-            this->b() = (int) (b_ * (float) 0xff);
-        }
+
+		template <typename nT>
+        inline Color3<nT>& convert(void)
+		{
+			nT x;
+			return this->convert_<INT_MAX>(x);
+		}
+};
+
+class Color3ui : public Color3<unsigned int>
+{
+    public:
+        using Color3<unsigned int>::Color3;
+
+		template <typename nT>
+        inline Color3<nT>& convert(void)
+		{
+			nT x;
+			return this->convert_<UINT_MAX>(x);
+		}
 };
 
 class Color3f : public Color3<float>
 {
     public:
         using Color3<float>::Color3;
-        Color3f(int r_, int g_, int b_)
-        {
-            this->r() = (float) r_ / (float) 0xff;
-            this->g() = (float) g_ / (float) 0xff;
-            this->b() = (float) b_ / (float) 0xff;
-        }
+
+		template <typename nT>
+        inline Color3<nT>& convert(void)
+		{
+			nT x;
+			return this->convert_<1>(x);
+		}
 };
+
+class Color3d : public Color3<double>
+{
+    public:
+        using Color3<double>::Color3;
+
+		template <typename nT>
+        inline Color3<nT>& convert(void)
+		{
+			nT x;
+			return this->convert_<1>(x);
+		}
+};
+
 
 // RGBA
 template <typename T>

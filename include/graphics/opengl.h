@@ -41,14 +41,46 @@ class OpenGLDevice : public GraphicsDevice
 
         // buffers
         void clear(bitfield_t buffers);
+		//void clearColor(Color4f col);
         void begin(enum primitive t);
         void end(void);
 
+		// matrix
+/*		void pushMatrix(void);
+		void popMatrix(void);
+
+        void translate2i(Vector2i v);
+        void translate3i(Vector3i v);
+        void translate2f(Vector2f v);
+        void translate3f(Vector3f v);
+        void translate2d(Vector2d v);
+        void translate3d(Vector3d v);
+
+        void rotate2f(Vector2f v, float angle);
+        void rotate3f(Vector3f v, float angle);
+        void rotate2d(Vector2d v, double angle);
+        void rotate3d(Vector3d v, double angle);
+
+        void scale2i(Vector2i v);
+        void scale3i(Vector3i v);
+        void scale2f(Vector2f v);
+        void scale3f(Vector3f v);
+        void scale2d(Vector2d v);
+        void scale3d(Vector3d v);
+*/
         // vertex data
+//        void vertex2i(Vector2i v);
+//        void vertex3i(Vector3i v);
+//        void vertex2f(Vector2f v);
         void vertex3f(Vector3f v);
+//        void vertex2d(Vector2d v);
+//        void vertex3d(Vector3d v);
 
         // color data
+       // void color4i(Color4i v);
+       // void color3i(Color3i v);
         void color4f(Color4f v);
+       // void color3f(Color3f v);
 
     private:
         void not_supported(const char *str);
