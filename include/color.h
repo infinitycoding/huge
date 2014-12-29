@@ -28,40 +28,62 @@
 namespace huge
 {
 
+template <int N, typename T, int S>
+class Color : public VectorBase<N, T>
+{
+	public:
+		template <typename nT, int nS>
+		inline Color<N, nT, nS> convert_(void)
+		{
+			Color<N, nT, nS> c;
+
+			int i;
+			for(i = 0; i < N; i++)
+				c.data[i] = (nT) ( (float) this->data[i] / (float) S * (float) nS );
+
+			return c;
+		}
+
+		#define CCONV(X, TYPE, SIZE) \
+			inline Color<N, TYPE, SIZE> X (void) \
+			{ \
+				return this->convert_<TYPE, SIZE>(); \
+			} \
+
+		CCONV(b, char, CHAR_MAX);
+		CCONV(ub, unsigned char, UCHAR_MAX);
+		CCONV(s, short, SHRT_MAX);
+		CCONV(us, unsigned short, USHRT_MAX);
+		CCONV(i, int, INT_MAX);
+		CCONV(ui, unsigned int, UINT_MAX);
+		CCONV(f, float, 1);
+		CCONV(d, double, 1);
+
+		#undef CCONV
+
+};
 
 // RGB
-template <typename T>
-class Color3 : public VectorBase<3, T>
+template <typename T, int S>
+class Color3 : public Color<3, T, S>
 {
     public:
         Color3() {}
+		~Color3() {}
+
+		Color3(Color<3, T, S> c)
+		{
+			this->r() = c.data[0];
+			this->g() = c.data[1];
+			this->b() = c.data[2];
+		}
+
         Color3(T r_, T g_, T b_)
         {
             this->r() = r_;
             this->g() = g_;
             this->b() = b_;
         }
-
-		template <typename nT, unsigned int oS, unsigned int nS>
-		inline Color3<nT>& convert__(void)
-		{
-			Color3<nT> c = Color3<nT>();
-
-			c.r() = (nT) ( (float) this->r() / (float) oS * (float) nS );
-			c.g() = (nT) ( (float) this->g() / (float) oS * (float) nS );
-			c.b() = (nT) ( (float) this->b() / (float) oS * (float) nS );
-
-			return c;
-		}
-
-		template <unsigned int oS> inline Color3<char>& convert_(char x) { return this->convert__<char, oS, CHAR_MAX>(); }
-		template <unsigned int oS> inline Color3<unsigned char>& convert_(unsigned char x) { return this->convert__<unsigned char, oS, UCHAR_MAX>(); }
-		template <unsigned int oS> inline Color3<short>& convert_(short x) { return this->convert__<short, oS, SHRT_MAX>(); }
-		template <unsigned int oS> inline Color3<unsigned short>& convert_(unsigned short x) { return this->convert__<unsigned short, oS, USHRT_MAX>(); }
-		template <unsigned int oS> inline Color3<int>& convert_(int x) { return this->convert__<int, oS, INT_MAX>(); }
-		template <unsigned int oS> inline Color3<unsigned int>& convert_(unsigned int x) { return this->convert__<unsigned int, oS, UINT_MAX>(); }
-		template <unsigned int oS> inline Color3<float>& convert_(float x) { return this->convert__<float, oS, 1>(); }
-		template <unsigned int oS> inline Color3<double>& convert_(double x) { return this->convert__<double, oS, 1>(); }
 
         inline T& r(void)
         {
@@ -77,117 +99,31 @@ class Color3 : public VectorBase<3, T>
         }
 };
 
-class Color3b : public Color3<char>
-{
-    public:
-        using Color3<char>::Color3;
-
-		template <typename nT>
-        inline Color3<nT>& convert(void)
-		{
-			nT x;
-			return this->convert_<CHAR_MAX>(x);
-		}
-};
-
-class Color3ub : public Color3<unsigned char>
-{
-    public:
-        using Color3<unsigned char>::Color3;
-
-		template <typename nT>
-        inline Color3<nT>& convert(void)
-		{
-			nT x;
-			return this->convert_<UCHAR_MAX>(x);
-		}
-};
-
-class Color3s : public Color3<short>
-{
-    public:
-        using Color3<short>::Color3;
-
-		template <typename nT>
-        inline Color3<nT>& convert(void)
-		{
-			nT x;
-			return this->convert_<SHRT_MAX>(x);
-		}
-};
-
-class Color3us : public Color3<unsigned short>
-{
-    public:
-        using Color3<unsigned short>::Color3;
-
-		template <typename nT>
-        inline Color3<nT>& convert(void)
-		{
-			nT x;
-			return this->convert_<USHRT_MAX>(x);
-		}
-};
-
-class Color3i : public Color3<int>
-{
-    public:
-        using Color3<int>::Color3;
-
-		template <typename nT>
-        inline Color3<nT>& convert(void)
-		{
-			nT x;
-			return this->convert_<INT_MAX>(x);
-		}
-};
-
-class Color3ui : public Color3<unsigned int>
-{
-    public:
-        using Color3<unsigned int>::Color3;
-
-		template <typename nT>
-        inline Color3<nT>& convert(void)
-		{
-			nT x;
-			return this->convert_<UINT_MAX>(x);
-		}
-};
-
-class Color3f : public Color3<float>
-{
-    public:
-        using Color3<float>::Color3;
-
-		template <typename nT>
-        inline Color3<nT>& convert(void)
-		{
-			nT x;
-			return this->convert_<1>(x);
-		}
-};
-
-class Color3d : public Color3<double>
-{
-    public:
-        using Color3<double>::Color3;
-
-		template <typename nT>
-        inline Color3<nT>& convert(void)
-		{
-			nT x;
-			return this->convert_<1>(x);
-		}
-};
-
+typedef Color3<char, CHAR_MAX> Color3b;
+typedef Color3<unsigned char, UCHAR_MAX> Color3ub;
+typedef Color3<short, SHRT_MAX> Color3s;
+typedef Color3<unsigned short, USHRT_MAX> Color3us;
+typedef Color3<int, INT_MAX> Color3i;
+typedef Color3<unsigned int, UINT_MAX> Color3ui;
+typedef Color3<float, 1> Color3f;
+typedef Color3<double, 1> Color3d;
 
 // RGBA
-template <typename T>
-class Color4 : public VectorBase<4, T>
+template <typename T, int S>
+class Color4 : public Color<4, T, S>
 {
     public:
         Color4() {}
+		~Color4() {}
+
+		Color4(Color<4, T, S> c)
+		{
+            this->r() = c.data[0];
+            this->g() = c.data[1];
+            this->b() = c.data[2];
+            this->a() = c.data[3];
+		}
+
         Color4(T r_, T g_, T b_, T a_)
         {
             this->r() = r_;
@@ -195,28 +131,6 @@ class Color4 : public VectorBase<4, T>
             this->b() = b_;
             this->a() = a_;
         }
-
-		template <typename nT, unsigned int oS, unsigned int nS>
-		inline Color4<nT>& convert__(void)
-		{
-			Color4<nT> c = Color4<nT>();
-
-			c.r() = (nT) ( (float) this->r() / (float) oS * (float) nS );
-			c.g() = (nT) ( (float) this->g() / (float) oS * (float) nS );
-			c.b() = (nT) ( (float) this->b() / (float) oS * (float) nS );
-			c.a() = (nT) ( (float) this->a() / (float) oS * (float) nS );
-
-			return c;
-		}
-
-		template <unsigned int oS> inline Color3<char>& convert_(char x) { return this->convert__<char, oS, CHAR_MAX>(); }
-		template <unsigned int oS> inline Color3<unsigned char>& convert_(unsigned char x) { return this->convert__<unsigned char, oS, UCHAR_MAX>(); }
-		template <unsigned int oS> inline Color3<short>& convert_(short x) { return this->convert__<short, oS, SHRT_MAX>(); }
-		template <unsigned int oS> inline Color3<unsigned short>& convert_(unsigned short x) { return this->convert__<unsigned short, oS, USHRT_MAX>(); }
-		template <unsigned int oS> inline Color3<int>& convert_(int x) { return this->convert__<int, oS, INT_MAX>(); }
-		template <unsigned int oS> inline Color3<unsigned int>& convert_(unsigned int x) { return this->convert__<unsigned int, oS, UINT_MAX>(); }
-		template <unsigned int oS> inline Color3<float>& convert_(float x) { return this->convert__<float, oS, 1>(); }
-		template <unsigned int oS> inline Color3<double>& convert_(double x) { return this->convert__<double, oS, 1>(); }
 
         inline T& r(void)
         {
@@ -236,109 +150,14 @@ class Color4 : public VectorBase<4, T>
         }
 };
 
-class Color4b : public Color4<char>
-{
-    public:
-        using Color4<char>::Color4;
-
-		template <typename nT>
-        inline Color4<nT>& convert(void)
-		{
-			nT x;
-			return this->convert_<CHAR_MAX>(x);
-		}
-};
-
-class Color4ub : public Color4<unsigned char>
-{
-    public:
-        using Color4<unsigned char>::Color4;
-
-		template <typename nT>
-        inline Color4<nT>& convert(void)
-		{
-			nT x;
-			return this->convert_<UCHAR_MAX>(x);
-		}
-};
-
-class Color4s : public Color4<short>
-{
-    public:
-        using Color4<short>::Color4;
-
-		template <typename nT>
-        inline Color4<nT>& convert(void)
-		{
-			nT x;
-			return this->convert_<SHRT_MAX>(x);
-		}
-};
-
-class Color4us : public Color4<unsigned short>
-{
-    public:
-        using Color4<unsigned short>::Color4;
-
-		template <typename nT>
-        inline Color4<nT>& convert(void)
-		{
-			nT x;
-			return this->convert_<USHRT_MAX>(x);
-		}
-};
-
-class Color4i : public Color4<int>
-{
-    public:
-        using Color4<int>::Color4;
-
-		template <typename nT>
-        inline Color4<nT>& convert(void)
-		{
-			nT x;
-			return this->convert_<INT_MAX>(x);
-		}
-};
-
-class Color4ui : public Color4<unsigned int>
-{
-    public:
-        using Color4<unsigned int>::Color4;
-
-		template <typename nT>
-        inline Color4<nT>& convert(void)
-		{
-			nT x;
-			return this->convert_<UINT_MAX>(x);
-		}
-};
-
-class Color4f : public Color4<float>
-{
-    public:
-        using Color4<float>::Color4;
-
-		template <typename nT>
-        inline Color4<nT>& convert(void)
-		{
-			nT x;
-			return this->convert_<1>(x);
-		}
-};
-
-class Color4d : public Color4<double>
-{
-    public:
-        using Color4<double>::Color4;
-
-		template <typename nT>
-        inline Color4<nT>& convert(void)
-		{
-			nT x;
-			return this->convert_<1>(x);
-		}
-};
+typedef Color4<char, CHAR_MAX> Color4b;
+typedef Color4<unsigned char, UCHAR_MAX> Color4ub;
+typedef Color4<short, SHRT_MAX> Color4s;
+typedef Color4<unsigned short, USHRT_MAX> Color4us;
+typedef Color4<int, INT_MAX> Color4i;
+typedef Color4<unsigned int, UINT_MAX> Color4ui;
+typedef Color4<float, 1> Color4f;
+typedef Color4<double, 1> Color4d;
 
 };
 
