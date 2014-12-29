@@ -83,10 +83,88 @@ void OpenGLDevice::vertex3f(Vector3f v)
     glVertex3fv((GLfloat*) &v.data);
 }
 
+
+// color
+void OpenGLDevice::color3b(Color3b c)
+{
+    glColor3bv((GLbyte*) &c.data);
+}
+
+void OpenGLDevice::color4b(Color4b c)
+{
+    glColor4bv((GLbyte*) &c.data);
+}
+
+void OpenGLDevice::color3ub(Color3ub c)
+{
+    glColor3ubv((GLubyte*) &c.data);
+}
+
+void OpenGLDevice::color4ub(Color4ub c)
+{
+    glColor3ubv((GLubyte*) &c.data);
+}
+
+void OpenGLDevice::color3s(Color3s c)
+{
+    glColor3sv((GLshort*) &c.data);
+}
+
+void OpenGLDevice::color4s(Color4s c)
+{
+    glColor3sv((GLshort*) &c.data);
+}
+
+void OpenGLDevice::color3us(Color3us c)
+{
+    glColor3usv((GLushort*) &c.data);
+}
+
+void OpenGLDevice::color4us(Color4us c)
+{
+    glColor4usv((GLushort*) &c.data);
+}
+
+void OpenGLDevice::color3i(Color3i c)
+{
+    glColor3iv((GLint*) &c.data);
+}
+
+void OpenGLDevice::color4i(Color4i c)
+{
+    glColor4iv((GLint*) &c.data);
+}
+
+void OpenGLDevice::color3ui(Color3ui c)
+{
+    glColor3uiv((GLuint*) &c.data);
+}
+
+void OpenGLDevice::color4ui(Color4ui c)
+{
+    glColor4uiv((GLuint*) &c.data);
+}
+
+void OpenGLDevice::color3f(Color3f c)
+{
+    glColor3fv((GLfloat*) &c.data);
+}
+
 void OpenGLDevice::color4f(Color4f c)
 {
     glColor4fv((GLfloat*) &c.data);
 }
+
+void OpenGLDevice::color3d(Color3d c)
+{
+    glColor3dv((GLdouble*) &c.data);
+}
+
+void OpenGLDevice::color4d(Color4d c)
+{
+    glColor4dv((GLdouble*) &c.data);
+}
+
 
 void OpenGLDevice::not_supported(const char *str)
 {

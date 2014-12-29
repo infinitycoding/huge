@@ -31,35 +31,35 @@ namespace huge
 template <int N, typename T, int S>
 class Color : public VectorBase<N, T>
 {
-	public:
-		template <typename nT, int nS>
-		inline Color<N, nT, nS> convert_(void)
-		{
-			Color<N, nT, nS> c;
+    public:
+        template <typename nT, int nS>
+        inline Color<N, nT, nS> convert_(void)
+        {
+            Color<N, nT, nS> c;
 
-			int i;
-			for(i = 0; i < N; i++)
-				c.data[i] = (nT) ( (float) this->data[i] / (float) S * (float) nS );
+            int i;
+            for(i = 0; i < N; i++)
+                c.data[i] = (nT) ( (double) this->data[i] / (double) S * (double) nS );
 
-			return c;
-		}
+            return c;
+        }
 
-		#define CCONV(X, TYPE, SIZE) \
+#define CCONV(X, TYPE, SIZE) \
 			inline Color<N, TYPE, SIZE> X (void) \
 			{ \
 				return this->convert_<TYPE, SIZE>(); \
 			} \
 
-		CCONV(b, char, CHAR_MAX);
-		CCONV(ub, unsigned char, UCHAR_MAX);
-		CCONV(s, short, SHRT_MAX);
-		CCONV(us, unsigned short, USHRT_MAX);
-		CCONV(i, int, INT_MAX);
-		CCONV(ui, unsigned int, UINT_MAX);
-		CCONV(f, float, 1);
-		CCONV(d, double, 1);
+        CCONV(c2_b, char, CHAR_MAX);
+        CCONV(c2_ub, unsigned char, UCHAR_MAX);
+        CCONV(c2_s, short, SHRT_MAX);
+        CCONV(c2_us, unsigned short, USHRT_MAX);
+        CCONV(c2_i, int, INT_MAX);
+        CCONV(c2_ui, unsigned int, UINT_MAX);
+        CCONV(c2_f, float, 1);
+        CCONV(c2_d, double, 1);
 
-		#undef CCONV
+#undef CCONV
 
 };
 
@@ -69,14 +69,14 @@ class Color3 : public Color<3, T, S>
 {
     public:
         Color3() {}
-		~Color3() {}
+        ~Color3() {}
 
-		Color3(Color<3, T, S> c)
-		{
-			this->r() = c.data[0];
-			this->g() = c.data[1];
-			this->b() = c.data[2];
-		}
+        Color3(Color<3, T, S> c)
+        {
+            this->r() = c.data[0];
+            this->g() = c.data[1];
+            this->b() = c.data[2];
+        }
 
         Color3(T r_, T g_, T b_)
         {
@@ -114,15 +114,15 @@ class Color4 : public Color<4, T, S>
 {
     public:
         Color4() {}
-		~Color4() {}
+        ~Color4() {}
 
-		Color4(Color<4, T, S> c)
-		{
+        Color4(Color<4, T, S> c)
+        {
             this->r() = c.data[0];
             this->g() = c.data[1];
             this->b() = c.data[2];
             this->a() = c.data[3];
-		}
+        }
 
         Color4(T r_, T g_, T b_, T a_)
         {

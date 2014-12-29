@@ -93,10 +93,22 @@ class GraphicsDevice
         DUMMY(void vertex3d(Vector3d v));
 
         // color data
+        DUMMY(void color3b(Color3b c));
+        DUMMY(void color4b(Color4b c));
+        DUMMY(void color3ub(Color3ub c));
+        DUMMY(void color4ub(Color4ub c));
+        DUMMY(void color3s(Color3s c));
+        DUMMY(void color4s(Color4s c));
+        DUMMY(void color3us(Color3us c));
+        DUMMY(void color4us(Color4us c));
         DUMMY(void color3i(Color3i c));
-        DUMMY(void color3f(Color4i c));
-        DUMMY(void color4i(Color3f c));
+        DUMMY(void color4i(Color4i c));
+        DUMMY(void color3ui(Color3ui c));
+        DUMMY(void color4ui(Color4ui c));
+        DUMMY(void color3f(Color3f c));
         DUMMY(void color4f(Color4f c));
+        DUMMY(void color3d(Color3d c));
+        DUMMY(void color4d(Color4d c));
 
     private:
         virtual void not_supported(const char *str);

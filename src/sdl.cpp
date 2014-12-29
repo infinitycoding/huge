@@ -24,7 +24,7 @@ Window::~Window()
 
 GLWindow::GLWindow()
 {
-	this->create();
+    this->create();
 }
 
 GLWindow::~GLWindow()

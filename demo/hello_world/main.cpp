@@ -29,7 +29,7 @@ int main(int argc, char **argv)
         dev->clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT);
 
         dev->begin(TRIANGLES);
-        dev->color4f(Color4ub(0xff, 0x4c, 0x00, 0xff).f());
+        dev->color4i(Color4ub(0xff, 0x4c, 0x00, 0xff).c2_i());
         dev->vertex3f(Vector3f( 0.0f, 1.0f, 0.0f));
         dev->vertex3f(Vector3f( 1.0f,-1.0f, 0.0f));
         dev->vertex3f(Vector3f(-1.0f,-1.0f, 0.0f));

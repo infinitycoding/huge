@@ -41,13 +41,13 @@ class OpenGLDevice : public GraphicsDevice
 
         // buffers
         void clear(bitfield_t buffers);
-		//void clearColor(Color4f col);
+        //void clearColor(Color4f col);
         void begin(enum primitive t);
         void end(void);
 
-		// matrix
-/*		void pushMatrix(void);
-		void popMatrix(void);
+        // matrix
+/*        void pushMatrix(void);
+        void popMatrix(void);
 
         void translate2i(Vector2i v);
         void translate3i(Vector3i v);
@@ -69,18 +69,30 @@ class OpenGLDevice : public GraphicsDevice
         void scale3d(Vector3d v);
 */
         // vertex data
-//        void vertex2i(Vector2i v);
-//        void vertex3i(Vector3i v);
-//        void vertex2f(Vector2f v);
+        //void vertex2i(Vector2i v);
+        //void vertex3i(Vector3i v);
+        //void vertex2f(Vector2f v);
         void vertex3f(Vector3f v);
-//        void vertex2d(Vector2d v);
-//        void vertex3d(Vector3d v);
+        //void vertex2d(Vector2d v);
+        //void vertex3d(Vector3d v);
 
         // color data
-       // void color4i(Color4i v);
-       // void color3i(Color3i v);
-        void color4f(Color4f v);
-       // void color3f(Color3f v);
+        void color3b(Color3b c);
+        void color4b(Color4b c);
+        void color3ub(Color3ub c);
+        void color4ub(Color4ub c);
+        void color3s(Color3s c);
+        void color4s(Color4s c);
+        void color3us(Color3us c);
+        void color4us(Color4us c);
+        void color3i(Color3i c);
+        void color4i(Color4i c);
+        void color3ui(Color3ui c);
+        void color4ui(Color4ui c);
+        void color3f(Color3f c);
+        void color4f(Color4f c);
+        void color3d(Color3d c);
+        void color4d(Color4d c);
 
     private:
         void not_supported(const char *str);
