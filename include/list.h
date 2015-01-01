@@ -93,8 +93,12 @@ class ListIterator
         List<T> *Instance;
 };
 
-#define foreach(LIST,NAME,TYPE)for(ListIterator<TYPE> NAMEIterator = ListIterator<TYPE>(LIST), TYPE *NAME=NAMEIterator.GetCurrent();!TYPE_LIST_NAME.IsLast(); NAME = NAMEIterator.GetAndNext())
+#define foreach(LIST,NAME,TYPE) \
+	ListIterator<TYPE> Iterator = ListIterator<TYPE>(LIST); \
+	TYPE *NAME; \
+	for(NAME = Iterator.GetCurrent(); !Iterator.IsLast(); NAME = Iterator.GetAndNext())
 
 #include "list_impl.h"
 
 #endif
+

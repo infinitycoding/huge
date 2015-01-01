@@ -24,104 +24,104 @@
 
 namespace huge
 {
-	
-	typedef uint32_t scancode_t;
-	typedef uint32_t deviceId_t;
+
+typedef uint32_t scancode_t;
+typedef uint32_t deviceId_t;
 
 
-	enum EventDeviceType
-	{
-		keyboard,
-		joystick,
-		gamecontroller,
-		mouse,
-		touchscreen,
-		window
-	};
+enum EventDeviceType
+{
+    keyboard,
+    joystick,
+    gamecontroller,
+    mouse,
+    touchscreen,
+    window
+};
 
-	enum WindowEventType
-	{
-		shown 				= 	SDL_WINDOWEVENT_SHOWN,
-		hidden 				= 	SDL_WINDOWEVENT_HIDDEN,
-		exposed 			= 	SDL_WINDOWEVENT_EXPOSED,
-		moved 				= 	SDL_WINDOWEVENT_MOVED,
-		externResized 		= 	SDL_WINDOWEVENT_RESIZED,
-		resized 			= 	SDL_WINDOWEVENT_SIZE_CHANGED,
-		minimized 			= 	SDL_WINDOWEVENT_MINIMIZED,
-		maximized 			= 	SDL_WINDOWEVENT_MAXIMIZED,
-		restored 			= 	SDL_WINDOWEVENT_RESTORED,
-		mouseFocused 		= 	SDL_WINDOWEVENT_ENTER,
-		mouseUnfocused 		= 	SDL_WINDOWEVENT_LEAVE,
-		keyboardFocused 	= 	SDL_WINDOWEVENT_FOCUS_GAINED,
-		keyboardUnfocused 	= 	SDL_WINDOWEVENT_FOCUS_LOST,
-		closed 				= 	SDL_WINDOWEVENT_CLOSE
-	};
+enum WindowEventType
+{
+    shown 				= 	SDL_WINDOWEVENT_SHOWN,
+    hidden 				= 	SDL_WINDOWEVENT_HIDDEN,
+    exposed 			= 	SDL_WINDOWEVENT_EXPOSED,
+    moved 				= 	SDL_WINDOWEVENT_MOVED,
+    externResized 		= 	SDL_WINDOWEVENT_RESIZED,
+    resized 			= 	SDL_WINDOWEVENT_SIZE_CHANGED,
+    minimized 			= 	SDL_WINDOWEVENT_MINIMIZED,
+    maximized 			= 	SDL_WINDOWEVENT_MAXIMIZED,
+    restored 			= 	SDL_WINDOWEVENT_RESTORED,
+    mouseFocused 		= 	SDL_WINDOWEVENT_ENTER,
+    mouseUnfocused 		= 	SDL_WINDOWEVENT_LEAVE,
+    keyboardFocused 	= 	SDL_WINDOWEVENT_FOCUS_GAINED,
+    keyboardUnfocused 	= 	SDL_WINDOWEVENT_FOCUS_LOST,
+    closed 				= 	SDL_WINDOWEVENT_CLOSE
+};
 
-	struct EventDevice
-	{
-		deviceId_t id;
-		const char *name;
-		EventDeviceType type;
-	};
-	
+struct EventDevice
+{
+    deviceId_t id;
+    const char *name;
+    EventDeviceType type;
+};
 
-	class EventManager;
-	class EventHandle;
-	
-	class EventHandle
-	{
-		public:
-			EventHandle();
-			virtual void handleDeviceAdded(const EventDevice *device, uint32_t timestamp);
-			virtual void handleDeviceRemoved(const EventDevice *device, uint32_t timestamp);
-			virtual void handleButtonUp(const EventDevice *device, uint32_t timestamp, scancode_t scancode);
-			virtual void handleButtonDown(const EventDevice *device, uint32_t timestamp, scancode_t scancode);
-			virtual void handleRelAxis(const EventDevice *device, uint32_t timestamp, uint32_t axis, int32_t value);
-			virtual void handlePointAxis(const EventDevice *device, uint32_t timestamp, Vector2i abs, Vector2i rel);
- 			virtual void handleWindow(const EventDevice *device,uint32_t timestamp, WindowEventType type);
-			virtual void handleQuit();
-			
-			virtual bool check(const EventDevice *device);
-			
-		protected:
-			
-			List<EventManager> managers;
-	};
-	
-	class EventManager : EventHandle
-	{
-		public:
-			EventManager(bool root);
-			
-			void fechtEvents();
-			void registerHandle(EventHandle *handle);
-			void registerHandle(EventManager *handle);
-			
-			bool removeHandle(EventHandle *handle);
-			bool removeHandle(EventManager *handle);
-			
-			virtual void handleDeviceAdded(const EventDevice *device, uint32_t timestamp);
-			virtual void handleDeviceRemoved(const EventDevice *device, uint32_t timestamp);
-			virtual void handleButtonUp(const EventDevice *device, uint32_t timestamp, scancode_t scancode);
-			virtual void handleButtonDown(const EventDevice *device, uint32_t timestamp, scancode_t scancode);
-			virtual void handleRelAxis(const EventDevice *device, uint32_t timestamp, uint32_t axis, int32_t value);
-			virtual void handlePointAxis(const EventDevice *device, uint32_t timestamp, Vector2i abs, Vector2i rel);
- 			virtual void handleWindow(const EventDevice *device,uint32_t timestamp, WindowEventType type);
-			virtual void handleQuit();
-			
-			virtual bool check(const EventDevice *device);
-	
-			
-		private:
-			bool isroot;
-			List<EventHandle> recipients;
-	};
-	
-	class UserHandle : EventHandle
-	{
-	public:
-		void handleQuit();
-	};
+
+class EventManager;
+class EventHandle;
+
+class EventHandle
+{
+    public:
+        EventHandle();
+        virtual void handleDeviceAdded(const EventDevice *device, uint32_t timestamp);
+        virtual void handleDeviceRemoved(const EventDevice *device, uint32_t timestamp);
+        virtual void handleButtonUp(const EventDevice *device, uint32_t timestamp, scancode_t scancode);
+        virtual void handleButtonDown(const EventDevice *device, uint32_t timestamp, scancode_t scancode);
+        virtual void handleRelAxis(const EventDevice *device, uint32_t timestamp, uint32_t axis, int32_t value);
+        virtual void handlePointAxis(const EventDevice *device, uint32_t timestamp, Vector2i abs, Vector2i rel);
+        virtual void handleWindow(const EventDevice *device,uint32_t timestamp, WindowEventType type);
+        virtual void handleQuit();
+
+        virtual bool check(const EventDevice *device);
+
+    protected:
+
+        List<EventManager> managers;
+};
+
+class EventManager : EventHandle
+{
+    public:
+        EventManager(bool root);
+
+        void fechtEvents();
+        void registerHandle(EventHandle *handle);
+        void registerHandle(EventManager *handle);
+
+        bool removeHandle(EventHandle *handle);
+        bool removeHandle(EventManager *handle);
+
+        virtual void handleDeviceAdded(const EventDevice *device, uint32_t timestamp);
+        virtual void handleDeviceRemoved(const EventDevice *device, uint32_t timestamp);
+        virtual void handleButtonUp(const EventDevice *device, uint32_t timestamp, scancode_t scancode);
+        virtual void handleButtonDown(const EventDevice *device, uint32_t timestamp, scancode_t scancode);
+        virtual void handleRelAxis(const EventDevice *device, uint32_t timestamp, uint32_t axis, int32_t value);
+        virtual void handlePointAxis(const EventDevice *device, uint32_t timestamp, Vector2i abs, Vector2i rel);
+        virtual void handleWindow(const EventDevice *device,uint32_t timestamp, WindowEventType type);
+        virtual void handleQuit();
+
+        virtual bool check(const EventDevice *device);
+
+
+    private:
+        bool isroot;
+        List<EventHandle> recipients;
+};
+
+class UserHandle : EventHandle
+{
+    public:
+        void handleQuit();
+};
 };
 
 #endif
