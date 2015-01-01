@@ -1,7 +1,7 @@
-#ifndef _huge_h_
-#define _huge_h_
+#ifndef _huge_camera_h_
+#define _huge_camera_h_
 /*
-        Copyright 2012-2014 Infinitycoding all rights reserved
+        Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
 
         HUGE is free software: you can redistribute it and/or modify
@@ -17,20 +17,24 @@
         You should have received a copy of the GNU General Public License
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
-
-#include "camera.h"
-#include "color.h"
-#include "sdl.h"
-#include "list.h"
-#include "video/device.h"
-#include "math/vector.h"
-#include "math/matrix.h"
-#include "math/transformation.h"
+#include <math/transformation.h>
 
 namespace huge
 {
 
-void test(void);
+class Camera : public Transformation3f
+{
+    public:
+        Camera();
+        ~Camera();
+
+        double fov;
+        double aspect;
+        double near_clip;
+        double far_clip;
+
+        void usePerspective(void);
+};
 
 };
 

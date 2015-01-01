@@ -1,7 +1,5 @@
-#ifndef _huge_h_
-#define _huge_h_
 /*
-        Copyright 2012-2014 Infinitycoding all rights reserved
+        Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
 
         HUGE is free software: you can redistribute it and/or modify
@@ -18,21 +16,33 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
+/*
+	@author Michael Sippel <micha@infinitycoding.de>
+ */
+
 #include "camera.h"
-#include "color.h"
-#include "sdl.h"
-#include "list.h"
 #include "video/device.h"
-#include "math/vector.h"
-#include "math/matrix.h"
-#include "math/transformation.h"
+
+extern huge::VideoDevice *current_video_device;
 
 namespace huge
 {
 
-void test(void);
+Camera::Camera()
+    : fov(90.0f), aspect(8.0f/6.0f), near_clip(1.0f), far_clip(1000.0f)
+{
+}
+
+Camera::~Camera()
+{
+}
+
+void Camera::usePerspective(void)
+{
+    current_video_device->setMatrixMode(MODELVIEW);
+    current_video_device->loadIdentity();
+    current_video_device->setPerspective(this->fov, this->aspect, this->near_clip, this->far_clip);
+}
 
 };
-
-#endif
 

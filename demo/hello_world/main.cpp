@@ -4,6 +4,8 @@
 
 using namespace huge;
 
+VideoDevice *current_video_device;
+
 int main(int argc, char **argv)
 {
     printf("Hello World!\n");
@@ -14,10 +16,11 @@ int main(int argc, char **argv)
 
     VideoDevice *dev = new OpenGLDevice();
     window->video_device = dev;
+    current_video_device = dev;
 
-    dev->setMatrixMode(MODELVIEW);
-    dev->loadIdentity();
-    dev->setPerspective(90.0f, (GLfloat)800/(GLfloat)600, 1.0f, 1000.0f);
+    Camera *cam = new Camera();
+
+    cam->usePerspective();
     dev->translatef(Vector3f(0.0f, 0.0f, -5.0f));
 
     while(1)
