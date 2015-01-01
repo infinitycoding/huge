@@ -46,6 +46,9 @@ class OpenGLDevice : public GraphicsDevice
         void end(void);
 
         // matrix
+        void setMatrixMode(enum matrix_mode m);
+        void setPerspective(double fovy, double aspect, double znear, double zfar);
+        void loadIdentity(void);
         void pushMatrix(void);
         void popMatrix(void);
 

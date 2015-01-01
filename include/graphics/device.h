@@ -45,6 +45,11 @@ enum primitive
     POINTS, LINES, TRIANGLES, QUADS, POLYGON
 };
 
+enum matrix_mode
+{
+    MODELVIEW, PROJECTION, TEXTURE, COLOR
+};
+
 typedef unsigned int bitfield_t;
 
 class GraphicsDevice
@@ -62,6 +67,9 @@ class GraphicsDevice
         DUMMY(void end(void));
 
         // matrix
+        DUMMY(void setMatrixMode(enum matrix_mode m));
+        DUMMY(void setPerspective(double fovy, double aspect, double znear, double zfar));
+        DUMMY(void loadIdentity(void));
         DUMMY(void pushMatrix(void));
         DUMMY(void popMatrix(void));
 
@@ -77,6 +85,7 @@ class GraphicsDevice
         		inline void translate2d(Vector2d v);
         		inline void translate3d(Vector3d v);
         */
+
         // vertex data
         DUMMY(void vertex2f(Vector2f v));
         DUMMY(void vertex3f(Vector3f v));

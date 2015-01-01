@@ -40,7 +40,10 @@ static GLenum gl_primitive[] =
     GL_POINTS, GL_LINES, GL_TRIANGLES, GL_QUADS, GL_POLYGON
 };
 
-
+static GLenum gl_matrix_mode[] =
+{
+    GL_MODELVIEW, GL_PROJECTION, GL_TEXTURE, GL_COLOR
+};
 
 OpenGLDevice::OpenGLDevice()
 {
@@ -85,6 +88,21 @@ void OpenGLDevice::end(void)
 }
 
 // matrix
+void OpenGLDevice::setMatrixMode(enum matrix_mode m)
+{
+    glMatrixMode(gl_matrix_mode[m]);
+}
+
+void OpenGLDevice::setPerspective(double fovy, double aspect, double znear, double zfar)
+{
+    gluPerspective((GLdouble) fovy, (GLdouble) aspect, (GLdouble) znear, (GLdouble) zfar);
+}
+
+void OpenGLDevice::loadIdentity(void)
+{
+    glLoadIdentity();
+}
+
 void OpenGLDevice::pushMatrix(void)
 {
     glPushMatrix();
