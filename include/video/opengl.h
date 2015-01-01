@@ -26,18 +26,18 @@
 #include <GL/gl.h>
 
 #include "math/vector.h"
-#include "graphics/device.h"
+#include "video/device.h"
 
 namespace huge
 {
 
-class OpenGLDevice : public GraphicsDevice
+class OpenGLDevice : public VideoDevice
 {
     public:
         OpenGLDevice();
         ~OpenGLDevice();
 
-        static const enum graphics_device_type device_type = OPENGL_DEVICE;
+        static const enum video_device_type device_type = OPENGL_DEVICE;
 
         // buffers
         void clear(bitfield_t buffers);

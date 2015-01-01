@@ -1,7 +1,7 @@
-#ifndef _graphics_device_h_
-#define _graphics_device_h_
+#ifndef _video_device_h_
+#define _video_device_h_
 /*
-        Copyright 2012-2014 Infinitycoding all rights reserved
+        Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
 
         HUGE is free software: you can redistribute it and/or modify
@@ -29,7 +29,7 @@ namespace huge
 #define str(s) #s
 #define DUMMY(X) virtual inline X { not_supported(str(X)); }
 
-enum graphics_device_type
+enum video_device_type
 {
     NULL_DEVICE,
     OPENGL_DEVICE
@@ -52,13 +52,13 @@ enum matrix_mode
 
 typedef unsigned int bitfield_t;
 
-class GraphicsDevice
+class VideoDevice
 {
     public:
-        GraphicsDevice();
-        ~GraphicsDevice();
+        VideoDevice();
+        ~VideoDevice();
 
-        static const enum graphics_device_type device_type = NULL_DEVICE;
+        static const enum video_device_type device_type = NULL_DEVICE;
 
         // buffer
         DUMMY(void clear(bitfield_t buffers));

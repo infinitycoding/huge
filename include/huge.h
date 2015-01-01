@@ -21,7 +21,7 @@
 #include "color.h"
 #include "sdl.h"
 #include "list.h"
-#include "graphics/device.h"
+#include "video/device.h"
 #include "math/vector.h"
 #include "math/matrix.h"
 #include "math/transformation.h"

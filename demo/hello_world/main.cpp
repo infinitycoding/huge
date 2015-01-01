@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include "huge.h"
-#include "graphics/opengl.h"
-
-#include <GL/glu.h>
+#include "video/opengl.h"
 
 using namespace huge;
 
@@ -14,8 +12,8 @@ int main(int argc, char **argv)
     sdl::init();
     sdl::Window *window = new sdl::GLWindow();
 
-    GraphicsDevice *dev = new OpenGLDevice();
-    window->gdev = dev;
+    VideoDevice *dev = new OpenGLDevice();
+    window->video_device = dev;
 
     dev->setMatrixMode(MODELVIEW);
     dev->loadIdentity();

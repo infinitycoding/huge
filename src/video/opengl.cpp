@@ -1,5 +1,5 @@
 /*
-        Copyright 2012-2014 Infinitycoding all rights reserved
+        Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
 
         HUGE is free software: you can redistribute it and/or modify
@@ -20,10 +20,11 @@
 	@author Michael Sippel <micha@infinitycoding.de>
  */
 
-#include "graphics/opengl.h"
+#include "video/opengl.h"
 
 #include <GL/glew.h>
 #include <GL/gl.h>
+#include <GL/glu.h>
 
 namespace huge
 {

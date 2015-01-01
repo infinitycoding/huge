@@ -19,7 +19,7 @@
 */
 
 #include <SDL2/SDL.h>
-#include "graphics/device.h"
+#include "video/device.h"
 
 namespace huge
 {
@@ -34,7 +34,7 @@ class Window
         Window();
         ~Window();
 
-        GraphicsDevice *gdev;
+        VideoDevice *video_device;
 
         virtual void swap(void) = 0;
 

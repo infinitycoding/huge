@@ -1,5 +1,5 @@
 /*
-        Copyright 2012-2014 Infinitycoding all rights reserved
+        Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
 
         HUGE is free software: you can redistribute it and/or modify
@@ -20,20 +20,20 @@
 	@author Michael Sippel <micha@infinitycoding.de>
  */
 
-#include "graphics/device.h"
+#include "video/device.h"
 
 namespace huge
 {
 
-GraphicsDevice::GraphicsDevice()
+VideoDevice::VideoDevice()
 {
 }
 
-GraphicsDevice::~GraphicsDevice()
+VideoDevice::~VideoDevice()
 {
 }
 
-inline void GraphicsDevice::not_supported(const char *str)
+inline void VideoDevice::not_supported(const char *str)
 {
     printf("GraphicsDevice: \"%s\" is not supported.\n", str);
 }
