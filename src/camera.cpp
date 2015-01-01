@@ -1,5 +1,5 @@
 /*
-        Copyright 2012-2014 Infinitycoding all rights reserved
+        Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
 
         HUGE is free software: you can redistribute it and/or modify
@@ -20,22 +20,28 @@
 	@author Michael Sippel <micha@infinitycoding.de>
  */
 
-#include "graphics/device.h"
+#include "camera.h"
+#include "video/device.h"
+
+extern huge::VideoDevice *current_video_device;
 
 namespace huge
 {
 
-GraphicsDevice::GraphicsDevice()
-{
-};
-
-GraphicsDevice::~GraphicsDevice()
+Camera::Camera()
+    : fov(90.0f), aspect(8.0f/6.0f), near_clip(1.0f), far_clip(1000.0f)
 {
 }
 
-inline void GraphicsDevice::not_supported(const char *str)
+Camera::~Camera()
 {
-    printf("GraphicsDevice: \"%s\" is not supported.\n", str);
+}
+
+void Camera::usePerspective(void)
+{
+    current_video_device->setMatrixMode(MODELVIEW);
+    current_video_device->loadIdentity();
+    current_video_device->setPerspective(this->fov, this->aspect, this->near_clip, this->far_clip);
 }
 
 };

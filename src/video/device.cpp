@@ -1,7 +1,5 @@
-#ifndef _opengl_device_h_
-#define _opengl_device_h_
 /*
-        Copyright 2012-2014 Infinitycoding all rights reserved
+        Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
 
         HUGE is free software: you can redistribute it and/or modify
@@ -22,33 +20,23 @@
 	@author Michael Sippel <micha@infinitycoding.de>
  */
 
-#include <GL/glew.h>
-#include <GL/gl.h>
-
-#include "math/vector.h"
-#include "graphics/device.h"
+#include "video/device.h"
 
 namespace huge
 {
 
-class OpenGLDevice : public GraphicsDevice
+VideoDevice::VideoDevice()
 {
-    public:
-        OpenGLDevice();
-        ~OpenGLDevice();
+}
 
-        // buffers
-        void clear(bitfield_t buffers);
-        void begin(enum primitive t);
-        void end(void);
+VideoDevice::~VideoDevice()
+{
+}
 
-        // vertex data
-        void vertex3f(Vector3f v);
-
-    private:
-        void not_supported(const char *str);
-};
+inline void VideoDevice::not_supported(const char *str)
+{
+    printf("GraphicsDevice: \"%s\" is not supported.\n", str);
+}
 
 };
 
-#endif
