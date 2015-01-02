@@ -19,20 +19,53 @@
 /*
 	@author Michael Sippel <micha@infinitycoding.de>
  */
-
 #include "camera.h"
+#include "viewport.h"
 #include "video/device.h"
 
 namespace huge
 {
 
-Camera::Camera()
-    : fov(90.0f), near_clip(1.0f), far_clip(1000.0f)
+Viewport::Viewport()
+{
+    this->size = Vector2i(800, 600);
+    this->camera = new Camera();
+}
+
+Viewport::Viewport(Vector2i size_)
+    : size(size_)
+{
+    this->camera = new Camera();
+}
+
+Viewport::Viewport(Camera *camera_)
+    : camera(camera_)
+{
+    this->size = Vector2i(800, 600);
+}
+
+Viewport::Viewport(Vector2i size_, Camera *camera_)
+    : size(size_), camera(camera_)
 {
 }
 
-Camera::~Camera()
+Viewport::~Viewport()
 {
+}
+
+void Viewport::useViewport(void)
+{
+    // TODO
+}
+
+void Viewport::usePerspective(void)
+{
+    double aspect = (double)this->size.x() / (double)this->size.y();
+
+    // TODO
+    //current_video_device->setMatrixMode(MODELVIEW);
+    //current_video_device->loadIdentity();
+    //current_video_device->setPerspective(this->camera->fov, aspect, this->camera->near_clip, this->camera->far_clip);
 }
 
 };

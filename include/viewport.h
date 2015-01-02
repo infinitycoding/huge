@@ -1,5 +1,5 @@
-#ifndef _huge_h_
-#define _huge_h_
+#ifndef _huge_viewport_h_
+#define _huge_viewport_h_
 /*
         Copyright 2012-2014 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -18,20 +18,31 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
+/*
+	@author Michael Sippel <micha@infinitycoding.de>
+ */
+
 #include "camera.h"
-#include "color.h"
-#include "sdl.h"
-#include "list.h"
-#include "viewport.h"
 #include "video/device.h"
-#include "math/vector.h"
-#include "math/matrix.h"
-#include "math/transformation.h"
 
 namespace huge
 {
 
-void test(void);
+class Viewport
+{
+    public:
+        Viewport();
+        Viewport(Vector2i size_);
+        Viewport(Camera *camera_);
+        Viewport(Vector2i size_, Camera *camera_);
+        ~Viewport();
+
+        Vector2i size;
+        Camera *camera;
+
+        void useViewport(void);
+        void usePerspective(void);
+};
 
 };
 

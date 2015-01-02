@@ -29,11 +29,8 @@ class Camera : public Transformation3f
         ~Camera();
 
         double fov;
-        double aspect;
         double near_clip;
         double far_clip;
-
-        void usePerspective(void);
 };
 
 };

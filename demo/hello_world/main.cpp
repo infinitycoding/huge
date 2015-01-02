@@ -18,9 +18,9 @@ int main(int argc, char **argv)
     window->video_device = dev;
     current_video_device = dev;
 
-    Camera *cam = new Camera();
+    Viewport *view = new Viewport();
 
-    cam->usePerspective();
+    view->usePerspective();
     dev->translatef(Vector3f(0.0f, 0.0f, -5.0f));
 
     while(1)
