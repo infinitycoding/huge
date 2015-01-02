@@ -25,7 +25,7 @@ namespace huge
 
 EventHandle::EventHandle()
 {
-    managers = List<EventManager>();
+    managers = List<EventManager*>();
 }
 bool EventHandle::check(const EventDevice *device)
 {
@@ -44,11 +44,11 @@ void EventHandle::handleQuit() {}
 
 EventManager::EventManager(bool root)
 {
-    recipients = List<EventHandle>();
+    recipients = List<EventHandle*>();
     isroot = root;
 }
 
-void EventManager::fechtEvents()
+void EventManager::fetchEvents()
 {
     if(isroot)
     {
@@ -65,7 +65,7 @@ void EventManager::fechtEvents()
                     dev.name = SDL_GetWindowTitle(SDL_GetWindowFromID(dev.id));
                     dev.type = window;
 
-                    foreach(&recipients,recipient,EventHandle)
+                    foreach(&recipients,recipient,EventHandle*)
                     {
                         if(recipient->check(&dev))
                             recipient->handleWindow(&dev,event.window.timestamp,(WindowEventType)event.window.event);
@@ -78,7 +78,7 @@ void EventManager::fechtEvents()
                     dev.id = 0;
                     dev.name = "default keyboard";
                     dev.type = keyboard;
-                    foreach(&recipients,recipient,EventHandle)
+                    foreach(&recipients,recipient,EventHandle*)
                     {
                         printf("sending to recipient\n");
                         if(recipient->check(&dev))
@@ -96,7 +96,7 @@ void EventManager::fechtEvents()
                     dev.id = 0;
                     dev.name = "default keyboard";
                     dev.type = keyboard;
-                    foreach(&recipients,recipient,EventHandle)
+                    foreach(&recipients,recipient,EventHandle*)
                     {
                         if(recipient->check(&dev))
                             recipient->handleButtonUp(&dev, event.key.timestamp, event.key.keysym.scancode);
@@ -109,7 +109,7 @@ void EventManager::fechtEvents()
                     dev.id = event.motion.which;
                     dev.name = "default mouse";
                     dev.type = mouse;
-                    foreach(&recipients,recipient,EventHandle)
+                    foreach(&recipients,recipient,EventHandle*)
                     {
                         if(recipient->check(&dev))
                             recipient->handlePointAxis(&dev, event.motion.timestamp, Vector2i(event.motion.x,event.motion.y), Vector2i(event.motion.xrel,event.motion.yrel));
@@ -122,7 +122,7 @@ void EventManager::fechtEvents()
                     dev.id = event.button.which;
                     dev.name = "default mouse";
                     dev.type = mouse;
-                    foreach(&recipients,recipient,EventHandle)
+                    foreach(&recipients,recipient,EventHandle*)
                     {
                         if(recipient->check(&dev))
                             recipient->handleButtonDown(&dev, event.button.timestamp, event.button.button);
@@ -135,7 +135,7 @@ void EventManager::fechtEvents()
                     dev.id = event.button.which;
                     dev.name = "default mouse";
                     dev.type = mouse;
-                    foreach(&recipients,recipient,EventHandle)
+                    foreach(&recipients,recipient,EventHandle*)
                     {
                         if(recipient->check(&dev))
                             recipient->handleButtonUp(&dev, event.button.timestamp, event.button.button);
@@ -148,7 +148,7 @@ void EventManager::fechtEvents()
                     dev.id = event.wheel.which;
                     dev.name = "default mouse";
                     dev.type = mouse;
-                    foreach(&recipients,recipient,EventHandle)
+                    foreach(&recipients,recipient,EventHandle*)
                     {
                         if(recipient->check(&dev))
                         {
@@ -166,7 +166,7 @@ void EventManager::fechtEvents()
                     dev.id = event.jaxis.which;
                     dev.name = "default Joystick"; // todo: get namestrings from device manager
                     dev.type = joystick;
-                    foreach(&recipients,recipient,EventHandle)
+                    foreach(&recipients,recipient,EventHandle*)
                     {
                         if(recipient->check(&dev))
                             recipient->handleRelAxis(&dev, event.jaxis.timestamp, event.jaxis.axis, event.jaxis.value);
@@ -178,7 +178,7 @@ void EventManager::fechtEvents()
                     dev.id = event.motion.which;
                     dev.name = "default Joystick"; // todo: get namestrings from device manager
                     dev.type = joystick;
-                    foreach(&recipients,recipient,EventHandle)
+                    foreach(&recipients,recipient,EventHandle*)
                     {
                         if(recipient->check(&dev))
                         {
@@ -225,11 +225,11 @@ void EventManager::fechtEvents()
     }
     else
     {
-        ListIterator<EventManager> it = ListIterator<EventManager>(&managers);
-        while(!it.IsLast())
+        ListIterator<EventManager*> it = ListIterator<EventManager*>(&managers);
+        while(!it.isLast())
         {
-            it.GetCurrent()->fechtEvents();
-            it.Next();
+            it.getCurrent()->fetchEvents();
+            it.next();
         }
     }
 
@@ -237,28 +237,28 @@ void EventManager::fechtEvents()
 
 void EventManager::registerHandle(EventHandle *handle)
 {
-    recipients.PushFront(handle);
+    recipients.pushFront(handle);
 }
 
 void EventManager::registerHandle(EventManager *handle)
 {
-    recipients.PushFront(dynamic_cast<EventHandle *>(handle));
+    recipients.pushFront(dynamic_cast<EventHandle *>(handle));
 }
 
 bool EventManager::removeHandle(EventHandle *handle)
 {
-    return recipients.Remove(handle);
+    return recipients.remove(handle);
 }
 
 bool EventManager::removeHandle(EventManager *handle)
 {
-    return recipients.Remove(dynamic_cast<EventHandle *>(handle));
+    return recipients.remove(dynamic_cast<EventHandle *>(handle));
 }
 
 
 void EventManager::handleDeviceAdded(const EventDevice *device, uint32_t timestamp)
 {
-    foreach(&recipients,recipient,EventHandle)
+    foreach(&recipients,recipient,EventHandle*)
     {
         if(recipient->check(device))
             recipient->handleDeviceAdded(device,timestamp);
@@ -267,7 +267,7 @@ void EventManager::handleDeviceAdded(const EventDevice *device, uint32_t timesta
 
 void EventManager::handleDeviceRemoved(const EventDevice *device, uint32_t timestamp)
 {
-    foreach(&recipients,recipient,EventHandle)
+    foreach(&recipients,recipient,EventHandle*)
     {
         if(recipient->check(device))
             recipient->handleDeviceRemoved(device, timestamp);
@@ -276,7 +276,7 @@ void EventManager::handleDeviceRemoved(const EventDevice *device, uint32_t times
 
 void EventManager::handleButtonUp(const EventDevice *device, uint32_t timestamp, scancode_t scancode)
 {
-    foreach(&recipients,recipient,EventHandle)
+    foreach(&recipients,recipient,EventHandle*)
     {
         if(recipient->check(device))
             recipient->handleButtonUp(device, timestamp, scancode);
@@ -285,7 +285,7 @@ void EventManager::handleButtonUp(const EventDevice *device, uint32_t timestamp,
 
 void EventManager::handleButtonDown(const EventDevice *device, uint32_t timestamp, scancode_t scancode)
 {
-    foreach(&recipients,recipient,EventHandle)
+    foreach(&recipients,recipient,EventHandle*)
     {
         if(recipient->check(device))
             recipient->handleButtonDown(device, timestamp, scancode);
@@ -294,7 +294,7 @@ void EventManager::handleButtonDown(const EventDevice *device, uint32_t timestam
 
 void EventManager::handleRelAxis(const EventDevice *device, uint32_t timestamp, uint32_t axis, int32_t value)
 {
-    foreach(&recipients,recipient,EventHandle)
+    foreach(&recipients,recipient,EventHandle*)
     {
         if(recipient->check(device))
             recipient->handleRelAxis(device,timestamp, axis, value);
@@ -303,7 +303,7 @@ void EventManager::handleRelAxis(const EventDevice *device, uint32_t timestamp, 
 
 void EventManager::handlePointAxis(const EventDevice *device, uint32_t timestamp, Vector2i abs, Vector2i rel)
 {
-    foreach(&recipients,recipient,EventHandle)
+    foreach(&recipients,recipient,EventHandle*)
     {
         if(recipient->check(device))
             recipient->handlePointAxis(device, timestamp, abs, rel);
@@ -312,7 +312,7 @@ void EventManager::handlePointAxis(const EventDevice *device, uint32_t timestamp
 
 void EventManager::handleWindow(const EventDevice *device, uint32_t timestamp, WindowEventType type)
 {
-    foreach(&recipients,recipient,EventHandle)
+    foreach(&recipients,recipient,EventHandle*)
     {
         if(recipient->check(device))
             recipient->handleWindow(device, timestamp, type);
@@ -320,7 +320,7 @@ void EventManager::handleWindow(const EventDevice *device, uint32_t timestamp, W
 }
 void EventManager::handleQuit()
 {
-    foreach(&recipients,recipient,EventHandle)
+    foreach(&recipients,recipient,EventHandle*)
     {
         recipient->handleQuit();
     }

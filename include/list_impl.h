@@ -19,14 +19,32 @@
 */
 
 template <typename T>
+ListNode<T>::ListNode()
+{
+}
+
+template <typename T>
+ListNode<T>::ListNode(T element_)
+    : element(element_)
+{
+}
+
+template <typename T>
+ListNode<T>::~ListNode()
+{
+}
+
+template <typename T>
 List<T>::List()
 {
     lock = true;
-    dummy = new Node;
+
+    dummy = new ListNode<T>();
     dummy->element = NULL;
     dummy->prev = dummy;
     dummy->next = dummy;
     structCleaner = NULL;
+
     lock = false;
 }
 
@@ -34,9 +52,11 @@ template <typename T>
 List<T>::List(List<T> *l)
 {
     lock = true;
+
     structCleaner = l->structCleaner;
     ListIterator<T> *lit = new ListIterator<T>(l);
-    dummy = new Node;
+
+    dummy = new ListNode<T>();
     dummy->element = NULL;
     dummy->next = dummy;
     dummy->prev = dummy;
@@ -47,27 +67,32 @@ List<T>::List(List<T> *l)
         PushFront(currentEntry);
         lit->Next();
     }
+
     lock = false;
 }
 
 template <typename T>
-List<T>::List(List<T> *l, void(*copyTree)(T *destElement, T *srcElement))
+List<T>::List(List<T> *l, void(*copyTree)(T destElement, T srcElement))
 {
     lock = true;
+
     structCleaner = l->structCleaner;
     ListIterator<T> *srcIt = ListIterator<T>(l);
-    dummy = new Node;
+
+    dummy = new ListNode<T>();
     dummy->element = NULL;
     dummy->next = dummy;
     dummy->prev = dummy;
-    while(!srcIt->IsLast())
+
+    while(!srcIt->isLast())
     {
-        T *currentEntry = new T;
-        *currentEntry = *srcIt->GetCurrent();
-        copyTree(currentEntry,srcIt->GetCurrent());
-        PushFront(currentEntry);
-        srcIt->Next();
+        T currentEntry;
+        currentEntry = srcIt->getCurrent();
+        copyTree(currentEntry, srcIt->getCurrent());
+        pushFront(currentEntry);
+        srcIt->nxt();
     }
+
     lock = false;
 }
 
@@ -75,185 +100,209 @@ template <typename T>
 List<T>::~List<T>()
 {
     lock = true;
-    while(!IsEmpty())
+
+    while(!isEmpty())
     {
-        T *element = PopFront();
+        T element = popFront();
         if(structCleaner)
             structCleaner(element);
         delete element;
     }
+
     lock = false;
 }
 
 template <typename T>
-void List<T>::PushFront(T *element)
+void List<T>::pushFront(T element)
 {
-    Node *newNode = new Node;
-    newNode->element = (void*)element;
-
-    while(lock) {}
-    lock = true;
-    newNode->next = dummy->next;
-    newNode->prev = dummy;
-    dummy->next->prev = newNode;
-    dummy->next = newNode;
-    lock = false;
-}
-
-template <typename T>
-void List<T>::PushBack(T *element)
-{
-    Node *newNode = new Node;
+    ListNode<T> *newNode = new ListNode<T>();
     newNode->element = element;
 
     while(lock) {}
     lock = true;
-    newNode->prev = dummy;
+
     newNode->next = dummy->next;
+    newNode->prev = dummy;
     dummy->next->prev = newNode;
     dummy->next = newNode;
+
     lock = false;
 }
 
 template <typename T>
-T* List<T>::PopBack()
+void List<T>::pushBack(T element)
 {
-    T* element = dummy->prev->element;
-    Remove(dummy->prev);
+    ListNode<T> *newNode = new ListNode<T>();
+    newNode->element = element;
+
+    while(lock) {}
+    lock = true;
+
+    newNode->prev = dummy;
+    newNode->next = dummy->next;
+    dummy->next->prev = newNode;
+    dummy->next = newNode;
+
+    lock = false;
+}
+
+template <typename T>
+T List<T>::popBack()
+{
+    T element = dummy->prev->element;
+    remove(dummy->prev);
+
     return element;
 }
 
 template <typename T>
-T* List<T>::PopFront()
+T List<T>::popFront()
 {
-    T* element = (T*)dummy->next->element;
-    Remove(dummy->next);
+    T element = dummy->next->element;
+    remove(dummy->next);
+
     return element;
 }
 
 template <typename T>
-bool List<T>::IsEmpty()
+bool List<T>::isEmpty()
 {
     if(dummy->next == dummy && dummy->prev == dummy)
         return true;
+
     return false;
 }
 
 template <typename T>
-void *List<T>::GetNode(T *element)
+ListNode<T> *List<T>::getNode(T element)
 {
     lock = true;
-    Node *n = dummy->next;
+
+    ListNode<T> *n = dummy->next;
     if(n->element == element)
     {
         lock = false;
-        return (void *)n;
+        return n;
     }
-    while(n!=dummy)
+    while(n != dummy)
     {
         if(n->element == element)
         {
             lock = false;
-            return (void *)n;
+            return n;
         }
 
         n = n->next;
     }
+
     lock = false;
     return NULL;
 }
 
 template <typename T>
-size_t List<T>::Size()
+size_t List<T>::size()
 {
     size_t s = 0;
     lock = true;
+
     ListIterator<T> i = new ListIterator<T>(this);
-    while(!i->IsLast())
+    while(!i->isLast())
     {
         s++;
-        i->Next();
+        i->next();
     }
+
     lock = false;
-    return s*sizeof(T);
+    return s * sizeof(T);
 }
 
 template <typename T>
-int List<T>::NumOfElements()
+int List<T>::numOfElements()
 {
     int s = 0;
     lock = true;
+
     ListIterator<T> i = new ListIterator<T>(this);
-    while(!i->IsLast())
+    while(!i->isLast())
     {
         s++;
-        i->Next();
+        i->next();
     }
+
     lock = false;
     return s;
 }
 
 template <typename T>
-T *List<T>::Remove(Node *n)
+T List<T>::remove(ListNode<T> *n)
 {
     lock = true;
+
     if(n == dummy)
     {
         lock = false;
-        return 0;
+        return T();
     }
+
     n->prev->next = n->next;
     n->next->prev = n->prev;
-    T* element = (T*)n->element;
+    T element = n->element;
     delete n;
+
     lock = false;
     return element;
 }
 
 template <typename T>
-bool List<T>::Remove(T *element)
+bool List<T>::remove(T element)
 {
-    ListIterator<T> i = *ListIterator<T>(this).SetFirst();
-    while(!i.IsLast())
+    ListIterator<T> i = *ListIterator<T>(this).setFirst();
+    while(!i.isLast())
     {
-        if(i.GetCurrent() == element)
+        if(i.getCurrent() == element)
         {
-            i.Remove();
+            i.remove();
             return true;
         }
-        i.Next();
+        i.next();
     }
+
     return false;
 }
 
 template <typename T>
-void List<T>::Destroy(Node *n)
+void List<T>::destroy(ListNode<T> *n)
 {
     lock = true;
+
     if(n == dummy)
     {
         lock = false;
         return;
     }
+
     if(structCleaner)
-        structCleaner((T*)n->element);
+        structCleaner(n->element);
+
     n->prev->next = n->next;
     n->next->prev = n->prev;
-    delete (T*)n->element;
+
+    delete n->element;
     delete n;
+
     lock = false;
 }
 
 template <typename T>
-bool List<T>::alreadyAdded(T *element)
+bool List<T>::alreadyAdded(T element)
 {
-    ListIterator<T> i = *ListIterator<T>(this).SetFirst();
-    while(!i.IsLast())
+    ListIterator<T> i = *ListIterator<T>(this).setFirst();
+    while(!i.isLast())
     {
-        if(i.GetCurrent() == element)
+        if(i.getCurrent() == element)
             return true;
 
-        i.Next();
+        i.next();
     }
     return false;
 }
@@ -267,136 +316,148 @@ ListIterator<T>::ListIterator(List<T> *L)
 }
 
 template <typename T>
-void ListIterator<T>::PushFront(T *element)
+void ListIterator<T>::pushFront(T element)
 {
-    Node *newNode = new Node;
+    ListNode<T> *newNode = new ListNode<T>();
     newNode->element = element;
 
     while(Instance->lock) {}
     Instance->lock = true;
+
     newNode->next = Instance->dummy->next;
     newNode->prev = Instance->dummy;
     Instance->dummy->next->prev = newNode;
     Instance->dummy->next = newNode;
+
     Instance->lock = false;
 }
 
 template <typename T>
-void ListIterator<T>::PushBack(T *element)
+void ListIterator<T>::pushBack(T element)
 {
-    Node *newNode = new Node;
+    ListNode<T> *newNode = new ListNode<T>();
     newNode->element = element;
 
     while(Instance->lock) {}
     Instance->lock = true;
+
     newNode->prev = Instance->dummy;
     newNode->next = Instance->dummy->next;
     Instance->dummy->next->prev = newNode;
     Instance->dummy->next = newNode;
+
     Instance->lock = false;
 }
 
 template <typename T>
-void ListIterator<T>::InsertAfter(T *element)
+void ListIterator<T>::insertAfter(T element)
 {
-    Node *newNode = new Node;
+    ListNode<T> *newNode = new ListNode<T>();
     newNode->element = element;
 
     while(Instance->lock) {}
     Instance->lock = true;
+
     newNode->next = currentNode->next;
     newNode->prev = currentNode;
     currentNode->next->prev = newNode;
     currentNode->next = newNode;
+
     Instance->lock = false;
 }
 
 template <typename T>
-void ListIterator<T>::InsertBefore(T *element)
+void ListIterator<T>::insertBefore(T element)
 {
-    Node *newNode = new Node;
+    ListNode<T> *newNode = new ListNode<T>();
     newNode->element = element;
 
     while(Instance->lock) {}
     Instance->lock = true;
+
     newNode->prev = currentNode;
     newNode->next = currentNode->next;
     currentNode->next->prev = newNode;
     currentNode->next = newNode;
+
     Instance->lock = false;
 }
 
 template <typename T>
-T* ListIterator<T>::PopBack()
+T ListIterator<T>::popBack()
 {
-    T* element = Instance->dummy->prev->element;
-    Instance->Remove(Instance->dummy->prev);
+    T element = Instance->dummy->prev->element;
+    Instance->remove(Instance->dummy->prev);
+
     return element;
 }
 
 template <typename T>
-T* ListIterator<T>::PopFront()
+T ListIterator<T>::popFront()
 {
-    T* element = Instance->dummy->next->element;
-    Instance->Remove(Instance->dummy->next);
+    T element = Instance->dummy->next->element;
+    Instance->remove(Instance->dummy->next);
+
     return element;
 }
 
 
 template <typename T>
-T *ListIterator<T>::Remove()
+T ListIterator<T>::remove()
 {
-    T *element = (T*)currentNode->element;
+    T element = currentNode->element;
     currentNode = currentNode->next;
-    Instance->Remove(currentNode->prev);
+    Instance->remove(currentNode->prev);
+
     return element;
 }
 
 template <typename T>
-void ListIterator<T>::Destroy()
+void ListIterator<T>::destroy()
 {
     currentNode = currentNode->next;
-    Instance->Destroy(currentNode->prev);
+    Instance->destroy(currentNode->prev);
 }
 
 template <typename T>
-T* ListIterator<T>::GetCurrent()
+T ListIterator<T>::getCurrent()
 {
-    return (T*)currentNode->element;
+    return currentNode->element;
 }
 
 template <typename T>
-T* ListIterator<T>::GetAndNext()
+T ListIterator<T>::getAndNext()
 {
-    T *element = (T*)currentNode->element;
-    Next();
+    T element = currentNode->element;
+    next();
+
     return element;
 }
 
 
 template <typename T>
-ListIterator<T> *ListIterator<T>::Next()
+ListIterator<T> *ListIterator<T>::next()
 {
     currentNode = currentNode->next;
     return this;
 }
 
 template <typename T>
-ListIterator<T> *ListIterator<T>::Previous()
+ListIterator<T> *ListIterator<T>::previous()
 {
     currentNode = currentNode->prev;
     return this;
 }
 
 template <typename T>
-ListIterator<T> *ListIterator<T>::SetLast()
+ListIterator<T> *ListIterator<T>::setLast()
 {
     currentNode = Instance->dummy->prev;
     return this;
 }
 
 template <typename T>
-ListIterator<T> *ListIterator<T>::SetFirst()
+ListIterator<T> *ListIterator<T>::setFirst()
 {
     currentNode = Instance->dummy->next;
     return this;
@@ -404,24 +465,25 @@ ListIterator<T> *ListIterator<T>::SetFirst()
 
 
 template <typename T>
-bool ListIterator<T>::IsLast()
+bool ListIterator<T>::isLast()
 {
     if(currentNode == Instance->dummy)
         return true;
+
     return false;
 }
 
 template <typename T>
-void ListIterator<T>::set(void *n)
+void ListIterator<T>::set(ListNode<T> *n)
 {
-    currentNode = (Node *)n;
+    currentNode = n;
     return this;
 }
 
 template <typename T>
-bool ListIterator<T>::IsEmpty()
+bool ListIterator<T>::isEmpty()
 {
-    return Instance->IsEmpty();
+    return Instance->isEmpty();
 }
 
 #endif

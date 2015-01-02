@@ -1,7 +1,7 @@
 #ifndef _huge_list_h_
 #define _huge_list_h_
 /*
-        Copyright 2012-2014 Infinitycoding all rights reserved
+        Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
 
         HUGE is free software: you can redistribute it and/or modify
@@ -18,85 +18,105 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
-struct Node
-{
-    struct Node *next;
-    struct Node *prev;
-    void *element;
-};
+template <typename T>
+class ListNode;
 
 template <typename T>
+class List;
 
-class List
-{
-    public:
-        List();
-        List(List<T> *l);
-        List(List<T> *l,void(*copyTree)(T *destElement, T *srcElement));
-        ~List();
-
-        void PushFront(T *element);
-        void PushBack(T *element);
-        T *PopBack();
-        T *PopFront();
-
-
-        bool IsEmpty();
-        void *GetNode(T *element);
-
-        size_t Size();
-        int NumOfElements();
-
-        bool Remove(T *element);
-        T *Remove(Node *n);
-        void Destroy(Node *n);
-
-        void (*structCleaner)(T *element);
-        bool lock;
-
-        bool alreadyAdded(T *element);
-
-        Node *dummy;
-};
 
 template <typename T>
-
 class ListIterator
 {
     public:
         ListIterator(List<T> *L);
 
-        void PushFront(T *element);
-        void PushBack(T *element);
+        void pushFront(T element);
+        void pushBack(T element);
 
-        void InsertAfter(T *element);
-        void InsertBefore(T *element);
+        void insertAfter(T element);
+        void insertBefore(T element);
 
-        T *PopBack();
-        T *PopFront();
+        T popBack();
+        T popFront();
 
-        T *Remove();
-        void Destroy();
-        T *GetCurrent();
-        bool IsEmpty();
-        T *GetAndNext();
+        T remove();
+        void destroy();
+        T getCurrent();
+        bool isEmpty();
+        T getAndNext();
 
-        ListIterator<T> *Next();
-        ListIterator<T> *Previous();
-        ListIterator<T> *SetLast();
-        ListIterator<T> *SetFirst();
+        ListIterator<T> *next();
+        ListIterator<T> *previous();
+        ListIterator<T> *setLast();
+        ListIterator<T> *setFirst();
 
-        bool IsLast();
-        void set(void *n);
+        bool isLast();
+        void set(ListNode<T> *n);
 
-        Node *currentNode;
+        ListNode<T> *currentNode;
         List<T> *Instance;
 };
 
+
+template <typename T>
+class List
+{
+        friend class ListIterator<T>;
+
+    public:
+        List();
+        List(List<T> *l);
+        List(List<T> *l,void(*copyTree)(T destElement, T srcElement));
+        ~List();
+
+        void pushFront(T element);
+        void pushBack(T element);
+        T popBack();
+        T popFront();
+
+        bool isEmpty();
+        ListNode<T> *getNode(T element);
+
+        size_t size();
+        int numOfElements();
+
+        bool remove(T element);
+        T remove(ListNode<T> *n);
+        void destroy(ListNode<T> *n);
+
+        bool alreadyAdded(T element);
+
+    private:
+        bool lock;
+        void (*structCleaner)(T element);
+
+        ListNode<T> *dummy;
+};
+
+template <typename T>
+class ListNode
+{
+        friend class List<T>;
+        friend class ListIterator<T>;
+
+    public:
+        ListNode();
+        ListNode(T element_);
+        ~ListNode();
+
+        T element;
+
+    private:
+        ListNode *next;
+        ListNode *prev;
+};
+
+
 #define foreach(LIST,NAME,TYPE) \
 	ListIterator<TYPE> Iterator = ListIterator<TYPE>(LIST); \
-	TYPE *NAME; \
-	for(NAME = Iterator.GetCurrent(); !Iterator.IsLast(); NAME = Iterator.GetAndNext())
+	TYPE NAME; \
+	for(NAME = Iterator.getCurrent(); !Iterator.isLast(); NAME = Iterator.getAndNext())
 
 #include "list_impl.h"
 

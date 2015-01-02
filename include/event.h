@@ -85,15 +85,16 @@ class EventHandle
 
     protected:
 
-        List<EventManager> managers;
+        List<EventManager*> managers;
 };
 
 class EventManager : EventHandle
 {
     public:
+        EventManager() {}
         EventManager(bool root);
 
-        void fechtEvents();
+        void fetchEvents();
         void registerHandle(EventHandle *handle);
         void registerHandle(EventManager *handle);
 
@@ -114,7 +115,7 @@ class EventManager : EventHandle
 
     private:
         bool isroot;
-        List<EventHandle> recipients;
+        List<EventHandle*> recipients;
 };
 
 class UserHandle : EventHandle
