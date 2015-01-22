@@ -22,6 +22,30 @@ Window::~Window()
 }
 
 
+GLContext::GLContext()
+{
+}
+
+GLContext::GLContext(Window *window_)
+    : window(window_)
+{
+    this->sdl_context = (SDL_GLContext*) SDL_GL_CreateContext(this->window->sdl_window);
+    if(this->sdl_context == NULL)
+    {
+        printf("OpenGL context creation failed!\n");
+    }
+}
+
+GLContext::~GLContext()
+{
+}
+
+void GLContext::activate_(void)
+{
+    SDL_GL_MakeCurrent(this->window->sdl_window, this->sdl_context);
+}
+
+
 GLWindow::GLWindow()
 {
     this->create();
@@ -42,14 +66,6 @@ void GLWindow::create(void)
     if(this->sdl_window == NULL)
     {
         printf("SDL window creation failed!\n");
-        return;
-    }
-
-    this->sdl_context = (SDL_GLContext*) SDL_GL_CreateContext(this->sdl_window);
-    if(this->sdl_context == NULL)
-    {
-        printf("OpenGL context creation failed!\n");
-        return;
     }
 }
 

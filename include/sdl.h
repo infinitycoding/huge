@@ -9,7 +9,7 @@
         the Free Software Foundation, either version 3 of the License, or
         any later version.
 
-        The Universe Kernel is distributed in the hope that it will be useful,
+        HUGE is distributed in the hope that it will be useful,
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
@@ -30,11 +30,11 @@ int init(void);
 
 class Window
 {
+        friend class GLContext;
+
     public:
         Window();
         ~Window();
-
-        VideoDevice *video_device;
 
         virtual void swap(void) = 0;
 
@@ -46,6 +46,20 @@ class Window
         SDL_Window *sdl_window;
 };
 
+class GLContext : public VideoContext
+{
+    public:
+        GLContext();
+        GLContext(Window *window_);
+        ~GLContext();
+
+        Window *window;
+
+    private:
+        inline void activate_(void);
+        SDL_GLContext *sdl_context;
+};
+
 class GLWindow : public Window
 {
     public:
@@ -54,9 +68,8 @@ class GLWindow : public Window
 
         void swap(void);
 
-    protected:
+    private:
         void create(void);
-        SDL_GLContext *sdl_context;
 };
 
 };

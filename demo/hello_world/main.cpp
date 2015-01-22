@@ -4,8 +4,6 @@
 
 using namespace huge;
 
-VideoDevice *current_video_device;
-
 int main(int argc, char **argv)
 {
     printf("Hello World!\n");
@@ -13,15 +11,20 @@ int main(int argc, char **argv)
 
     sdl::init();
     sdl::Window *window = new sdl::GLWindow();
+    VideoContext *context = new sdl::GLContext(window);
 
     VideoDevice *dev = new OpenGLDevice();
-    window->video_device = dev;
-    current_video_device = dev;
+    dev->context = context;
+
+    if(glewInit() != GLEW_OK)
+    {
+        printf("GLEW init failed!\n");
+    }
 
     Viewport *view = new Viewport();
 
     view->usePerspective();
-    dev->translatef(Vector3f(0.0f, 0.0f, -5.0f));
+    dev->translatef(Vector3f(0.0f, 0.0f, 0.0f));
 
     while(1)
     {

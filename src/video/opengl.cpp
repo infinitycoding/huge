@@ -48,10 +48,6 @@ static GLenum gl_matrix_mode[] =
 
 OpenGLDevice::OpenGLDevice()
 {
-    if(glewInit() != GLEW_OK)
-    {
-        printf("GLEW init failed!\n");
-    }
 };
 
 OpenGLDevice::~OpenGLDevice()

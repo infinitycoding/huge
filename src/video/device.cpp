@@ -25,6 +25,30 @@
 namespace huge
 {
 
+VideoContext *VideoContext::current = (VideoContext*) NULL;
+
+VideoContext::VideoContext()
+{
+}
+
+VideoContext::~VideoContext()
+{
+}
+
+void VideoContext::activate(void)
+{
+    if(this != VideoContext::current)
+    {
+        this->activate_();
+        VideoContext::current = this;
+    }
+}
+
+void VideoContext::activate_(void)
+{
+    printf("No specific context created.\n");
+}
+
 VideoDevice::VideoDevice()
 {
 }

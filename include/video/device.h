@@ -9,7 +9,7 @@
         the Free Software Foundation, either version 3 of the License, or
         any later version.
 
-        The Universe Kernel is distributed in the hope that it will be useful,
+        HUGE is distributed in the hope that it will be useful,
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
@@ -52,6 +52,21 @@ enum matrix_mode
 
 typedef unsigned int bitfield_t;
 
+class VideoContext
+{
+    public:
+        VideoContext();
+        ~VideoContext();
+
+        void activate(void);
+
+    protected:
+        virtual inline void activate_(void);
+
+    private:
+        static VideoContext *current;
+};
+
 class VideoDevice
 {
     public:
@@ -59,6 +74,8 @@ class VideoDevice
         ~VideoDevice();
 
         static const enum video_device_type device_type = NULL_DEVICE;
+
+        VideoContext *context;
 
         // buffer
         DUMMY(void clear(bitfield_t buffers));
