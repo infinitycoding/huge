@@ -69,7 +69,6 @@ OpenGLDevice::~OpenGLDevice()
 void OpenGLDevice::clear(bitfield_t buffers)
 {
     ACTIVATE;
-    this->context->activate();
     GLbitfield b = 0;
 
     unsigned int i;
@@ -172,123 +171,135 @@ void OpenGLDevice::scale(Vector3d v)
 }
 
 // vertex data
-void OpenGLDevice::vertex2(Vector2f v)
+void OpenGLDevice::vertex(Vector2f v)
 {
     ACTIVATE;
     glVertex2fv((GLfloat*) &v.data);
 }
 
-void OpenGLDevice::vertex3(Vector3f v)
+void OpenGLDevice::vertex(Vector3f v)
 {
     ACTIVATE;
     glVertex3fv((GLfloat*) &v.data);
 }
 
-void OpenGLDevice::vertex2(Vector2d v)
+void OpenGLDevice::vertex(Vector2d v)
 {
     ACTIVATE;
     glVertex2dv((GLdouble*) &v.data);
 }
 
-void OpenGLDevice::vertex3(Vector3d v)
+void OpenGLDevice::vertex(Vector3d v)
 {
     ACTIVATE;
     glVertex3dv((GLdouble*) &v.data);
 }
 
+// normal data
+void OpenGLDevice::normal(Vector3f v)
+{
+    ACTIVATE;
+    glNormal3fv((GLfloat*) &v.data);
+}
+
+void OpenGLDevice::normal(Vector3d v)
+{
+    ACTIVATE;
+    glNormal3dv((GLdouble*) &v.data);
+}
 
 // color data
-void OpenGLDevice::color3(Color3b c)
+void OpenGLDevice::color(Color3b c)
 {
     ACTIVATE;
     glColor3bv((GLbyte*) &c.data);
 }
 
-void OpenGLDevice::color4(Color4b c)
+void OpenGLDevice::color(Color4b c)
 {
     ACTIVATE;
     glColor4bv((GLbyte*) &c.data);
 }
 
-void OpenGLDevice::color3(Color3ub c)
+void OpenGLDevice::color(Color3ub c)
 {
     ACTIVATE;
     glColor3ubv((GLubyte*) &c.data);
 }
 
-void OpenGLDevice::color4(Color4ub c)
+void OpenGLDevice::color(Color4ub c)
 {
     ACTIVATE;
     glColor3ubv((GLubyte*) &c.data);
 }
 
-void OpenGLDevice::color3(Color3s c)
+void OpenGLDevice::color(Color3s c)
 {
     ACTIVATE;
     glColor3sv((GLshort*) &c.data);
 }
 
-void OpenGLDevice::color4(Color4s c)
+void OpenGLDevice::color(Color4s c)
 {
     ACTIVATE;
     glColor3sv((GLshort*) &c.data);
 }
 
-void OpenGLDevice::color3(Color3us c)
+void OpenGLDevice::color(Color3us c)
 {
     ACTIVATE;
     glColor3usv((GLushort*) &c.data);
 }
 
-void OpenGLDevice::color4(Color4us c)
+void OpenGLDevice::color(Color4us c)
 {
     ACTIVATE;
     glColor4usv((GLushort*) &c.data);
 }
 
-void OpenGLDevice::color3(Color3i c)
+void OpenGLDevice::color(Color3i c)
 {
     ACTIVATE;
     glColor3iv((GLint*) &c.data);
 }
 
-void OpenGLDevice::color4(Color4i c)
+void OpenGLDevice::color(Color4i c)
 {
     ACTIVATE;
     glColor4iv((GLint*) &c.data);
 }
 
-void OpenGLDevice::color3(Color3ui c)
+void OpenGLDevice::color(Color3ui c)
 {
     ACTIVATE;
     glColor3uiv((GLuint*) &c.data);
 }
 
-void OpenGLDevice::color4(Color4ui c)
+void OpenGLDevice::color(Color4ui c)
 {
     ACTIVATE;
     glColor4uiv((GLuint*) &c.data);
 }
 
-void OpenGLDevice::color3(Color3f c)
+void OpenGLDevice::color(Color3f c)
 {
     ACTIVATE;
     glColor3fv((GLfloat*) &c.data);
 }
 
-void OpenGLDevice::color4(Color4f c)
+void OpenGLDevice::color(Color4f c)
 {
     ACTIVATE;
     glColor4fv((GLfloat*) &c.data);
 }
 
-void OpenGLDevice::color3(Color3d c)
+void OpenGLDevice::color(Color3d c)
 {
     ACTIVATE;
     glColor3dv((GLdouble*) &c.data);
 }
 
-void OpenGLDevice::color4(Color4d c)
+void OpenGLDevice::color(Color4d c)
 {
     ACTIVATE;
     glColor4dv((GLdouble*) &c.data);

@@ -22,6 +22,8 @@
 	@author Michael Sippel <micha@infinitycoding.de>
  */
 
+#include <math.h>
+
 namespace huge
 {
 
@@ -42,6 +44,9 @@ class VectorBase
         inline VectorBase<N, T>& operator/=(VectorBase<N, T> v);
 
         inline T dot(VectorBase<N, T> v);
+
+        T length(void);
+        void normalize(void);
 
         T data[N];
 };
@@ -116,6 +121,11 @@ class Vector<3, T> : public VectorBase<3, T>
             this->data[1]=y_;
             this->data[2]=z_;
         }
+        Vector(Vector<3, T>& o, Vector<3, T>& p)
+        {
+            *this = p - o;
+        }
+
         ~Vector() {}
 
         using VectorBase<3, T>::operator=;
@@ -162,8 +172,6 @@ class Vector<4, T> : public VectorBase<4, T>
         using VectorBase<4, T>::operator-=;
         using VectorBase<4, T>::operator*=;
         using VectorBase<4, T>::operator/=;
-
-        inline void cross(Vector<3, T> v);
 
         inline T& x(void)
         {

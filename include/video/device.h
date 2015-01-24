@@ -45,7 +45,8 @@ enum device_type
 
 enum buffer
 {
-    COLOR_BUFFER_BIT, DEPTH_BUFFER_BIT
+    COLOR_BUFFER_BIT = 0x1,
+    DEPTH_BUFFER_BIT = 0x2
 };
 
 enum primitive
@@ -126,29 +127,33 @@ class Device
         DUMMY(void scale(Vector3d v));
 
         // vertex data
-        DUMMY(void vertex2(Vector2f v));
-        DUMMY(void vertex2(Vector2d v));
-        DUMMY(void vertex3(Vector3f v));
-        DUMMY(void vertex3(Vector3d v));
+        DUMMY(void vertex(Vector2f v));
+        DUMMY(void vertex(Vector2d v));
+        DUMMY(void vertex(Vector3f v));
+        DUMMY(void vertex(Vector3d v));
+
+        // normal data
+        DUMMY(void normal(Vector3f v));
+        DUMMY(void normal(Vector3d v));
 
         // color data
-        DUMMY(void color3(Color3b c));
-        DUMMY(void color3(Color3ub c));
-        DUMMY(void color3(Color3s c));
-        DUMMY(void color3(Color3us c));
-        DUMMY(void color3(Color3i c));
-        DUMMY(void color3(Color3ui c));
-        DUMMY(void color3(Color3f c));
-        DUMMY(void color3(Color3d c));
+        DUMMY(void color(Color3b c));
+        DUMMY(void color(Color3ub c));
+        DUMMY(void color(Color3s c));
+        DUMMY(void color(Color3us c));
+        DUMMY(void color(Color3i c));
+        DUMMY(void color(Color3ui c));
+        DUMMY(void color(Color3f c));
+        DUMMY(void color(Color3d c));
 
-        DUMMY(void color4(Color4b c));
-        DUMMY(void color4(Color4ub c));
-        DUMMY(void color4(Color4s c));
-        DUMMY(void color4(Color4us c));
-        DUMMY(void color4(Color4i c));
-        DUMMY(void color4(Color4ui c));
-        DUMMY(void color4(Color4f c));
-        DUMMY(void color4(Color4d c));
+        DUMMY(void color(Color4b c));
+        DUMMY(void color(Color4ub c));
+        DUMMY(void color(Color4s c));
+        DUMMY(void color(Color4us c));
+        DUMMY(void color(Color4i c));
+        DUMMY(void color(Color4ui c));
+        DUMMY(void color(Color4f c));
+        DUMMY(void color(Color4d c));
 
     private:
         virtual void not_supported(const char *str);

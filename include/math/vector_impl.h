@@ -46,6 +46,35 @@ inline VectorBase<N, T>& VectorBase<N, T>::operator=(VectorBase<N, T> v)
     return *this;
 }
 
+// Basic
+template <int N, typename T>
+T VectorBase<N, T>::length(void)
+{
+    T len = 0;
+
+    int i;
+    for(i = 0; i < N; i++)
+        len += this->data[i] * this->data[i];
+
+    len = sqrt(len);
+    return len;
+}
+
+template <int N, typename T>
+void VectorBase<N, T>::normalize(void)
+{
+    T len = this->length();
+
+    if(len > 0)
+    {
+
+        int i;
+        for(i = 0; i < N; i++)
+            this->data[i] /= len;
+    }
+}
+
+
 
 // ADDITION
 template <int N, typename T>
@@ -219,19 +248,19 @@ inline Vector<N, T> dot(Vector<N, T> v1, Vector<N, T> v2)
 template <typename T>
 inline void Vector<3, T>::cross(Vector<3, T> v)
 {
-    this->data[0] = (this->data[1] * v.data[2]) - (this->data[2] * v.data[1]);
-    this->data[1] = (this->data[2] * v.data[0]) - (this->data[0] * v.data[2]);
-    this->data[2] = (this->data[0] * v.data[1]) - (this->data[1] * v.data[0]);
+    *this = cross(*this, v);
 }
 
 template <typename T>
 inline Vector<3, T> cross(Vector<3, T> v1, Vector<3, T> v2)
 {
-    Vector<3, T> r = Vector<3, T>(v1);
-    r.cross(v2);
+    Vector<3, T> r;
+    r.data[0] = (v1.data[1] * v2.data[2]) - (v1.data[2] * v2.data[1]);
+    r.data[1] = (v1.data[2] * v2.data[0]) - (v1.data[0] * v2.data[2]);
+    r.data[2] = (v1.data[0] * v2.data[1]) - (v1.data[1] * v2.data[0]);
+
     return r;
 }
-
 
 };
 

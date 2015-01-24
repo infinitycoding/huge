@@ -40,6 +40,8 @@ class Face
     private:
         int num_vertices;
         int *vertices;
+        int *texcoords;
+        Vector3f normal;
 };
 
 class Mesh
@@ -47,13 +49,20 @@ class Mesh
     public:
         Mesh();
         Mesh(int num_vertices_, Vector3f *vertices_, int num_faces_, Face **faces_);
+        Mesh(int num_vertices_, Vector3f *vertices_, int num_texcoords_, Vector2f *texcoords_, int num_faces_, Face **faces_);
         ~Mesh();
+
+        void calc_normals(void);
 
         void renderImmediate(video::Device *device);
 
     private:
         int num_vertices;
         Vector3f *vertices;
+        Vector3f *normals;
+
+        int num_texcoords;
+        Vector2f *texcoords;
 
         int num_faces;
         Face **faces;

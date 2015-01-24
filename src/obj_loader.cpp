@@ -207,7 +207,7 @@ List<Mesh*> *load_obj(const char *path)
             {
                 if(read)
                 {
-                    mesh = new Mesh(num_vertices, vertices, num_faces, faces);
+                    mesh = new Mesh(num_vertices, vertices, num_texcoords, texcoords, num_faces, faces);
                     meshes->pushBack(mesh);
                 }
                 else

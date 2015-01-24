@@ -65,30 +65,35 @@ class OpenGLDevice : public Device
         void scale(Vector3d v);
 
         // vertex data
-        void vertex2(Vector2i v);
-        void vertex3(Vector3i v);
-        void vertex2(Vector2f v);
-        void vertex3(Vector3f v);
-        void vertex2(Vector2d v);
-        void vertex3(Vector3d v);
+        void vertex(Vector2i v);
+        void vertex(Vector2f v);
+        void vertex(Vector2d v);
+        void vertex(Vector3d v);
+        void vertex(Vector3i v);
+        void vertex(Vector3f v);
+
+        // normal data
+        void normal(Vector3d v);
+        void normal(Vector3i v);
+        void normal(Vector3f v);
 
         // color data
-        void color3(Color3b c);
-        void color4(Color4b c);
-        void color3(Color3ub c);
-        void color4(Color4ub c);
-        void color3(Color3s c);
-        void color4(Color4s c);
-        void color3(Color3us c);
-        void color4(Color4us c);
-        void color3(Color3i c);
-        void color4(Color4i c);
-        void color3(Color3ui c);
-        void color4(Color4ui c);
-        void color3(Color3f c);
-        void color4(Color4f c);
-        void color3(Color3d c);
-        void color4(Color4d c);
+        void color(Color3b c);
+        void color(Color4b c);
+        void color(Color3ub c);
+        void color(Color4ub c);
+        void color(Color3s c);
+        void color(Color4s c);
+        void color(Color3us c);
+        void color(Color4us c);
+        void color(Color3i c);
+        void color(Color4i c);
+        void color(Color3ui c);
+        void color(Color4ui c);
+        void color(Color3f c);
+        void color(Color4f c);
+        void color(Color3d c);
+        void color(Color4d c);
 
     private:
         void not_supported(const char *str);
