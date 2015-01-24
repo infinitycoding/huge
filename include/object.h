@@ -1,7 +1,7 @@
-#ifndef _huge_h_
-#define _huge_h_
+#ifndef _huge_object_h_
+#define _huge_object_h_
 /*
-        Copyright 2012-2014 Infinitycoding all rights reserved
+        Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
 
         HUGE is free software: you can redistribute it and/or modify
@@ -9,7 +9,7 @@
         the Free Software Foundation, either version 3 of the License, or
         any later version.
 
-        The Universe Kernel is distributed in the hope that it will be useful,
+        HUGE is distributed in the hope that it will be useful,
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
@@ -18,21 +18,45 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "camera.h"
-#include "color.h"
-#include "sdl.h"
-#include "list.h"
-#include "viewport.h"
-#include "video/device.h"
 #include "math/vector.h"
-#include "math/matrix.h"
 #include "math/transformation.h"
-#include "object.h"
+#include "video/device.h"
 
 namespace huge
 {
 
-void test(void);
+class Mesh;
+
+class Face
+{
+        friend class Mesh;
+
+    public:
+        Face();
+        Face(int num_vertices_, int *vertices_);
+        ~Face();
+
+    private:
+        int num_vertices;
+        int *vertices;
+};
+
+class Mesh
+{
+    public:
+        Mesh();
+        Mesh(int num_vertices_, Vector3f *vertices_, int num_faces_, Face **faces_);
+        ~Mesh();
+
+        void renderImmediate(VideoDevice *device);
+
+    private:
+        int num_vertices;
+        Vector3f *vertices;
+
+        int num_faces;
+        Face **faces;
+};
 
 };
 
