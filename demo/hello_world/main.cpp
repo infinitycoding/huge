@@ -10,11 +10,18 @@ int main(int argc, char **argv)
     test();
 
     sdl::init();
-    sdl::Window *window = new sdl::GLWindow();
-    VideoContext *context = new sdl::GLContext(window);
+    sdl::Window *window1 = new sdl::GLWindow();
+    VideoContext *context1 = new sdl::GLContext(window1);
 
-    VideoDevice *dev = new OpenGLDevice();
-    dev->context = context;
+    sdl::Window *window2 = new sdl::GLWindow();
+    VideoContext *context2 = new sdl::GLContext(window2);
+
+
+    VideoDevice *dev1 = new OpenGLDevice();
+    dev1->context = context1;
+
+    VideoDevice *dev2 = new OpenGLDevice();
+    dev2->context = context2;
 
     if(glewInit() != GLEW_OK)
     {
@@ -24,29 +31,51 @@ int main(int argc, char **argv)
     Viewport *view = new Viewport();
 
     view->usePerspective();
-    dev->translatef(Vector3f(0.0f, 0.0f, 0.0f));
+    dev1->translatef(Vector3f(0.0f, 0.0f, 0.0f));
 
     while(1)
     {
         SDL_Event e;
         while(SDL_PollEvent(&e))
         {
-            if(e.type == SDL_QUIT)
+            switch(e.type)
             {
-                exit(0);
+                case SDL_WINDOWEVENT:
+                    switch(e.window.event)
+                    {
+                        case SDL_WINDOWEVENT_CLOSE:
+                            SDL_Event quit;
+                            quit.type = SDL_QUIT;
+                            SDL_PushEvent(&quit);
+                            break;
+                    }
+                    break;
+                case SDL_QUIT:
+                    exit(0);
             }
         }
 
-        dev->clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT);
+        dev1->context->activate();
+        dev1->clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT);
+        dev1->begin(TRIANGLES);
+        dev1->color4i(Color4ub(0xff, 0x4c, 0x00, 0xff).c2_i());
+        dev1->vertex3f(Vector3f( 0.0f, 1.0f, 0.0f));
+        dev1->vertex3f(Vector3f( 1.0f,-1.0f, 0.0f));
+        dev1->vertex3f(Vector3f(-1.0f,-1.0f, 0.0f));
+        dev1->end();
 
-        dev->begin(TRIANGLES);
-        dev->color4i(Color4ub(0xff, 0x4c, 0x00, 0xff).c2_i());
-        dev->vertex3f(Vector3f( 0.0f, 1.0f, 0.0f));
-        dev->vertex3f(Vector3f( 1.0f,-1.0f, 0.0f));
-        dev->vertex3f(Vector3f(-1.0f,-1.0f, 0.0f));
-        dev->end();
+        window1->swap();
 
-        window->swap();
+        dev2->context->activate();
+        dev2->clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT);
+        dev2->begin(TRIANGLES);
+        dev2->color4i(Color4ub(0x4c, 0xff, 0x00, 0xff).c2_i());
+        dev2->vertex3f(Vector3f( 0.0f, 1.0f, 0.0f));
+        dev2->vertex3f(Vector3f( 1.0f,-1.0f, 0.0f));
+        dev2->vertex3f(Vector3f(-1.0f,-1.0f, 0.0f));
+        dev2->end();
+
+        window2->swap();
     }
 
     return 0;
