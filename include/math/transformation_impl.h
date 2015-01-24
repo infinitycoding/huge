@@ -101,7 +101,7 @@ inline void Transformation2<T>::parent_scaling(Transformation2<T>& parent)
 }
 
 template <typename T>
-void Transformation2<T>::useTransformation(VideoDevice *device)
+void Transformation2<T>::useTransformation(video::Device *device)
 {
     // TODO
 }
@@ -182,7 +182,7 @@ inline void Transformation3<T>::parent_scaling(Transformation3<T>& parent)
 }
 
 template <typename T>
-inline void Transformation3<T>::useTransformation(VideoDevice *device)
+inline void Transformation3<T>::useTransformation(video::Device *device)
 {
     device->rotate(Vector<3, T>(this->rotation().data[0], this->rotation().data[1], this->rotation().data[2]), this->rotation().data[3]);
     device->translate(this->translation());

@@ -30,6 +30,9 @@
 namespace huge
 {
 
+namespace video
+{
+
 #define lenof(x) (sizeof(x) / sizeof(x[0]))
 
 static GLenum gl_buffer[] =
@@ -51,7 +54,7 @@ OpenGLDevice::OpenGLDevice()
 {
 }
 
-OpenGLDevice::OpenGLDevice(VideoContext *context_)
+OpenGLDevice::OpenGLDevice(video::Context *context_)
 {
     this->context = context_;
 }
@@ -296,6 +299,8 @@ void OpenGLDevice::not_supported(const char *str)
 {
     printf("OpenGLDevice: \"%s\" is not supported.\n", str);
 }
+
+};
 
 };
 

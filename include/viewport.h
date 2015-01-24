@@ -23,11 +23,10 @@
  */
 
 #include "camera.h"
+#include "video/device.h"
 
 namespace huge
 {
-
-class VideoDevice;
 
 class Viewport
 {
@@ -42,8 +41,8 @@ class Viewport
         Vector2i size;
         Camera *camera;
 
-        void useViewport(VideoDevice *device);
-        void usePerspective(VideoDevice *device);
+        void useViewport(video::Device *device);
+        void usePerspective(video::Device *device);
 };
 
 };

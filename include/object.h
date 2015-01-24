@@ -48,7 +48,7 @@ class Mesh
         Mesh(int num_vertices_, Vector3f *vertices_, int num_faces_, Face **faces_);
         ~Mesh();
 
-        void renderImmediate(VideoDevice *device);
+        void renderImmediate(video::Device *device);
 
     private:
         int num_vertices;

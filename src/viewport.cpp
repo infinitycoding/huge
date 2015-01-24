@@ -55,16 +55,16 @@ Viewport::~Viewport()
 {
 }
 
-void Viewport::useViewport(VideoDevice *device)
+void Viewport::useViewport(video::Device *device)
 {
     device->setViewport(this->position, this->size);
 }
 
-void Viewport::usePerspective(VideoDevice *device)
+void Viewport::usePerspective(video::Device *device)
 {
     double aspect = (double)this->size.x() / (double)this->size.y();
 
-    device->setMatrixMode(MODELVIEW);
+    device->setMatrixMode(video::MODELVIEW);
     device->loadIdentity();
     device->setPerspective(this->camera->fov, aspect, this->camera->near_clip, this->camera->far_clip);
 }

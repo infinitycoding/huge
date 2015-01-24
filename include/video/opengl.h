@@ -31,14 +31,17 @@
 namespace huge
 {
 
-class OpenGLDevice : public VideoDevice
+namespace video
+{
+
+class OpenGLDevice : public Device
 {
     public:
         OpenGLDevice();
-        OpenGLDevice(VideoContext *context_);
+        OpenGLDevice(video::Context *context_);
         ~OpenGLDevice();
 
-        static const enum video_device_type device_type = OPENGL_DEVICE;
+        static const enum device_type type = OPENGL_DEVICE;
 
         // buffers
         void clear(bitfield_t buffers);
@@ -89,6 +92,8 @@ class OpenGLDevice : public VideoDevice
 
     private:
         void not_supported(const char *str);
+};
+
 };
 
 };

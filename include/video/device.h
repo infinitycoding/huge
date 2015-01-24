@@ -25,11 +25,19 @@
 namespace huge
 {
 
+class Viewport;
+template <typename T> class Transformation2;
+template <typename T> class Transformation3;
+
+
+namespace video
+{
+
 #define xstr(s) str(s)
 #define str(s) #s
 #define DUMMY(X) virtual inline X { not_supported(str(X)); }
 
-enum video_device_type
+enum device_type
 {
     NULL_DEVICE,
     OPENGL_DEVICE
@@ -52,15 +60,11 @@ enum matrix_mode
 
 typedef unsigned int bitfield_t;
 
-class Viewport;
-template <typename T> class Transformation2;
-template <typename T> class Transformation3;
-
-class VideoContext
+class Context
 {
     public:
-        VideoContext();
-        ~VideoContext();
+        Context();
+        ~Context();
 
         void activate(void);
 
@@ -68,18 +72,18 @@ class VideoContext
         virtual inline void activate_(void);
 
     private:
-        static thread_local VideoContext *current;
+        static thread_local Context *current;
 };
 
-class VideoDevice
+class Device
 {
     public:
-        VideoDevice();
-        VideoDevice(VideoContext *context_);
-        ~VideoDevice();
+        Device();
+        Device(Context *context_);
+        ~Device();
 
-        static const enum video_device_type device_type = NULL_DEVICE;
-        VideoContext *context;
+        static const enum device_type type = NULL_DEVICE;
+        Context *context;
 
         //
         // wrappers for better use
@@ -153,6 +157,8 @@ class VideoDevice
 #undef DUMMY
 #undef str
 #undef xstr
+
+};
 
 };
 

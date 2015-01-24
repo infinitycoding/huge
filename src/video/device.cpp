@@ -26,54 +26,59 @@
 namespace huge
 {
 
-thread_local VideoContext *VideoContext::current = (VideoContext*) NULL;
+namespace video
+{
 
-VideoContext::VideoContext()
+thread_local Context *Context::current = (Context*) NULL;
+
+Context::Context()
 {
 }
 
-VideoContext::~VideoContext()
+Context::~Context()
 {
 }
 
-void VideoContext::activate(void)
+void Context::activate(void)
 {
-    if(this != VideoContext::current)
+    if(this != video::Context::current)
     {
         this->activate_();
-        VideoContext::current = this;
+        video::Context::current = this;
     }
 }
 
-inline void VideoContext::activate_(void)
+inline void Context::activate_(void)
 {
     printf("No specific context created.\n");
 }
 
-VideoDevice::VideoDevice()
+Device::Device()
 {
 }
 
-VideoDevice::VideoDevice(VideoContext *context_)
+Device::Device(video::Context *context_)
     : context(context_)
 {
 }
 
-VideoDevice::~VideoDevice()
+Device::~Device()
 {
 }
 
-inline void VideoDevice::not_supported(const char *str)
+inline void Device::not_supported(const char *str)
 {
     printf("GraphicsDevice: \"%s\" is not supported.\n", str);
 }
 
 
-void VideoDevice::useViewport(Viewport *viewport)
+void Device::useViewport(Viewport *viewport)
 {
     viewport->useViewport(this);
     viewport->usePerspective(this);
 }
+
+};
 
 };
 

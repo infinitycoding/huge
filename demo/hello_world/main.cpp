@@ -14,11 +14,11 @@ int main(int argc, char **argv)
     sdl::Window *window1 = new sdl::GLWindow("Window 1", Vector2i(800, 600));
     sdl::Window *window2 = new sdl::GLWindow("Window 2", Vector2i(400, 300));
 
-    VideoContext *context1 = new sdl::GLContext(window1);
-    VideoContext *context2 = new sdl::GLContext(window2);
+    video::Context *context1 = new sdl::GLContext(window1);
+    video::Context *context2 = new sdl::GLContext(window2);
 
-    VideoDevice *dev1 = new OpenGLDevice(context1);
-    VideoDevice *dev2 = new OpenGLDevice(context2);
+    video::Device *dev1 = new video::OpenGLDevice(context1);
+    video::Device *dev2 = new video::OpenGLDevice(context2);
 
     if(glewInit() != GLEW_OK)
     {
@@ -81,8 +81,8 @@ int main(int argc, char **argv)
         dev2->useTransformation(*cam2);
 
         // clear buffers
-        dev1->clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT);
-        dev2->clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT);
+        dev1->clear(video::COLOR_BUFFER_BIT | video::DEPTH_BUFFER_BIT);
+        dev2->clear(video::COLOR_BUFFER_BIT | video::DEPTH_BUFFER_BIT);
 
         // clear color
         dev1->clearColor(Color4ub(0xcc, 0xcc, 0xcc, 0xff).c2_d());

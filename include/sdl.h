@@ -49,7 +49,7 @@ class Window
         SDL_Window *sdl_window;
 };
 
-class GLContext : public VideoContext
+class GLContext : public video::Context
 {
     public:
         GLContext();

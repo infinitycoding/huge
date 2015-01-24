@@ -48,7 +48,7 @@ class Transformation2
         inline void parent_rotation(Transformation2<T>& parent);
         inline void parent_scaling(Transformation2<T>& parent);
 
-        void useTransformation(VideoDevice *device);
+        void useTransformation(video::Device *device);
 
     private:
         Vector<2, T> *translation_;
@@ -75,7 +75,7 @@ class Transformation3
         inline void parent_rotation(Transformation3<T>& parent);
         inline void parent_scaling(Transformation3<T>& parent);
 
-        void useTransformation(VideoDevice *device);
+        void useTransformation(video::Device *device);
 
     private:
         Vector<3, T> *translation_;

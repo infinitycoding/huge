@@ -52,7 +52,7 @@ Mesh::~Mesh()
 {
 }
 
-void Mesh::renderImmediate(VideoDevice *device)
+void Mesh::renderImmediate(video::Device *device)
 {
     int i,j;
 
@@ -60,7 +60,7 @@ void Mesh::renderImmediate(VideoDevice *device)
     {
         Face *face = this->faces[i];
 
-        device->begin(POLYGON);
+        device->begin(video::POLYGON);
 
         for(j = 0; j < face->num_vertices; j++)
         {
