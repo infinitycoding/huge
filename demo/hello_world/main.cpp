@@ -25,11 +25,11 @@ int main(int argc, char **argv)
     }
 
     Camera *cam1 = new Camera();
-    Viewport *view = new Viewport(Vector2i(0, 0), Vector2i(800, 600), cam1);
-    dev1->useViewport(view);
-
-    cam1->translation() = Vector3f(0.0f, 0.0f, -5.0f);
-    dev1->useTransformation(*cam1);
+    Camera *cam2 = new Camera();
+    Viewport *view1 = new Viewport(Vector2i(0, 0), Vector2i(800, 600), cam1);
+    Viewport *view2 = new Viewport(Vector2i(0, 0), Vector2i(400, 300), cam2);
+    cam1->translate(Vector3f(0.0f, -2.0f, -7.0f));
+    cam2->translate(Vector3f(0.0f, 0.0f, -2.0f));
 
     while(1)
     {
@@ -53,8 +53,17 @@ int main(int argc, char **argv)
             }
         }
 
+        dev1->useViewport(view1);
+        dev1->useTransformation(*cam1);
+
+        dev2->useViewport(view2);
+        dev2->useTransformation(*cam2);
+
         dev1->clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT);
         dev2->clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT);
+
+        dev2->clearColor(Color4ub(0xaa, 0xaa, 0xaa, 0xff).c2_d());
+        dev1->clearColor(Color4ub(0xcc, 0xcc, 0xcc, 0xff).c2_d());
 
         dev1->begin(TRIANGLES);
         dev2->begin(TRIANGLES);

@@ -9,7 +9,7 @@
         the Free Software Foundation, either version 3 of the License, or
         any later version.
 
-        The Universe Kernel is distributed in the hope that it will be useful,
+        HUGE is distributed in the hope that it will be useful,
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
@@ -142,14 +142,59 @@ class Vector<3, T> : public VectorBase<3, T>
 
 template <typename T> inline Vector<3, T> cross(VectorBase<3, T> v1, VectorBase<3, T> v2);
 
+// XYZW - Vector
+template <typename T>
+class Vector<4, T> : public VectorBase<4, T>
+{
+    public:
+        Vector() {}
+        Vector(T x_, T y_, T z_, T w_)
+        {
+            this->data[0]=x_;
+            this->data[1]=y_;
+            this->data[2]=z_;
+            this->data[3]=w_;
+        }
+        ~Vector() {}
+
+        using VectorBase<4, T>::operator=;
+        using VectorBase<4, T>::operator+=;
+        using VectorBase<4, T>::operator-=;
+        using VectorBase<4, T>::operator*=;
+        using VectorBase<4, T>::operator/=;
+
+        inline void cross(Vector<3, T> v);
+
+        inline T& x(void)
+        {
+            return this->data[0];
+        }
+        inline T& y(void)
+        {
+            return this->data[1];
+        }
+        inline T& z(void)
+        {
+            return this->data[2];
+        }
+        inline T& w(void)
+        {
+            return this->data[3];
+        }
+};
+
+
 typedef Vector<2, int> Vector2i;
 typedef Vector<3, int> Vector3i;
+typedef Vector<4, int> Vector4i;
 
 typedef Vector<2, float> Vector2f;
 typedef Vector<3, float> Vector3f;
+typedef Vector<4, float> Vector4f;
 
 typedef Vector<2, double> Vector2d;
 typedef Vector<3, double> Vector3d;
+typedef Vector<4, double> Vector4d;
 
 };
 

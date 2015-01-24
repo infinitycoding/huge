@@ -111,8 +111,8 @@ void Transformation2<T>::useTransformation(VideoDevice *device)
 template <typename T>
 Transformation3<T>::Transformation3()
 {
-    this->translation_ = new Vector<3, T>();
-    this->rotation_ = new Vector<4, T>();
+    this->translation_ = new Vector<3, T>((T) 0, (T) 0, (T) 0);
+    this->rotation_ = new Vector<4, T>((T) 0, (T) 0, (T) 0, (T) 0);
     this->scaling_ = new Vector<3, T>((T) 1, (T) 1, (T) 1);
 }
 
@@ -186,7 +186,7 @@ inline void Transformation3<T>::useTransformation(VideoDevice *device)
 {
     device->rotate(Vector<3, T>(this->rotation().data[0], this->rotation().data[1], this->rotation().data[2]), this->rotation().data[3]);
     device->translate(this->translation());
-	device->scale(this->scaling());
+    device->scale(this->scaling());
 }
 
 

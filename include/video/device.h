@@ -85,13 +85,13 @@ class VideoDevice
         // wrappers for better use
         //
         template <typename T> void useTransformation(Transformation2<T> t)
-		{
-			t.useTransformation(this);
-		}
+        {
+            t.useTransformation(this);
+        }
         template <typename T> void useTransformation(Transformation3<T> t)
-		{
-			t.useTransformation(this);
-		}
+        {
+            t.useTransformation(this);
+        }
 
         void useViewport(Viewport *viewport);
 
