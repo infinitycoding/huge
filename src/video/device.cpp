@@ -21,11 +21,12 @@
  */
 
 #include "video/device.h"
+#include "viewport.h"
 
 namespace huge
 {
 
-VideoContext *VideoContext::current = (VideoContext*) NULL;
+thread_local VideoContext *VideoContext::current = (VideoContext*) NULL;
 
 VideoContext::VideoContext()
 {
@@ -66,6 +67,14 @@ inline void VideoDevice::not_supported(const char *str)
 {
     printf("GraphicsDevice: \"%s\" is not supported.\n", str);
 }
+
+
+void VideoDevice::useViewport(Viewport *viewport)
+{
+    viewport->useViewport(this);
+    viewport->usePerspective(this);
+}
+
 
 };
 

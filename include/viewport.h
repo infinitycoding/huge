@@ -23,10 +23,11 @@
  */
 
 #include "camera.h"
-#include "video/device.h"
 
 namespace huge
 {
+
+class VideoDevice;
 
 class Viewport
 {

@@ -64,7 +64,6 @@ void Viewport::usePerspective(VideoDevice *device)
 {
     double aspect = (double)this->size.x() / (double)this->size.y();
 
-    // TODO
     device->setMatrixMode(MODELVIEW);
     device->loadIdentity();
     device->setPerspective(this->camera->fov, aspect, this->camera->near_clip, this->camera->far_clip);

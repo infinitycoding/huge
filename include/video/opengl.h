@@ -54,38 +54,38 @@ class OpenGLDevice : public VideoDevice
         void pushMatrix(void);
         void popMatrix(void);
 
-        void translatef(Vector3f v);
-        void translated(Vector3d v);
-        void rotatef(Vector3f v, float angle);
-        void rotated(Vector3d v, double angle);
-        void scalef(Vector3f v);
-        void scaled(Vector3d v);
+        void translate(Vector3f v);
+        void translate(Vector3d v);
+        void rotate(Vector3f v, float angle);
+        void rotate(Vector3d v, double angle);
+        void scale(Vector3f v);
+        void scale(Vector3d v);
 
         // vertex data
-        void vertex2i(Vector2i v);
-        void vertex3i(Vector3i v);
-        void vertex2f(Vector2f v);
-        void vertex3f(Vector3f v);
-        void vertex2d(Vector2d v);
-        void vertex3d(Vector3d v);
+        void vertex2(Vector2i v);
+        void vertex3(Vector3i v);
+        void vertex2(Vector2f v);
+        void vertex3(Vector3f v);
+        void vertex2(Vector2d v);
+        void vertex3(Vector3d v);
 
         // color data
-        void color3b(Color3b c);
-        void color4b(Color4b c);
-        void color3ub(Color3ub c);
-        void color4ub(Color4ub c);
-        void color3s(Color3s c);
-        void color4s(Color4s c);
-        void color3us(Color3us c);
-        void color4us(Color4us c);
-        void color3i(Color3i c);
-        void color4i(Color4i c);
-        void color3ui(Color3ui c);
-        void color4ui(Color4ui c);
-        void color3f(Color3f c);
-        void color4f(Color4f c);
-        void color3d(Color3d c);
-        void color4d(Color4d c);
+        void color3(Color3b c);
+        void color4(Color4b c);
+        void color3(Color3ub c);
+        void color4(Color4ub c);
+        void color3(Color3s c);
+        void color4(Color4s c);
+        void color3(Color3us c);
+        void color4(Color4us c);
+        void color3(Color3i c);
+        void color4(Color4i c);
+        void color3(Color3ui c);
+        void color4(Color4ui c);
+        void color3(Color3f c);
+        void color4(Color4f c);
+        void color3(Color3d c);
+        void color4(Color4d c);
 
     private:
         void not_supported(const char *str);

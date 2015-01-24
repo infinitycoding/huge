@@ -23,6 +23,7 @@
  */
 
 #include "math/vector.h"
+#include "video/device.h"
 
 namespace huge
 {
@@ -46,6 +47,8 @@ class Transformation2
         inline void parent_translation(Transformation2<T>& parent);
         inline void parent_rotation(Transformation2<T>& parent);
         inline void parent_scaling(Transformation2<T>& parent);
+
+        void useTransformation(VideoDevice *device);
 
     private:
         Vector<2, T> *translation_;
@@ -71,6 +74,8 @@ class Transformation3
         inline void parent_translation(Transformation3<T>& parent);
         inline void parent_rotation(Transformation3<T>& parent);
         inline void parent_scaling(Transformation3<T>& parent);
+
+        void useTransformation(VideoDevice *device);
 
     private:
         Vector<3, T> *translation_;

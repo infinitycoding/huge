@@ -26,6 +26,9 @@ class Camera : public Transformation3f
 {
     public:
         Camera();
+        Camera(double fov_);
+        Camera(double near_clip_, double far_clip_);
+        Camera(double fov_, double near_clip_, double far_clip_);
         ~Camera();
 
         double fov;

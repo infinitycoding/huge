@@ -24,11 +24,12 @@ int main(int argc, char **argv)
         printf("GLEW init failed!\n");
     }
 
-    Viewport *view = new Viewport(Vector2i(0, 0), Vector2i(800, 600));
-    view->useViewport(dev1);
-    view->usePerspective(dev1);
+    Camera *cam1 = new Camera();
+    Viewport *view = new Viewport(Vector2i(0, 0), Vector2i(800, 600), cam1);
+    dev1->useViewport(view);
 
-    dev1->translatef(Vector3f(0.0f, 0.0f, -5.0f));
+    cam1->translation() = Vector3f(0.0f, 0.0f, -5.0f);
+    cam1->useTransformation(dev1);
 
     while(1)
     {
@@ -58,15 +59,15 @@ int main(int argc, char **argv)
         dev1->begin(TRIANGLES);
         dev2->begin(TRIANGLES);
 
-        dev1->color4i(Color4ub(0xff, 0x4c, 0x00, 0xff).c2_i());
-        dev2->color4i(Color4ub(0x4c, 0xff, 0x00, 0xff).c2_i());
+        dev1->color4(Color4ub(0xff, 0x4c, 0x00, 0xff));
+        dev2->color4(Color4ub(0x4c, 0xff, 0x00, 0xff));
 
-        dev1->vertex3f(Vector3f( 0.0f, 1.0f, 0.0f));
-        dev2->vertex3f(Vector3f( 0.0f, 1.0f, 0.0f));
-        dev1->vertex3f(Vector3f( 1.0f,-1.0f, 0.0f));
-        dev2->vertex3f(Vector3f( 1.0f,-1.0f, 0.0f));
-        dev1->vertex3f(Vector3f(-1.0f,-1.0f, 0.0f));
-        dev2->vertex3f(Vector3f(-1.0f,-1.0f, 0.0f));
+        dev1->vertex3(Vector3f( 0.0f, 1.0f, 0.0f));
+        dev2->vertex3(Vector3f( 0.0f, 1.0f, 0.0f));
+        dev1->vertex3(Vector3f( 1.0f,-1.0f, 0.0f));
+        dev2->vertex3(Vector3f( 1.0f,-1.0f, 0.0f));
+        dev1->vertex3(Vector3f(-1.0f,-1.0f, 0.0f));
+        dev2->vertex3(Vector3f(-1.0f,-1.0f, 0.0f));
 
         dev1->end();
         window1->swap();

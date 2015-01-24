@@ -59,19 +59,19 @@ inline Vector<2, T>& Transformation2<T>::scaling(void)
 template <typename T>
 inline void Transformation2<T>::translate(Vector<2, T> v)
 {
-    this->translation_ += v;
+    *this->translation_ += v;
 }
 
 template <typename T>
 inline void Transformation2<T>::rotate(T v)
 {
-    this->rotation_ += v;
+    *this->rotation_ += v;
 }
 
 template <typename T>
 inline void Transformation2<T>::scale(Vector<2, T> v)
 {
-    this->scaling_ += v;
+    *this->scaling_ += v;
 }
 
 template <typename T>
@@ -100,6 +100,11 @@ inline void Transformation2<T>::parent_scaling(Transformation2<T>& parent)
     this->scaling_ = parent.scaling_;
 }
 
+template <typename T>
+void Transformation2<T>::useTransformation(VideoDevice *device)
+{
+    // TODO
+}
 
 // 3d
 
@@ -135,19 +140,19 @@ inline Vector<3, T>& Transformation3<T>::scaling(void)
 template <typename T>
 inline void Transformation3<T>::translate(Vector<3, T> v)
 {
-    this->translation_ += v;
+    *this->translation_ += v;
 }
 
 template <typename T>
 inline void Transformation3<T>::rotate(Vector<4, T> v)
 {
-    this->rotation_ += v;
+    *this->rotation_ += v;
 }
 
 template <typename T>
 inline void Transformation3<T>::scale(Vector<3, T> v)
 {
-    this->scaling_ += v;
+    *this->scaling_ += v;
 }
 
 template <typename T>
@@ -175,6 +180,15 @@ inline void Transformation3<T>::parent_scaling(Transformation3<T>& parent)
 {
     this->scaling_ = parent.scaling_;
 }
+
+template <typename T>
+inline void Transformation3<T>::useTransformation(VideoDevice *device)
+{
+    device->translate(this->translation());
+    //device->rotate(this->rotation());
+}
+
+
 };
 
 #endif
