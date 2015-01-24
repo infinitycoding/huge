@@ -29,7 +29,7 @@ int main(int argc, char **argv)
     dev1->useViewport(view);
 
     cam1->translation() = Vector3f(0.0f, 0.0f, -5.0f);
-    cam1->useTransformation(dev1);
+    dev1->useTransformation(*cam1);
 
     while(1)
     {

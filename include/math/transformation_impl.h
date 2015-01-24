@@ -1,5 +1,5 @@
-#ifndef _transformation_impl_h_
-#define _transformation_impl_h_
+#ifndef _huge_math_transformation_impl_h_
+#define _huge_math_transformation_impl_h_
 /*
         Copyright 2012-2014 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -113,7 +113,7 @@ Transformation3<T>::Transformation3()
 {
     this->translation_ = new Vector<3, T>();
     this->rotation_ = new Vector<4, T>();
-    this->scaling_ = new Vector<3, T>();
+    this->scaling_ = new Vector<3, T>((T) 1, (T) 1, (T) 1);
 }
 
 template <typename T>
@@ -184,8 +184,9 @@ inline void Transformation3<T>::parent_scaling(Transformation3<T>& parent)
 template <typename T>
 inline void Transformation3<T>::useTransformation(VideoDevice *device)
 {
+    device->rotate(Vector<3, T>(this->rotation().data[0], this->rotation().data[1], this->rotation().data[2]), this->rotation().data[3]);
     device->translate(this->translation());
-    //device->rotate(this->rotation());
+	device->scale(this->scaling());
 }
 
 

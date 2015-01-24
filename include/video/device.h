@@ -52,6 +52,10 @@ enum matrix_mode
 
 typedef unsigned int bitfield_t;
 
+class Viewport;
+template <typename T> class Transformation2;
+template <typename T> class Transformation3;
+
 class VideoContext
 {
     public:
@@ -67,8 +71,6 @@ class VideoContext
         static thread_local VideoContext *current;
 };
 
-class Viewport;
-
 class VideoDevice
 {
     public:
@@ -82,12 +84,15 @@ class VideoDevice
         //
         // wrappers for better use
         //
-        /*
-        		template <typename T>
-        		inline void useTransformation2(Transformation2<T>& transformation);
-        		template <typename T>
-        		inline void useTransformation3(Transformation3<T>& transformation);
-        */
+        template <typename T> void useTransformation(Transformation2<T> t)
+		{
+			t.useTransformation(this);
+		}
+        template <typename T> void useTransformation(Transformation3<T> t)
+		{
+			t.useTransformation(this);
+		}
+
         void useViewport(Viewport *viewport);
 
         //
@@ -117,26 +122,27 @@ class VideoDevice
 
         // vertex data
         DUMMY(void vertex2(Vector2f v));
-        DUMMY(void vertex3(Vector3f v));
         DUMMY(void vertex2(Vector2d v));
+        DUMMY(void vertex3(Vector3f v));
         DUMMY(void vertex3(Vector3d v));
 
         // color data
         DUMMY(void color3(Color3b c));
-        DUMMY(void color4(Color4b c));
         DUMMY(void color3(Color3ub c));
-        DUMMY(void color4(Color4ub c));
         DUMMY(void color3(Color3s c));
-        DUMMY(void color4(Color4s c));
         DUMMY(void color3(Color3us c));
-        DUMMY(void color4(Color4us c));
         DUMMY(void color3(Color3i c));
-        DUMMY(void color4(Color4i c));
         DUMMY(void color3(Color3ui c));
-        DUMMY(void color4(Color4ui c));
         DUMMY(void color3(Color3f c));
-        DUMMY(void color4(Color4f c));
         DUMMY(void color3(Color3d c));
+
+        DUMMY(void color4(Color4b c));
+        DUMMY(void color4(Color4ub c));
+        DUMMY(void color4(Color4s c));
+        DUMMY(void color4(Color4us c));
+        DUMMY(void color4(Color4i c));
+        DUMMY(void color4(Color4ui c));
+        DUMMY(void color4(Color4f c));
         DUMMY(void color4(Color4d c));
 
     private:
