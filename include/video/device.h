@@ -81,6 +81,7 @@ class VideoDevice
         // buffer
         DUMMY(void clear(bitfield_t buffers));
         DUMMY(void clearColor(Color4d col));
+        DUMMY(void setViewport(Vector2i position, Vector2i size));
         DUMMY(void begin(enum primitive t));
         DUMMY(void end(void));
 

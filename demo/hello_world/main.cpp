@@ -10,7 +10,7 @@ int main(int argc, char **argv)
     test();
 
     sdl::init();
-    sdl::Window *window1 = new sdl::GLWindow("Window 1", Vector2i(400, 300));
+    sdl::Window *window1 = new sdl::GLWindow("Window 1", Vector2i(800, 600));
     sdl::Window *window2 = new sdl::GLWindow("Window 2", Vector2i(400, 300));
 
     VideoContext *context1 = new sdl::GLContext(window1);
@@ -24,10 +24,11 @@ int main(int argc, char **argv)
         printf("GLEW init failed!\n");
     }
 
-    Viewport *view = new Viewport();
+    Viewport *view = new Viewport(Vector2i(0, 0), Vector2i(800, 600));
+    view->useViewport(dev1);
+    view->usePerspective(dev1);
 
-    view->usePerspective();
-    dev1->translatef(Vector3f(0.0f, 0.0f, 0.0f));
+    dev1->translatef(Vector3f(0.0f, 0.0f, -5.0f));
 
     while(1)
     {

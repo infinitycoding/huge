@@ -28,12 +28,13 @@ namespace huge
 
 Viewport::Viewport()
 {
+    this->position = Vector2i(0, 0);
     this->size = Vector2i(800, 600);
     this->camera = new Camera();
 }
 
-Viewport::Viewport(Vector2i size_)
-    : size(size_)
+Viewport::Viewport(Vector2i position_, Vector2i size_)
+    : position(position_), size(size_)
 {
     this->camera = new Camera();
 }
@@ -41,11 +42,12 @@ Viewport::Viewport(Vector2i size_)
 Viewport::Viewport(Camera *camera_)
     : camera(camera_)
 {
+    this->position = Vector2i(0, 0);
     this->size = Vector2i(800, 600);
 }
 
-Viewport::Viewport(Vector2i size_, Camera *camera_)
-    : size(size_), camera(camera_)
+Viewport::Viewport(Vector2i position_, Vector2i size_, Camera *camera_)
+    : position(position_), size(size_), camera(camera_)
 {
 }
 
@@ -53,19 +55,19 @@ Viewport::~Viewport()
 {
 }
 
-void Viewport::useViewport(void)
+void Viewport::useViewport(VideoDevice *device)
 {
-    // TODO
+    device->setViewport(this->position, this->size);
 }
 
-void Viewport::usePerspective(void)
+void Viewport::usePerspective(VideoDevice *device)
 {
     double aspect = (double)this->size.x() / (double)this->size.y();
 
     // TODO
-    //current_video_device->setMatrixMode(MODELVIEW);
-    //current_video_device->loadIdentity();
-    //current_video_device->setPerspective(this->camera->fov, aspect, this->camera->near_clip, this->camera->far_clip);
+    device->setMatrixMode(MODELVIEW);
+    device->loadIdentity();
+    device->setPerspective(this->camera->fov, aspect, this->camera->near_clip, this->camera->far_clip);
 }
 
 };

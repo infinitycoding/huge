@@ -20,6 +20,7 @@
 	@author Michael Sippel <micha@infinitycoding.de>
  */
 
+#include "video/device.h"
 #include "video/opengl.h"
 
 #include <GL/glew.h>
@@ -81,21 +82,24 @@ void OpenGLDevice::clear(bitfield_t buffers)
 void OpenGLDevice::clearColor(Color4d c)
 {
     ACTIVATE;
-    this->context->activate();
     glClearColor(c.data[0], c.data[1], c.data[2], c.data[3]);
+}
+
+void OpenGLDevice::setViewport(Vector2i position, Vector2i size)
+{
+    ACTIVATE;
+    glViewport(position.data[0], position.data[1], size.data[0], size.data[1]);
 }
 
 void OpenGLDevice::begin(enum primitive t)
 {
     ACTIVATE;
-    this->context->activate();
     glBegin(gl_primitive[t]);
 }
 
 void OpenGLDevice::end(void)
 {
     ACTIVATE;
-    this->context->activate();
     glEnd();
 }
 
@@ -103,14 +107,12 @@ void OpenGLDevice::end(void)
 void OpenGLDevice::setMatrixMode(enum matrix_mode m)
 {
     ACTIVATE;
-    this->context->activate();
     glMatrixMode(gl_matrix_mode[m]);
 }
 
 void OpenGLDevice::setPerspective(double fovy, double aspect, double znear, double zfar)
 {
     ACTIVATE;
-    this->context->activate();
     gluPerspective((GLdouble) fovy, (GLdouble) aspect, (GLdouble) znear, (GLdouble) zfar);
 }
 

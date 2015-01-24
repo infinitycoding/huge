@@ -43,6 +43,7 @@ class OpenGLDevice : public VideoDevice
         // buffers
         void clear(bitfield_t buffers);
         void clearColor(Color4d col);
+        void setViewport(Vector2i position, Vector2i size);
         void begin(enum primitive t);
         void end(void);
 

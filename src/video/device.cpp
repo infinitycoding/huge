@@ -44,7 +44,7 @@ void VideoContext::activate(void)
     }
 }
 
-void VideoContext::activate_(void)
+inline void VideoContext::activate_(void)
 {
     printf("No specific context created.\n");
 }

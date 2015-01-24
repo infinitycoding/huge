@@ -32,16 +32,17 @@ class Viewport
 {
     public:
         Viewport();
-        Viewport(Vector2i size_);
+        Viewport(Vector2i position, Vector2i size_);
         Viewport(Camera *camera_);
-        Viewport(Vector2i size_, Camera *camera_);
+        Viewport(Vector2i position, Vector2i size_, Camera *camera_);
         ~Viewport();
 
+        Vector2i position;
         Vector2i size;
         Camera *camera;
 
-        void useViewport(void);
-        void usePerspective(void);
+        void useViewport(VideoDevice *device);
+        void usePerspective(VideoDevice *device);
 };
 
 };
