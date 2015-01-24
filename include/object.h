@@ -21,6 +21,7 @@
 #include "math/vector.h"
 #include "math/transformation.h"
 #include "video/device.h"
+#include "list.h"
 
 namespace huge
 {
@@ -56,6 +57,11 @@ class Mesh
 
         int num_faces;
         Face **faces;
+};
+
+namespace loader
+{
+List<Mesh*> *load_obj(const char *path);
 };
 
 };

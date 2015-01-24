@@ -88,6 +88,7 @@ class Device
         //
         // wrappers for better use
         //
+
         template <typename T> void useTransformation(Transformation2<T> t)
         {
             t.useTransformation(this);

@@ -26,21 +26,8 @@ int main(int argc, char **argv)
     }
 
     // mesh
-    Vector3f vertices[] =
-    {
-        Vector3f( 0.0f, 1.0f, 0.0f),
-        Vector3f( 1.0f,-1.0f, 0.0f),
-        Vector3f(-1.0f,-1.0f, 0.0f)
-    };
-
-    int vertex_ids[] = {0, 1, 2};
-
-    Face *faces[] =
-    {
-        new Face(3, (int*) &vertex_ids)
-    };
-
-    Mesh *mesh = new Mesh(3, (Vector3f*) &vertices, 1, (Face**) &faces);
+    List<Mesh*> *meshes = loader::load_obj("test.obj");
+    Mesh *mesh = meshes->popBack();
 
     // perspective
     Camera *cam1 = new Camera();
@@ -48,7 +35,8 @@ int main(int argc, char **argv)
     Viewport *view1 = new Viewport(Vector2i(0, 0), Vector2i(800, 600), cam1);
     Viewport *view2 = new Viewport(Vector2i(0, 0), Vector2i(400, 300), cam2);
     cam1->translate(Vector3f(0.0f, -2.0f, -7.0f));
-    cam2->translate(Vector3f(0.0f, 0.0f, -2.0f));
+    cam2->translate(Vector3f(0.0f,  2.0f, -5.0f));
+    cam2->rotation() = Vector4f(0.0f, 1.0f, 0.0f, 20.0f);
 
     while(1)
     {
