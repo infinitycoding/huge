@@ -51,26 +51,26 @@ int main(int argc, char **argv)
             }
         }
 
-        dev1->context->activate();
         dev1->clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT);
-        dev1->begin(TRIANGLES);
-        dev1->color4i(Color4ub(0xff, 0x4c, 0x00, 0xff).c2_i());
-        dev1->vertex3f(Vector3f( 0.0f, 1.0f, 0.0f));
-        dev1->vertex3f(Vector3f( 1.0f,-1.0f, 0.0f));
-        dev1->vertex3f(Vector3f(-1.0f,-1.0f, 0.0f));
-        dev1->end();
+        dev2->clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT);
 
+        dev1->begin(TRIANGLES);
+        dev2->begin(TRIANGLES);
+
+        dev1->color4i(Color4ub(0xff, 0x4c, 0x00, 0xff).c2_i());
+        dev2->color4i(Color4ub(0x4c, 0xff, 0x00, 0xff).c2_i());
+
+        dev1->vertex3f(Vector3f( 0.0f, 1.0f, 0.0f));
+        dev2->vertex3f(Vector3f( 0.0f, 1.0f, 0.0f));
+        dev1->vertex3f(Vector3f( 1.0f,-1.0f, 0.0f));
+        dev2->vertex3f(Vector3f( 1.0f,-1.0f, 0.0f));
+        dev1->vertex3f(Vector3f(-1.0f,-1.0f, 0.0f));
+        dev2->vertex3f(Vector3f(-1.0f,-1.0f, 0.0f));
+
+        dev1->end();
         window1->swap();
 
-        dev2->context->activate();
-        dev2->clear(COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT);
-        dev2->begin(TRIANGLES);
-        dev2->color4i(Color4ub(0x4c, 0xff, 0x00, 0xff).c2_i());
-        dev2->vertex3f(Vector3f( 0.0f, 1.0f, 0.0f));
-        dev2->vertex3f(Vector3f( 1.0f,-1.0f, 0.0f));
-        dev2->vertex3f(Vector3f(-1.0f,-1.0f, 0.0f));
         dev2->end();
-
         window2->swap();
     }
 
