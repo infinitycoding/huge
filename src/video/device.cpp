@@ -53,6 +53,11 @@ VideoDevice::VideoDevice()
 {
 }
 
+VideoDevice::VideoDevice(VideoContext *context_)
+    : context(context_)
+{
+}
+
 VideoDevice::~VideoDevice()
 {
 }

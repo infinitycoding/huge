@@ -35,6 +35,7 @@ class OpenGLDevice : public VideoDevice
 {
     public:
         OpenGLDevice();
+        OpenGLDevice(VideoContext *context_);
         ~OpenGLDevice();
 
         static const enum video_device_type device_type = OPENGL_DEVICE;

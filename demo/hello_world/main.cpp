@@ -10,18 +10,14 @@ int main(int argc, char **argv)
     test();
 
     sdl::init();
-    sdl::Window *window1 = new sdl::GLWindow();
-    VideoContext *context1 = new sdl::GLContext(window1);
+    sdl::Window *window1 = new sdl::GLWindow("Window 1", Vector2i(400, 300));
+    sdl::Window *window2 = new sdl::GLWindow("Window 2", Vector2i(400, 300));
 
-    sdl::Window *window2 = new sdl::GLWindow();
+    VideoContext *context1 = new sdl::GLContext(window1);
     VideoContext *context2 = new sdl::GLContext(window2);
 
-
-    VideoDevice *dev1 = new OpenGLDevice();
-    dev1->context = context1;
-
-    VideoDevice *dev2 = new OpenGLDevice();
-    dev2->context = context2;
+    VideoDevice *dev1 = new OpenGLDevice(context1);
+    VideoDevice *dev2 = new OpenGLDevice(context2);
 
     if(glewInit() != GLEW_OK)
     {

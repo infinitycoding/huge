@@ -1,5 +1,5 @@
 
-#include "huge.h"
+#include "math/vector.h"
 #include "sdl.h"
 
 namespace huge
@@ -13,7 +13,22 @@ int init(void)
 }
 
 Window::Window()
-    : title(NULL), width(800), height(600)
+    : title(NULL), size(Vector2i(800, 600))
+{
+}
+
+Window::Window(char *title_)
+    : title(title_), size(Vector2i(800, 600))
+{
+}
+
+Window::Window(Vector2i size_)
+    : title(NULL), size(size_)
+{
+}
+
+Window::Window(char *title_, Vector2i size_)
+    : title(title_), size(size_)
 {
 }
 
@@ -21,9 +36,9 @@ Window::~Window()
 {
 }
 
-
 GLContext::GLContext()
 {
+    GLContext(new GLWindow());
 }
 
 GLContext::GLContext(Window *window_)
@@ -38,6 +53,7 @@ GLContext::GLContext(Window *window_)
 
 GLContext::~GLContext()
 {
+    SDL_GL_DeleteContext(this->sdl_context);
 }
 
 void GLContext::activate_(void)
@@ -51,8 +67,29 @@ GLWindow::GLWindow()
     this->create();
 }
 
+GLWindow::GLWindow(char *title_)
+{
+    this->title = title_;
+    this->create();
+}
+
+GLWindow::GLWindow(Vector2i size_)
+{
+    this->size = size_;
+    this->create();
+}
+
+
+GLWindow::GLWindow(char *title_, Vector2i size_)
+{
+    this->title = title_;
+    this->size = size_;
+    this->create();
+}
+
 GLWindow::~GLWindow()
 {
+    SDL_DestroyWindow(this->sdl_window);
 }
 
 void GLWindow::swap(void)
@@ -62,7 +99,7 @@ void GLWindow::swap(void)
 
 void GLWindow::create(void)
 {
-    this->sdl_window = SDL_CreateWindow(this->title, 0, 0, this->width, this->height, SDL_WINDOW_OPENGL);
+    this->sdl_window = SDL_CreateWindow(this->title, 0, 0, this->size.x(), this->size.y(), SDL_WINDOW_OPENGL);
     if(this->sdl_window == NULL)
     {
         printf("SDL window creation failed!\n");

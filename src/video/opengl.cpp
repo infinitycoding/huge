@@ -48,7 +48,12 @@ static GLenum gl_matrix_mode[] =
 
 OpenGLDevice::OpenGLDevice()
 {
-};
+}
+
+OpenGLDevice::OpenGLDevice(VideoContext *context_)
+{
+    this->context = context_;
+}
 
 OpenGLDevice::~OpenGLDevice()
 {

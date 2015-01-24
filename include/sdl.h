@@ -19,6 +19,7 @@
 */
 
 #include <SDL2/SDL.h>
+#include "math/vector.h"
 #include "video/device.h"
 
 namespace huge
@@ -34,14 +35,16 @@ class Window
 
     public:
         Window();
+        Window(char *title_);
+        Window(Vector2i size_);
+        Window(char *title_, Vector2i size_);
         ~Window();
 
         virtual void swap(void) = 0;
 
     protected:
         char *title;
-        int width;
-        int height;
+        Vector2i size;
 
         SDL_Window *sdl_window;
 };
@@ -64,6 +67,10 @@ class GLWindow : public Window
 {
     public:
         GLWindow();
+        GLWindow(char *title_);
+        GLWindow(Vector2i size_);
+        GLWindow(char *title_, Vector2i size_);
+
         ~GLWindow();
 
         void swap(void);

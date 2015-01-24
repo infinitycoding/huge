@@ -71,6 +71,7 @@ class VideoDevice
 {
     public:
         VideoDevice();
+        VideoDevice(VideoContext *context_);
         ~VideoDevice();
 
         static const enum video_device_type device_type = NULL_DEVICE;
