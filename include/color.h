@@ -29,7 +29,7 @@ namespace huge
 {
 
 template <int N, typename T, int S>
-class Color : public VectorBase<N, T>
+class Color : public Vector<N, T>
 {
     public:
         template <typename nT, int nS>
@@ -61,6 +61,11 @@ class Color : public VectorBase<N, T>
 
 #undef CCONV
 
+        using VectorBase<N, T>::operator=;
+        using VectorBase<N, T>::operator+=;
+        using VectorBase<N, T>::operator-=;
+        using VectorBase<N, T>::operator*=;
+        using VectorBase<N, T>::operator/=;
 };
 
 // RGB
@@ -84,6 +89,12 @@ class Color3 : public Color<3, T, S>
             this->g() = g_;
             this->b() = b_;
         }
+
+        using VectorBase<3, T>::operator=;
+        using VectorBase<3, T>::operator+=;
+        using VectorBase<3, T>::operator-=;
+        using VectorBase<3, T>::operator*=;
+        using VectorBase<3, T>::operator/=;
 
         inline T& r(void)
         {
@@ -131,6 +142,12 @@ class Color4 : public Color<4, T, S>
             this->b() = b_;
             this->a() = a_;
         }
+
+        using VectorBase<4, T>::operator=;
+        using VectorBase<4, T>::operator+=;
+        using VectorBase<4, T>::operator-=;
+        using VectorBase<4, T>::operator*=;
+        using VectorBase<4, T>::operator/=;
 
         inline T& r(void)
         {

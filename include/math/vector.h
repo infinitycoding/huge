@@ -62,7 +62,6 @@ class Vector : public VectorBase<N, T>
         }
 
         using VectorBase<N, T>::operator=;
-
         using VectorBase<N, T>::operator+=;
         using VectorBase<N, T>::operator-=;
         using VectorBase<N, T>::operator*=;
@@ -77,7 +76,6 @@ template <int N, typename T> inline Vector<N, T> operator*(Vector<N, T> v1, T v2
 template <int N, typename T> inline Vector<N, T> operator*(Vector<N, T> v1, Vector<N, T> v2);
 template <int N, typename T> inline Vector<N, T> operator/(Vector<N, T> v1, T v2);
 template <int N, typename T> inline Vector<N, T> operator/(Vector<N, T> v1, Vector<N, T> v2);
-
 template <int N, typename T> inline Vector<N, T> dot(Vector<N, T> v1, Vector<N, T> v2);
 
 // XY - Vector

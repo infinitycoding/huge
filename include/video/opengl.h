@@ -95,6 +95,14 @@ class OpenGLDevice : public Device
         void color(Color3d c);
         void color(Color4d c);
 
+        // light data
+        void light_enable(int id);
+        void light_disable(int id);
+        void light_ambient(int id, Color4f color);
+        void light_diffuse(int id, Color4f color);
+        void light_specular(int id, Color4f color);
+        void light_position(int id, Vector4f color);
+
     private:
         void not_supported(const char *str);
 };

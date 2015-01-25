@@ -22,26 +22,17 @@ int main(int argc, char **argv)
     video::Device *dev1 = new video::OpenGLDevice(context1);
     video::Device *dev2 = new video::OpenGLDevice(context2);
 
+    dev1->context->activate();
     if(glewInit() != GLEW_OK)
     {
         printf("GLEW init failed!\n");
     }
 
-    dev1->context->activate();
-
-    GLfloat light_diffuse[] = { 0.5, 0.5, 0.5, 1.0 };
-    GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-    GLfloat light_position[] = { 0.0, 10.0, -5.0, 0.0 };
-    glClearColor (0.0, 0.0, 0.0, 1.0);
-    glShadeModel (GL_FLAT);
-
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-
     glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+
+    Light *light = new Light();
 
     // mesh
     List<Mesh*> *meshes = loader::load_obj("test.obj");
@@ -92,20 +83,33 @@ int main(int argc, char **argv)
         dev2->clear(video::COLOR_BUFFER_BIT | video::DEPTH_BUFFER_BIT);
 
         dev1->pushMatrix();
+        dev1->translate(Vector3f(10.0f, 5.0f, 0.0f));
+        light->update(dev1);
+        dev1->popMatrix();
 
         // set vertex color
+        dev1->color(Color4ub(0xff, 0xff, 0xff, 0xff));
         dev2->color(Color4ub(0x44, 0x55, 0x11, 0xff));
 
         // render mesh
+        dev1->pushMatrix();
         mesh->renderImmediate(dev1);
         dev1->translate(Vector3f(3.0f, 0.0f, 0.0f));
         mesh->renderImmediate(dev1);
         dev1->translate(Vector3f(-6.0f, 0.0f, 0.0f));
         mesh->renderImmediate(dev1);
+        dev1->popMatrix();
+
+        dev1->pushMatrix();
+        dev1->translate(Vector3f(0.0f, 0.0f, -3.0f));
+        mesh->renderImmediate(dev1);
+        dev1->translate(Vector3f(3.0f, 0.0f, 0.0f));
+        mesh->renderImmediate(dev1);
+        dev1->translate(Vector3f(-6.0f, 0.0f, 0.0f));
+        mesh->renderImmediate(dev1);
+        dev1->popMatrix();
 
         mesh->renderImmediate(dev2);
-
-        dev1->popMatrix();
 
         // swap windows
         dev1->context->activate();

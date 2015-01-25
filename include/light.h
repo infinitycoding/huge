@@ -1,7 +1,7 @@
-#ifndef _huge_h_
-#define _huge_h_
+#ifndef _huge_light_h_
+#define _huge_light_h_
 /*
-        Copyright 2012-2014 Infinitycoding all rights reserved
+        Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
 
         HUGE is free software: you can redistribute it and/or modify
@@ -9,7 +9,7 @@
         the Free Software Foundation, either version 3 of the License, or
         any later version.
 
-        The Universe Kernel is distributed in the hope that it will be useful,
+        HUGE is distributed in the hope that it will be useful,
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
@@ -18,22 +18,34 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "camera.h"
-#include "color.h"
-#include "sdl.h"
-#include "list.h"
-#include "light.h"
-#include "viewport.h"
-#include "video/device.h"
-#include "math/vector.h"
-#include "math/matrix.h"
+/**
+ * @author Michael Sippel <micha@infinitycoding.de>
+ */
 #include "math/transformation.h"
-#include "object.h"
+#include "video/device.h"
+#include "color.h"
 
 namespace huge
 {
 
-void test(void);
+class Light : public Transformation3f
+{
+    public:
+        Light();
+        Light(Color4f color);
+        ~Light();
+
+        Color4f ambient;
+        Color4f diffuse;
+        Color4f specular;
+        Vector4f position;
+
+        void update(video::Device *device);
+
+    private:
+        unsigned int id;
+        static unsigned int light_counter;
+};
 
 };
 

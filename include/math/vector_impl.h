@@ -180,7 +180,6 @@ inline Vector<N, T> operator+(Vector<N, T> v1, T v2)
     r += v2;
     return r;
 }
-
 template <int N, typename T>
 inline Vector<N, T> operator+(Vector<N, T> v1, Vector<N, T> v2)
 {
@@ -188,7 +187,6 @@ inline Vector<N, T> operator+(Vector<N, T> v1, Vector<N, T> v2)
     r += v2;
     return r;
 }
-
 template <int N, typename T>
 inline Vector<N, T> operator-(Vector<N, T> v1, T v2)
 {
@@ -196,7 +194,6 @@ inline Vector<N, T> operator-(Vector<N, T> v1, T v2)
     r -= v2;
     return r;
 }
-
 template <int N, typename T>
 inline Vector<N, T> operator-(Vector<N, T> v1, Vector<N, T> v2)
 {
@@ -204,7 +201,6 @@ inline Vector<N, T> operator-(Vector<N, T> v1, Vector<N, T> v2)
     r -= v2;
     return r;
 }
-
 template <int N, typename T>
 inline Vector<N, T> operator*(Vector<N, T> v1, T v2)
 {
@@ -212,7 +208,6 @@ inline Vector<N, T> operator*(Vector<N, T> v1, T v2)
     r *= v2;
     return r;
 }
-
 template <int N, typename T>
 inline Vector<N, T> operator*(Vector<N, T> v1, Vector<N, T> v2)
 {
@@ -220,7 +215,6 @@ inline Vector<N, T> operator*(Vector<N, T> v1, Vector<N, T> v2)
     r *= v2;
     return r;
 }
-
 template <int N, typename T>
 inline Vector<N, T> operator/(Vector<N, T> v1, T v2)
 {
@@ -228,7 +222,6 @@ inline Vector<N, T> operator/(Vector<N, T> v1, T v2)
     r /= v2;
     return r;
 }
-
 template <int N, typename T>
 inline Vector<N, T> operator/(Vector<N, T> v1, Vector<N, T> v2)
 {
@@ -236,7 +229,6 @@ inline Vector<N, T> operator/(Vector<N, T> v1, Vector<N, T> v2)
     r /= v2;
     return r;
 }
-
 template <int N, typename T>
 inline Vector<N, T> dot(Vector<N, T> v1, Vector<N, T> v2)
 {
