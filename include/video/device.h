@@ -21,6 +21,7 @@
 
 #include "math/vector.h"
 #include "color.h"
+#include "list.h"
 
 namespace huge
 {
@@ -76,6 +77,25 @@ class Context
         static thread_local Context *current;
 };
 
+
+class DeviceObject
+{
+    public:
+        DeviceObject();
+        ~DeviceObject();
+
+        unsigned int id;
+
+    private:
+        static unsigned int object_counter;
+};
+
+struct device_object_entry
+{
+    DeviceObject *abstract;
+    void *specific;
+};
+
 class Device
 {
     public:
@@ -85,6 +105,10 @@ class Device
 
         static const enum device_type type = NULL_DEVICE;
         Context *context;
+
+        List<struct device_object_entry> *objects;
+        void *getObject(DeviceObject *obj);
+        void addObject(DeviceObject *abstract, void *specific);
 
         //
         // wrappers for better use

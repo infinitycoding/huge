@@ -93,11 +93,20 @@ int main(int argc, char **argv)
 
         glUseProgram(program);
     */
+
+    Light *light = new Light(Color4f(1.0f, 0.6f, 0.6f, 1.0f));
+
     glEnable(GL_LIGHTING);
     video::gl::Light *gllight = new video::gl::Light();
-    gllight->set(new Light(Color4f(1.0f, 0.6f, 0.6f, 1.0f)));
-    gllight->update();
-    gllight->enable();
+    gllight->set(light);
+
+    dev1->addObject(light, (void*) gllight);
+
+    light->update(dev1);
+    light->enable(dev1);
+
+    video::gl::Light *gl2 = (video::gl::Light*) dev1->getObject(light);
+    printf("%p, %p\n", gllight, gl2);
 
     // mesh
     List<Mesh*> *meshes = loader::load_obj("test.obj");

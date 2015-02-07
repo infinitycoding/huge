@@ -104,9 +104,6 @@ class OpenGLDevice : public Device
 
     private:
         void not_supported(const char *str);
-
-        // gl lights
-        //List<GLLight*> *gl_lights;
 };
 
 namespace gl

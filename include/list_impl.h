@@ -40,7 +40,6 @@ List<T>::List()
     lock = true;
 
     dummy = new ListNode<T>();
-    dummy->element = NULL;
     dummy->prev = dummy;
     dummy->next = dummy;
     structCleaner = NULL;

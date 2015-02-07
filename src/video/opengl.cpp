@@ -306,7 +306,7 @@ void OpenGLDevice::color(Color4d c)
 }
 
 // light data
-// TODO
+//void OpenGLDevice::
 
 void OpenGLDevice::not_supported(const char *str)
 {

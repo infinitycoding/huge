@@ -35,7 +35,7 @@ enum light_type
     SPOT
 };
 
-class Light : public Transformation3f
+class Light : public Transformation3f, public video::DeviceObject
 {
     public:
         Light();

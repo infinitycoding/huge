@@ -53,18 +53,58 @@ inline void Context::activate_(void)
     printf("No specific context created.\n");
 }
 
+unsigned int DeviceObject::object_counter = 0;
+DeviceObject::DeviceObject()
+{
+    this->id = DeviceObject::object_counter++;
+}
+
+DeviceObject::~DeviceObject()
+{
+}
+
 Device::Device()
 {
+    this->objects = new List<struct device_object_entry>();
 }
 
 Device::Device(video::Context *context_)
     : context(context_)
 {
+    this->objects = new List<struct device_object_entry>();
 }
 
 Device::~Device()
 {
 }
+
+void* Device::getObject(DeviceObject *obj)
+{
+    ListIterator<struct device_object_entry> it = ListIterator<struct device_object_entry>(this->objects);
+    it.setFirst();
+
+    while(!it.isLast())
+    {
+        struct device_object_entry entry = it.getCurrent();
+        if(entry.abstract->id == obj->id)
+        {
+            return entry.specific;
+        }
+
+        it.next();
+    }
+
+    return NULL;
+}
+
+void Device::addObject(DeviceObject *abstract, void *specific)
+{
+    struct device_object_entry entry;
+    entry.abstract = abstract;
+    entry.specific = specific;
+
+    this->objects->pushBack(entry);
+};
 
 inline void Device::not_supported(const char *str)
 {
