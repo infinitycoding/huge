@@ -73,26 +73,31 @@ int main(int argc, char **argv)
     glEnable(GL_COLOR_MATERIAL);
 
     dev1->clearColor(Color4d(0.0, 0.0, 0.4, 1.0f));
-    Light *light = new Light();
+    /*
+        GLuint program = glCreateProgram();
+        GLuint vsh_id = glCreateShader(GL_VERTEX_SHADER);
+        GLuint fsh_id = glCreateShader(GL_FRAGMENT_SHADER);
 
-    GLuint program = glCreateProgram();
-    GLuint vsh_id = glCreateShader(GL_VERTEX_SHADER);
-    GLuint fsh_id = glCreateShader(GL_FRAGMENT_SHADER);
+        int vsh_len = strlen(vsh_source);
+        int fsh_len = strlen(fsh_source);
 
-    int vsh_len = strlen(vsh_source);
-    int fsh_len = strlen(fsh_source);
+        glShaderSource(vsh_id, 1, (const GLchar**) &vsh_source, &vsh_len);
+        glShaderSource(fsh_id, 1, (const GLchar**) &fsh_source, &fsh_len);
 
-    glShaderSource(vsh_id, 1, (const GLchar**) &vsh_source, &vsh_len);
-    glShaderSource(fsh_id, 1, (const GLchar**) &fsh_source, &fsh_len);
+        glCompileShader(vsh_id);
+        glCompileShader(fsh_id);
 
-    glCompileShader(vsh_id);
-    glCompileShader(fsh_id);
+        glAttachShader(program, vsh_id);
+        glAttachShader(program, fsh_id);
+        glLinkProgram(program);
 
-    glAttachShader(program, vsh_id);
-    glAttachShader(program, fsh_id);
-    glLinkProgram(program);
-
-    glUseProgram(program);
+        glUseProgram(program);
+    */
+    glEnable(GL_LIGHTING);
+    video::gl::Light *gllight = new video::gl::Light();
+    gllight->set(new Light(Color4f(1.0f, 0.6f, 0.6f, 1.0f)));
+    gllight->update();
+    gllight->enable();
 
     // mesh
     List<Mesh*> *meshes = loader::load_obj("test.obj");
@@ -141,11 +146,6 @@ int main(int argc, char **argv)
         // clear buffers
         dev1->clear(video::COLOR_BUFFER_BIT | video::DEPTH_BUFFER_BIT);
         dev2->clear(video::COLOR_BUFFER_BIT | video::DEPTH_BUFFER_BIT);
-
-        dev1->pushMatrix();
-        dev1->translate(Vector3f(10.0f, 5.0f, 0.0f));
-        //light->update(dev1);
-        dev1->popMatrix();
 
         // set vertex color
         dev1->color(Color4ub(0xff, 0xff, 0xff, 0xff));

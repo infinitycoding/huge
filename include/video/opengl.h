@@ -34,6 +34,8 @@ namespace huge
 namespace video
 {
 
+class GLLight;
+
 class OpenGLDevice : public Device
 {
     public:
@@ -96,16 +98,44 @@ class OpenGLDevice : public Device
         void color(Color4d c);
 
         // light data
-        void light_enable(int id);
-        void light_disable(int id);
-        void light_ambient(int id, Color4f color);
-        void light_diffuse(int id, Color4f color);
-        void light_specular(int id, Color4f color);
-        void light_position(int id, Vector4f color);
+        //void enableLight(Light *light);
+        //void disableLight(Light *light);
+        //void updateLight(Light *light);
 
     private:
         void not_supported(const char *str);
+
+        // gl lights
+        //List<GLLight*> *gl_lights;
 };
+
+namespace gl
+{
+
+class Light
+{
+    public:
+        Light();
+        Light(Light *light);
+        ~Light();
+
+        Color4f ambient;
+        Color4f diffuse;
+        Color4f specular;
+        Vector4f position;
+
+        void set(huge::Light *light);
+        void enable(void);
+        void disable(void);
+        void update(void);
+
+    private:
+        static unsigned int light_counter;
+        GLuint gl_id;
+};
+
+};
+
 
 };
 

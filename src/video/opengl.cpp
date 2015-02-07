@@ -306,42 +306,7 @@ void OpenGLDevice::color(Color4d c)
 }
 
 // light data
-void OpenGLDevice::light_enable(int id)
-{
-    ACTIVATE;
-    glEnable(GL_LIGHT0 + id);
-}
-
-void OpenGLDevice::light_disable(int id)
-{
-    ACTIVATE;
-    glDisable(GL_LIGHT0 + id);
-}
-
-void OpenGLDevice::light_ambient(int id, Color4f color)
-{
-    ACTIVATE;
-    glLightfv(GL_LIGHT0 + id, GL_AMBIENT, (GLfloat*) &color.data);
-}
-
-void OpenGLDevice::light_diffuse(int id, Color4f color)
-{
-    ACTIVATE;
-    glLightfv(GL_LIGHT0 + id, GL_DIFFUSE, (GLfloat*) &color.data);
-}
-
-void OpenGLDevice::light_specular(int id, Color4f color)
-{
-    ACTIVATE;
-    glLightfv(GL_LIGHT0 + id, GL_SPECULAR, (GLfloat*) &color.data);
-}
-
-void OpenGLDevice::light_position(int id, Vector4f color)
-{
-    ACTIVATE;
-    glLightfv(GL_LIGHT0 + id, GL_POSITION, (GLfloat*) &color.data);
-}
-
+// TODO
 
 void OpenGLDevice::not_supported(const char *str)
 {

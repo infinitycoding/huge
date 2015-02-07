@@ -26,35 +26,35 @@
 namespace huge
 {
 
-unsigned int Light::light_counter = 0;
-
 Light::Light()
 {
     Light(Color4f(1.0f, 1.0f, 1.0f, 1.0f));
 }
 
-Light::Light(Color4f color)
+Light::Light(Color4f color_)
+    : color(color_), type(POINT)
 {
-    this->id = Light::light_counter++;
-
-    this->ambient = color * 0.1f;
-    this->diffuse = color * 0.8f;
-    this->specular = color;
-    this->position = Vector4f(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 Light::~Light()
 {
 }
 
+void Light::enable(video::Device *device)
+{
+    device->enableLight(this);
+}
+
+void Light::disable(video::Device *device)
+{
+    device->disableLight(this);
+}
+
 void Light::update(video::Device *device)
 {
-    device->light_enable(this->id);
-    device->light_ambient(this->id, this->ambient);
-    device->light_diffuse(this->id, this->diffuse);
-    device->light_specular(this->id, this->specular);
-    device->light_position(this->id, this->position);
+    device->updateLight(this);
 }
+
 
 };
 

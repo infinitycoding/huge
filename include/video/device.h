@@ -28,7 +28,7 @@ namespace huge
 class Viewport;
 template <typename T> class Transformation2;
 template <typename T> class Transformation3;
-
+class Light;
 
 namespace video
 {
@@ -156,12 +156,9 @@ class Device
         DUMMY(void color(Color4d c));
 
         // light data
-        DUMMY(void light_enable(int id));
-        DUMMY(void light_disable(int id));
-        DUMMY(void light_ambient(int id, Color4f color));
-        DUMMY(void light_diffuse(int id, Color4f color));
-        DUMMY(void light_specular(int id, Color4f color));
-        DUMMY(void light_position(int id, Vector4f color));
+        DUMMY(void enableLight(Light *light));
+        DUMMY(void disableLight(Light *light));
+        DUMMY(void updateLight(Light *light));
 
     private:
         virtual void not_supported(const char *str);

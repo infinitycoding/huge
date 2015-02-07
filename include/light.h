@@ -28,6 +28,13 @@
 namespace huge
 {
 
+enum light_type
+{
+    POINT,
+    PARALLEL,
+    SPOT
+};
+
 class Light : public Transformation3f
 {
     public:
@@ -35,16 +42,12 @@ class Light : public Transformation3f
         Light(Color4f color);
         ~Light();
 
-        Color4f ambient;
-        Color4f diffuse;
-        Color4f specular;
-        Vector4f position;
+        Color4f color;
+        enum light_type type;
 
+        void enable(video::Device *device);
+        void disable(video::Device *device);
         void update(video::Device *device);
-
-    private:
-        unsigned int id;
-        static unsigned int light_counter;
 };
 
 };
