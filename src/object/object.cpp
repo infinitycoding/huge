@@ -21,6 +21,8 @@
  */
 
 #include <huge/object/object.h>
+#include <huge/object/mesh.h>
+#include <huge/video/device.h>
 
 namespace huge
 {
@@ -29,8 +31,28 @@ Object::Object()
 {
 }
 
+Object::Object(Mesh *mesh_)
+    : mesh(mesh_)
+{
+}
+
+Object::Object(Mesh *mesh_, Vector3f trans)
+    : mesh(mesh_)
+{
+    this->translation() = trans;
+}
+
+
 Object::~Object()
 {
+}
+
+void Object::renderImmediate(video::Device *device)
+{
+    device->pushMatrix();
+    this->useTransformation(device);
+    this->mesh->renderImmediate(device);
+    device->popMatrix();
 }
 
 }; // namespace huge

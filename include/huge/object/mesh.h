@@ -20,7 +20,6 @@
 
 #include <huge/list.h>
 #include <huge/math/vector.h>
-#include <huge/math/transformation.h>
 #include <huge/video/device.h>
 #include <huge/object/face.h>
 

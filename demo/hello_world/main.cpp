@@ -97,6 +97,15 @@ int main(int argc, char **argv)
     List<Mesh*> *meshes = loader::load_obj("test.obj");
     Mesh *mesh = meshes->popBack();
 
+    // Objects
+    Object *objects[6];
+    objects[0] = new Object(mesh, Vector3f(-3.0f, 0.0f, 0.0f));
+    objects[1] = new Object(mesh, Vector3f( 0.0f, 0.0f, 0.0f));
+    objects[2] = new Object(mesh, Vector3f( 3.0f, 0.0f, 0.0f));
+    objects[3] = new Object(mesh, Vector3f(-3.0f, 0.0f,-3.0f));
+    objects[4] = new Object(mesh, Vector3f( 0.0f, 0.0f,-3.0f));
+    objects[5] = new Object(mesh, Vector3f( 3.0f, 0.0f,-3.0f));
+
     // perspective
     Camera *cam1 = new Camera();
     Camera *cam2 = new Camera();
@@ -146,22 +155,9 @@ int main(int argc, char **argv)
         dev2->color(Color4ub(0x44, 0x55, 0x11, 0xff));
 
         // render mesh
-        dev1->pushMatrix();
-        mesh->renderImmediate(dev1);
-        dev1->translate(Vector3f(3.0f, 0.0f, 0.0f));
-        mesh->renderImmediate(dev1);
-        dev1->translate(Vector3f(-6.0f, 0.0f, 0.0f));
-        mesh->renderImmediate(dev1);
-        dev1->popMatrix();
-
-        dev1->pushMatrix();
-        dev1->translate(Vector3f(0.0f, 0.0f, -3.0f));
-        mesh->renderImmediate(dev1);
-        dev1->translate(Vector3f(3.0f, 0.0f, 0.0f));
-        mesh->renderImmediate(dev1);
-        dev1->translate(Vector3f(-6.0f, 0.0f, 0.0f));
-        mesh->renderImmediate(dev1);
-        dev1->popMatrix();
+        int i;
+        for(i = 0; i < 6; i++)
+            objects[i]->renderImmediate(dev1);
 
         mesh->renderImmediate(dev2);
 

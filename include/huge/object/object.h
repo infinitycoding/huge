@@ -22,15 +22,22 @@
 #include <huge/math/vector.h>
 #include <huge/math/transformation.h>
 #include <huge/video/device.h>
+#include <huge/object/mesh.h>
 
 namespace huge
 {
 
-class Object
+class Object : public Transformation3f
 {
     public:
         Object();
+        Object(Mesh *mesh_);
+        Object(Mesh *mesh_, Vector3f trans);
         ~Object();
+
+        Mesh *mesh;
+
+        void renderImmediate(video::Device *device);
 };
 
 }; // namespace huge
