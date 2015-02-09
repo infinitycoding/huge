@@ -18,6 +18,8 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <stddef.h>
+
 namespace huge
 {
 

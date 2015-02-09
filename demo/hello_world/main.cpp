@@ -49,6 +49,7 @@ void main(void) {\
 
 int main(int argc, char **argv)
 {
+    // hello
     printf("Hello World!\n");
     test();
 
@@ -73,11 +74,10 @@ int main(int argc, char **argv)
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     glEnable(GL_COLOR_MATERIAL);
-
+    glDisable(GL_LIGHTING);
     dev1->clearColor(Color4d(0.0, 0.0, 0.4, 1.0f));
 
     // shaders
-    glDisable(GL_LIGHTING);
     video::GLSL_Program *program = new video::GLSL_Program();
     video::GLSL_Shader *vshader = new video::GLSL_Shader(GL_VERTEX_SHADER, vsh_source, strlen(vsh_source));
     video::GLSL_Shader *fshader = new video::GLSL_Shader(GL_FRAGMENT_SHADER, fsh_source, strlen(fsh_source));
@@ -113,7 +113,7 @@ int main(int argc, char **argv)
     dev2->useViewport(view2);
     dev2->useTransformation(*cam2);
 
-
+    // main loop
     while(1)
     {
         // poll events

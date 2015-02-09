@@ -1,5 +1,5 @@
-#ifndef _huge_object_h_
-#define _huge_object_h_
+#ifndef _huge_mesh_h_
+#define _huge_mesh_h_
 /*
         Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -22,27 +22,10 @@
 #include <huge/math/vector.h>
 #include <huge/math/transformation.h>
 #include <huge/video/device.h>
+#include <huge/object/face.h>
 
 namespace huge
 {
-
-class Mesh;
-
-class Face
-{
-        friend class Mesh;
-
-    public:
-        Face();
-        Face(int num_vertices_, int *vertices_);
-        ~Face();
-
-    private:
-        int num_vertices;
-        int *vertices;
-        int *texcoords;
-        Vector3f normal;
-};
 
 class Mesh
 {

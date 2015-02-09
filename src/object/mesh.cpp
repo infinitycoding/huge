@@ -16,29 +16,20 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
+/*
+	@author Michael Sippel <micha@infinitycoding.de>
+ */
+
 #include <stdlib.h>
 
 #include <huge/math/vector.h>
 #include <huge/math/transformation.h>
 #include <huge/video/device.h>
-#include <huge/object.h>
+#include <huge/object/face.h>
+#include <huge/object/mesh.h>
 
 namespace huge
 {
-
-Face::Face()
-    : num_vertices(0), vertices(NULL)
-{
-}
-
-Face::Face(int num_vertices_, int *vertices_)
-    : num_vertices(num_vertices_), vertices(vertices_)
-{
-}
-
-Face::~Face()
-{
-}
 
 Mesh::Mesh()
     : num_vertices(0), vertices(NULL), num_faces(0), faces(NULL)

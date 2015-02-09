@@ -25,7 +25,8 @@
 #include <string.h>
 
 #include <huge/math/vector.h>
-#include <huge/object.h>
+#include <huge/object/face.h>
+#include <huge/object/mesh.h>
 #include <huge/list.h>
 
 namespace huge
