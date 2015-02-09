@@ -22,6 +22,8 @@
 	@author Michael Sippel <micha@infinitycoding.de>
  */
 
+#include "video/device.h"
+
 namespace huge
 {
 

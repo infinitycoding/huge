@@ -35,21 +35,18 @@ namespace huge
 namespace video
 {
 
-namespace gl
-{
+unsigned int GL_Light::light_counter = 0;
 
-unsigned int Light::light_counter = 0;
-
-Light::Light()
+GL_Light::GL_Light()
 {
-    this->gl_id = GL_LIGHT0 + (GLuint) Light::light_counter++;
+    this->gl_id = GL_LIGHT0 + (GLuint) GL_Light::light_counter++;
 }
 
-Light::~Light()
+GL_Light::~GL_Light()
 {
 }
 
-void Light::set(huge::Light *light)
+void GL_Light::set(Light *light)
 {
     this->ambient = light->color * 0.1f;
     this->diffuse = light->color * 0.8f;
@@ -68,17 +65,17 @@ void Light::set(huge::Light *light)
     };
 }
 
-void Light::enable(void)
+void GL_Light::enable(void)
 {
     glEnable(this->gl_id);
 }
 
-void Light::disable(void)
+void GL_Light::disable(void)
 {
     glDisable(this->gl_id);
 }
 
-void Light::update(void)
+void GL_Light::update(void)
 {
     glLightfv(this->gl_id, GL_AMBIENT, (GLfloat*) &this->ambient.data);
     glLightfv(this->gl_id, GL_DIFFUSE, (GLfloat*) &this->diffuse.data);
@@ -86,7 +83,6 @@ void Light::update(void)
     glLightfv(this->gl_id, GL_POSITION, (GLfloat*) &this->position.data);
 }
 
-};
 };
 };
 

@@ -20,6 +20,7 @@
 
 #include <SDL2/SDL.h>
 #include "math/vector.h"
+#include "video/context.h"
 #include "video/device.h"
 
 namespace huge

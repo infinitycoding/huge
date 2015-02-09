@@ -1,5 +1,5 @@
-#ifndef _video_device_h_
-#define _video_device_h_
+#ifndef _huge_video_device_h_
+#define _huge_video_device_h_
 /*
         Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -19,24 +19,28 @@
 */
 #include <stdio.h>
 
-#include "math/vector.h"
 #include "color.h"
 #include "list.h"
+#include "math/vector.h"
+#include "video/device_object.h"
+#include "video/context.h"
 
 namespace huge
 {
 
-class Viewport;
 template <typename T> class Transformation2;
 template <typename T> class Transformation3;
 class Light;
+class Viewport;
 
 namespace video
 {
 
 #define xstr(s) str(s)
 #define str(s) #s
-#define DUMMY(X) virtual inline X { not_supported(str(X)); }
+
+#define DUMMY(X) virtual X { not_supported(str(X)); }
+#define IDUMMY(X) virtual inline X { not_supported(str(X)); }
 
 enum device_type
 {
@@ -62,39 +66,6 @@ enum matrix_mode
 
 typedef unsigned int bitfield_t;
 
-class Context
-{
-    public:
-        Context();
-        ~Context();
-
-        void activate(void);
-
-    protected:
-        virtual inline void activate_(void);
-
-    private:
-        static thread_local Context *current;
-};
-
-
-class DeviceObject
-{
-    public:
-        DeviceObject();
-        ~DeviceObject();
-
-        unsigned int id;
-
-    private:
-        static unsigned int object_counter;
-};
-
-struct device_object_entry
-{
-    DeviceObject *abstract;
-    void *specific;
-};
 
 class Device
 {

@@ -1,7 +1,7 @@
 #ifndef _huge_math_transformation_h_
 #define _huge_math_transformation_h_
 /*
-        Copyright 2012-2014 Infinitycoding all rights reserved
+        Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
 
         HUGE is free software: you can redistribute it and/or modify

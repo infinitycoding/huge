@@ -1,5 +1,5 @@
-#ifndef _huge_light_h_
-#define _huge_light_h_
+#ifndef _video_device_object_h_
+#define _video_device_object_h_
 /*
         Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -17,42 +17,36 @@
         You should have received a copy of the GNU General Public License
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
-
-/**
- * @author Michael Sippel <micha@infinitycoding.de>
- */
-
-#include "math/transformation.h"
-#include "color.h"
-#include "video/device.h"
-#include "video/device_object.h"
+#include <stdio.h>
 
 namespace huge
 {
 
-enum light_type
+namespace video
 {
-    POINT,
-    PARALLEL,
-    SPOT
-};
 
-class Light : public Transformation3f, public video::DeviceObject
+class DeviceObject
 {
     public:
-        Light();
-        Light(Color4f color);
-        ~Light();
+        DeviceObject();
+        ~DeviceObject();
 
-        Color4f color;
-        enum light_type type;
+        unsigned int id;
 
-        void enable(video::Device *device);
-        void disable(video::Device *device);
-        void update(video::Device *device);
+    private:
+        static unsigned int object_counter;
 };
 
+struct device_object_entry
+{
+    DeviceObject *abstract;
+    void *specific;
 };
+
+
+}; // namespace video
+
+}; // namespace huge
 
 #endif
 

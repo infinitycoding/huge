@@ -1,7 +1,7 @@
 #ifndef _opengl_device_h_
 #define _opengl_device_h_
 /*
-        Copyright 2012-2014 Infinitycoding all rights reserved
+        Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
 
         HUGE is free software: you can redistribute it and/or modify
@@ -28,13 +28,15 @@
 #include "math/vector.h"
 #include "video/device.h"
 
+#include "light.h"
+
 namespace huge
 {
 
 namespace video
 {
 
-class GLLight;
+class GL_Light;
 
 class OpenGLDevice : public Device
 {
@@ -98,30 +100,29 @@ class OpenGLDevice : public Device
         void color(Color4d c);
 
         // light data
-        //void enableLight(Light *light);
-        //void disableLight(Light *light);
-        //void updateLight(Light *light);
+        void enableLight(Light *light);
+        void disableLight(Light *light);
+        void updateLight(Light *light);
 
     private:
         void not_supported(const char *str);
+
+        inline GL_Light *getLight(Light *light);
 };
 
-namespace gl
-{
-
-class Light
+class GL_Light
 {
     public:
-        Light();
-        Light(Light *light);
-        ~Light();
+        GL_Light();
+        GL_Light(Light *light);
+        ~GL_Light();
 
         Color4f ambient;
         Color4f diffuse;
         Color4f specular;
         Vector4f position;
 
-        void set(huge::Light *light);
+        void set(Light *light);
         void enable(void);
         void disable(void);
         void update(void);
@@ -130,9 +131,6 @@ class Light
         static unsigned int light_counter;
         GLuint gl_id;
 };
-
-};
-
 
 };
 

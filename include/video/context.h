@@ -1,5 +1,5 @@
-#ifndef _huge_light_h_
-#define _huge_light_h_
+#ifndef _video_device_context_h_
+#define _video_device_context_h_
 /*
         Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -18,40 +18,28 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
-/**
- * @author Michael Sippel <micha@infinitycoding.de>
- */
-
-#include "math/transformation.h"
-#include "color.h"
-#include "video/device.h"
-#include "video/device_object.h"
-
 namespace huge
 {
 
-enum light_type
+namespace video
 {
-    POINT,
-    PARALLEL,
-    SPOT
-};
 
-class Light : public Transformation3f, public video::DeviceObject
+class Context
 {
     public:
-        Light();
-        Light(Color4f color);
-        ~Light();
+        Context();
+        ~Context();
 
-        Color4f color;
-        enum light_type type;
+        void activate(void);
 
-        void enable(video::Device *device);
-        void disable(video::Device *device);
-        void update(video::Device *device);
+    protected:
+        virtual inline void activate_(void);
+
+    private:
+        static thread_local Context *current;
 };
 
+};
 };
 
 #endif

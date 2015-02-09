@@ -306,7 +306,38 @@ void OpenGLDevice::color(Color4d c)
 }
 
 // light data
-//void OpenGLDevice::
+GL_Light *OpenGLDevice::getLight(Light *light)
+{
+    GL_Light *gl_light = (video::GL_Light*) this->getObject((DeviceObject*)light);
+    if(gl_light == NULL)
+    {
+        gl_light = new GL_Light();
+        this->addObject((DeviceObject*)light, (void*) gl_light);
+    }
+
+    return gl_light;
+}
+
+void OpenGLDevice::enableLight(Light *light)
+{
+    ACTIVATE;
+    this->getLight(light)->enable();
+};
+
+void OpenGLDevice::disableLight(Light *light)
+{
+    ACTIVATE;
+    this->getLight(light)->disable();
+};
+
+void OpenGLDevice::updateLight(Light *light)
+{
+    ACTIVATE;
+    GL_Light *gll = this->getLight(light);
+    gll->set(light);
+    gll->update();
+};
+
 
 void OpenGLDevice::not_supported(const char *str)
 {

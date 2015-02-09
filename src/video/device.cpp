@@ -20,6 +20,7 @@
 	@author Michael Sippel <micha@infinitycoding.de>
  */
 
+
 #include "video/device.h"
 #include "viewport.h"
 
