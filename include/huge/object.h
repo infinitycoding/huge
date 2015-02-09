@@ -18,10 +18,10 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "math/vector.h"
-#include "math/transformation.h"
-#include "video/device.h"
-#include "list.h"
+#include <huge/list.h>
+#include <huge/math/vector.h>
+#include <huge/math/transformation.h>
+#include <huge/video/device.h>
 
 namespace huge
 {
@@ -71,9 +71,9 @@ class Mesh
 namespace loader
 {
 List<Mesh*> *load_obj(const char *path);
-};
+}; // namespace loader
 
-};
+}; // namespace huge
 
 #endif
 

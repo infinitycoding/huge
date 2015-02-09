@@ -20,39 +20,14 @@
 	@author Michael Sippel <micha@infinitycoding.de>
  */
 
-
-#include "video/device.h"
-#include "viewport.h"
+#include <huge/video/device.h>
+#include <huge/viewport.h>
 
 namespace huge
 {
 
 namespace video
 {
-
-thread_local Context *Context::current = (Context*) NULL;
-
-Context::Context()
-{
-}
-
-Context::~Context()
-{
-}
-
-void Context::activate(void)
-{
-    if(this != video::Context::current)
-    {
-        this->activate_();
-        video::Context::current = this;
-    }
-}
-
-inline void Context::activate_(void)
-{
-    printf("No specific context created.\n");
-}
 
 unsigned int DeviceObject::object_counter = 0;
 DeviceObject::DeviceObject()
@@ -112,14 +87,13 @@ inline void Device::not_supported(const char *str)
     printf("GraphicsDevice: \"%s\" is not supported.\n", str);
 }
 
-
 void Device::useViewport(Viewport *viewport)
 {
     viewport->useViewport(this);
     viewport->usePerspective(this);
 }
 
-};
+}; // namespace video
 
-};
+}; // namespace huge
 

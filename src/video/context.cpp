@@ -1,5 +1,3 @@
-#ifndef _huge_camera_h_
-#define _huge_camera_h_
 /*
         Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -9,7 +7,7 @@
         the Free Software Foundation, either version 3 of the License, or
         any later version.
 
-        The Universe Kernel is distributed in the hope that it will be useful,
+        HUGE is distributed in the hope that it will be useful,
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
@@ -17,26 +15,47 @@
         You should have received a copy of the GNU General Public License
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
-#include <math/transformation.h>
+
+/*
+	@author Michael Sippel <micha@infinitycoding.de>
+ */
+
+#include <stddef.h>
+#include <stdio.h>
+
+#include <huge/video/context.h>
 
 namespace huge
 {
 
-class Camera : public Transformation3f
+namespace video
 {
-    public:
-        Camera();
-        Camera(double fov_);
-        Camera(double near_clip_, double far_clip_);
-        Camera(double fov_, double near_clip_, double far_clip_);
-        ~Camera();
 
-        double fov;
-        double near_clip;
-        double far_clip;
-};
+thread_local Context *Context::current = (Context*) NULL;
 
-};
+Context::Context()
+{
+}
 
-#endif
+Context::~Context()
+{
+}
+
+void Context::activate(void)
+{
+    if(this != video::Context::current)
+    {
+        this->activate_();
+        video::Context::current = this;
+    }
+}
+
+inline void Context::activate_(void)
+{
+    printf("No specific context created.\n");
+}
+
+}; // namespace video
+
+}; // namespace huge
 

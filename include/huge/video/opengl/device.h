@@ -1,5 +1,5 @@
-#ifndef _opengl_device_h_
-#define _opengl_device_h_
+#ifndef _huge_video_opengl_device_h_
+#define _huge_video_opengl_device_h_
 /*
         Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -25,18 +25,16 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 
-#include "math/vector.h"
-#include "video/device.h"
-
-#include "light.h"
+#include <huge/light.h>
+#include <huge/math/vector.h>
+#include <huge/video/device.h>
+#include <huge/video/opengl/light.h>
 
 namespace huge
 {
 
 namespace video
 {
-
-class GL_Light;
 
 class OpenGLDevice : public Device
 {
@@ -110,30 +108,9 @@ class OpenGLDevice : public Device
         inline GL_Light *getLight(Light *light);
 };
 
-class GL_Light
-{
-    public:
-        GL_Light();
-        GL_Light(Light *light);
-        ~GL_Light();
+}; // namespace video
 
-        Color4f ambient;
-        Color4f diffuse;
-        Color4f specular;
-        Vector4f position;
-
-        void set(Light *light);
-        void enable(void);
-        void disable(void);
-        void update(void);
-
-    private:
-        static unsigned int light_counter;
-        GLuint gl_id;
-};
-
-};
-
-};
+}; // namespace huge
 
 #endif
+

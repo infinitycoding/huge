@@ -18,9 +18,10 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <math/vector.h>
-#include <SDL2/SDL.h>
-#include <list.h>
+#include <SDL2/SDL.h> // TODO abstraction
+
+#include <huge/math/vector.h>
+#include <huge/list.h>
 
 namespace huge
 {
@@ -123,6 +124,8 @@ class UserHandle : EventHandle
     public:
         void handleQuit();
 };
-};
+
+}; // namespace huge
 
 #endif
+

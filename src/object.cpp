@@ -18,10 +18,10 @@
 
 #include <stdlib.h>
 
-#include "math/vector.h"
-#include "math/transformation.h"
-#include "video/device.h"
-#include "object.h"
+#include <huge/math/vector.h>
+#include <huge/math/transformation.h>
+#include <huge/video/device.h>
+#include <huge/object.h>
 
 namespace huge
 {
@@ -126,5 +126,5 @@ void Mesh::renderImmediate(video::Device *device)
     }
 }
 
-};
+}; // namespace huge
 

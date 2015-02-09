@@ -1,7 +1,7 @@
-#ifndef _huge_viewport_h_
-#define _huge_viewport_h_
+#ifndef _huge_video_device_object_h_
+#define _huge_video_device_object_h_
 /*
-        Copyright 2012-2014 Infinitycoding all rights reserved
+        Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
 
         HUGE is free software: you can redistribute it and/or modify
@@ -9,7 +9,7 @@
         the Free Software Foundation, either version 3 of the License, or
         any later version.
 
-        The Universe Kernel is distributed in the hope that it will be useful,
+        HUGE is distributed in the hope that it will be useful,
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
@@ -17,35 +17,36 @@
         You should have received a copy of the GNU General Public License
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
-
-/*
-	@author Michael Sippel <micha@infinitycoding.de>
- */
-
-#include "camera.h"
-#include "video/device.h"
+#include <stdio.h>
 
 namespace huge
 {
 
-class Viewport
+namespace video
+{
+
+class DeviceObject
 {
     public:
-        Viewport();
-        Viewport(Vector2i position, Vector2i size_);
-        Viewport(Camera *camera_);
-        Viewport(Vector2i position, Vector2i size_, Camera *camera_);
-        ~Viewport();
+        DeviceObject();
+        ~DeviceObject();
 
-        Vector2i position;
-        Vector2i size;
-        Camera *camera;
+        unsigned int id;
 
-        void useViewport(video::Device *device);
-        void usePerspective(video::Device *device);
+    private:
+        static unsigned int object_counter;
 };
 
+struct device_object_entry
+{
+    DeviceObject *abstract;
+    void *specific;
 };
+
+
+}; // namespace video
+
+}; // namespace huge
 
 #endif
 

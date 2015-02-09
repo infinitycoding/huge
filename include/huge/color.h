@@ -23,7 +23,7 @@
  */
 #include <limits.h>
 
-#include "math/vector.h"
+#include <huge/math/vector.h>
 
 namespace huge
 {
@@ -176,7 +176,7 @@ typedef Color4<unsigned int, UINT_MAX> Color4ui;
 typedef Color4<float, 1> Color4f;
 typedef Color4<double, 1> Color4d;
 
-};
+}; // namespace huge
 
 #endif
 

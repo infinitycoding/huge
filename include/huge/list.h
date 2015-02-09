@@ -18,6 +18,9 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace huge
+{
+
 template <typename T>
 class ListNode;
 
@@ -117,6 +120,8 @@ class ListNode
 	ListIterator<TYPE> Iterator = ListIterator<TYPE>(LIST); \
 	TYPE NAME; \
 	for(NAME = Iterator.getCurrent(); !Iterator.isLast(); NAME = Iterator.getAndNext())
+
+}; // namespace huge
 
 #include "list_impl.h"
 

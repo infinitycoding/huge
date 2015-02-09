@@ -1,5 +1,5 @@
-#ifndef _huge_light_h_
-#define _huge_light_h_
+#ifndef _huge_camera_h_
+#define _huge_camera_h_
 /*
         Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -9,7 +9,7 @@
         the Free Software Foundation, either version 3 of the License, or
         any later version.
 
-        HUGE is distributed in the hope that it will be useful,
+        The Universe Kernel is distributed in the hope that it will be useful,
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
@@ -18,41 +18,26 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
-/**
- * @author Michael Sippel <micha@infinitycoding.de>
- */
-
-#include "math/transformation.h"
-#include "color.h"
-#include "video/device.h"
-#include "video/device_object.h"
+#include <huge/math/transformation.h>
 
 namespace huge
 {
 
-enum light_type
-{
-    POINT,
-    PARALLEL,
-    SPOT
-};
-
-class Light : public Transformation3f, public video::DeviceObject
+class Camera : public Transformation3f
 {
     public:
-        Light();
-        Light(Color4f color);
-        ~Light();
+        Camera();
+        Camera(double fov_);
+        Camera(double near_clip_, double far_clip_);
+        Camera(double fov_, double near_clip_, double far_clip_);
+        ~Camera();
 
-        Color4f color;
-        enum light_type type;
-
-        void enable(video::Device *device);
-        void disable(video::Device *device);
-        void update(video::Device *device);
+        double fov;
+        double near_clip;
+        double far_clip;
 };
 
-};
+}; // namespace huge
 
 #endif
 

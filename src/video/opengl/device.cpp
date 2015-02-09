@@ -20,12 +20,12 @@
 	@author Michael Sippel <micha@infinitycoding.de>
  */
 
-#include "video/device.h"
-#include "video/opengl.h"
-
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
+
+#include <huge/video/device.h>
+#include <huge/video/opengl/device.h>
 
 namespace huge
 {
@@ -308,7 +308,7 @@ void OpenGLDevice::color(Color4d c)
 // light data
 GL_Light *OpenGLDevice::getLight(Light *light)
 {
-    GL_Light *gl_light = (video::GL_Light*) this->getObject((DeviceObject*)light);
+    GL_Light *gl_light = (GL_Light*) this->getObject((DeviceObject*)light);
     if(gl_light == NULL)
     {
         gl_light = new GL_Light();
@@ -344,7 +344,7 @@ void OpenGLDevice::not_supported(const char *str)
     printf("OpenGLDevice: \"%s\" is not supported.\n", str);
 }
 
-};
+}; // namespace video
 
-};
+}; // namespace huge
 

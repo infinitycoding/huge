@@ -20,8 +20,8 @@
 	@author Michael Sippel <micha@infinitycoding.de>
  */
 
-#include "camera.h"
-#include "video/device.h"
+#include <huge/camera.h>
+#include <huge/video/device.h>
 
 namespace huge
 {
@@ -50,5 +50,5 @@ Camera::~Camera()
 {
 }
 
-};
+}; // namespace huge
 

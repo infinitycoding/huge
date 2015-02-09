@@ -1,7 +1,7 @@
-#ifndef _matrix_h_
-#define _matrix_h_
+#ifndef _huge_viewport_h_
+#define _huge_viewport_h_
 /*
-        Copyright 2012-2014 Infinitycoding all rights reserved
+        Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
 
         HUGE is free software: you can redistribute it and/or modify
@@ -22,32 +22,30 @@
 	@author Michael Sippel <micha@infinitycoding.de>
  */
 
-#include "math/vector.h"
+#include <huge/camera.h>
+#include <huge/video/device.h>
 
 namespace huge
 {
 
-// MxN - Matrix
-template <int M, int N, typename T>
-class Vector<M, Vector<N, T> > : public VectorBase<M, Vector<N, T> >
+class Viewport
 {
     public:
-        using VectorBase<M, Vector<N, T> >::operator=;
-        inline Vector<M, Vector<N, T> >& operator=(T v);
+        Viewport();
+        Viewport(Vector2i position, Vector2i size_);
+        Viewport(Camera *camera_);
+        Viewport(Vector2i position, Vector2i size_, Camera *camera_);
+        ~Viewport();
 
-        using VectorBase<M, Vector<N, T> >::operator+=;
-        using VectorBase<M, Vector<N, T> >::operator-=;
-        using VectorBase<M, Vector<N, T> >::operator*=;
-        using VectorBase<M, Vector<N, T> >::operator/=;
-        inline Vector<M, Vector<N, T> >& operator+=(T v);
-        inline Vector<M, Vector<N, T> >& operator-=(T v);
-        inline Vector<M, Vector<N, T> >& operator*=(T v);
-        inline Vector<M, Vector<N, T> >& operator/=(T v);
+        Vector2i position;
+        Vector2i size;
+        Camera *camera;
+
+        void useViewport(video::Device *device);
+        void usePerspective(video::Device *device);
 };
 
-};
-
-#include "math/matrix_impl.h"
+}; // namespace huge
 
 #endif
 

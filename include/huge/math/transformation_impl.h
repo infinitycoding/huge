@@ -22,7 +22,7 @@
 	@author Michael Sippel <micha@infinitycoding.de>
  */
 
-#include "video/device.h"
+#include <huge/video/device.h>
 
 namespace huge
 {
@@ -192,7 +192,7 @@ inline void Transformation3<T>::useTransformation(video::Device *device)
 }
 
 
-};
+}; // namespace huge
 
 #endif
 

@@ -19,9 +19,10 @@
 /*
 	@author Michael Sippel <micha@infinitycoding.de>
  */
-#include "camera.h"
-#include "viewport.h"
-#include "video/device.h"
+
+#include <huge/camera.h>
+#include <huge/viewport.h>
+#include <huge/video/device.h>
 
 namespace huge
 {
@@ -69,5 +70,5 @@ void Viewport::usePerspective(video::Device *device)
     device->setPerspective(this->camera->fov, aspect, this->camera->near_clip, this->camera->far_clip);
 }
 
-};
+}; // namespace huge
 

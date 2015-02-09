@@ -18,6 +18,9 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
+namespace huge
+{
+
 template <typename T>
 ListNode<T>::ListNode()
 {
@@ -484,6 +487,8 @@ bool ListIterator<T>::isEmpty()
 {
     return Instance->isEmpty();
 }
+
+}; // namespace huge
 
 #endif
 

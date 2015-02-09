@@ -1,5 +1,5 @@
-#ifndef _huge_vector_h_
-#define _huge_vector_h_
+#ifndef _huge_math_vector_h_
+#define _huge_math_vector_h_
 /*
         Copyright 2012-2014 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -21,8 +21,6 @@
 /*
 	@author Michael Sippel <micha@infinitycoding.de>
  */
-
-#include <math.h>
 
 namespace huge
 {
@@ -202,9 +200,9 @@ typedef Vector<2, double> Vector2d;
 typedef Vector<3, double> Vector3d;
 typedef Vector<4, double> Vector4d;
 
-};
+}; // namespace huge
 
-#include "math/vector_impl.h"
+#include "vector_impl.h"
 
 #endif
 

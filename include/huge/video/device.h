@@ -19,11 +19,11 @@
 */
 #include <stdio.h>
 
-#include "color.h"
-#include "list.h"
-#include "math/vector.h"
-#include "video/device_object.h"
-#include "video/context.h"
+#include <huge/color.h>
+#include <huge/list.h>
+#include <huge/math/vector.h>
+#include <huge/video/device_object.h>
+#include <huge/video/context.h>
 
 namespace huge
 {
@@ -164,9 +164,9 @@ class Device
 #undef str
 #undef xstr
 
-};
+}; // namespace video
 
-};
+}; // namespace huge
 
 #endif
 

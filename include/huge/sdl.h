@@ -1,5 +1,5 @@
-#ifndef _sdl_h_
-#define _sdl_h_
+#ifndef _huge_sdl_h_
+#define _huge_sdl_h_
 /*
         Copyright 2012-2014 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -19,12 +19,14 @@
 */
 
 #include <SDL2/SDL.h>
-#include "math/vector.h"
-#include "video/context.h"
-#include "video/device.h"
+
+#include <huge/math/vector.h>
+#include <huge/video/context.h>
+#include <huge/video/device.h>
 
 namespace huge
 {
+
 namespace sdl
 {
 
@@ -80,8 +82,9 @@ class GLWindow : public Window
         void create(void);
 };
 
-};
-};
+}; // namespace sdl
+
+}; // namespace huge
 
 #endif
 

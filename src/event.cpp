@@ -7,7 +7,7 @@
         the Free Software Foundation, either version 3 of the License, or
         any later version.
 
-        The Universe Kernel is distributed in the hope that it will be useful,
+        HUGE Kernel is distributed in the hope that it will be useful,
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
@@ -16,9 +16,8 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-#include <event.h>
 #include <SDL2/SDL.h>
+#include <huge/event.h>
 
 namespace huge
 {
@@ -331,4 +330,5 @@ bool EventManager::check(const EventDevice *device)
     return true;
 }
 
-};
+}; // namespace huge
+

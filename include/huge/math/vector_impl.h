@@ -1,5 +1,5 @@
-#ifndef _vector_impl_h_
-#define _vector_impl_h_
+#ifndef _huge_math_vector_impl_h_
+#define _huge_math_vector_impl_h_
 /*
         Copyright 2012-2014 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -21,6 +21,8 @@
 /*
 	@author Michael Sippel <micha@infinitycoding.de>
  */
+
+#include <math.h>
 
 namespace huge
 {
@@ -254,7 +256,7 @@ inline Vector<3, T> cross(Vector<3, T> v1, Vector<3, T> v2)
     return r;
 }
 
-};
+}; // namespace huge
 
 #endif
 

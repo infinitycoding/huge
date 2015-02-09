@@ -1,3 +1,5 @@
+#ifndef _huge_light_h_
+#define _huge_light_h_
 /*
         Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -21,40 +23,36 @@
  */
 
 #include <huge/color.h>
-#include <huge/light.h>
+#include <huge/math/transformation.h>
 #include <huge/video/device.h>
+#include <huge/video/device_object.h>
 
 namespace huge
 {
 
-Light::Light()
+enum light_type
 {
-    Light(Color4f(1.0f, 1.0f, 1.0f, 1.0f));
-}
+    POINT,
+    PARALLEL,
+    SPOT
+};
 
-Light::Light(Color4f color_)
-    : color(color_), type(POINT)
+class Light : public Transformation3f, public video::DeviceObject
 {
-}
+    public:
+        Light();
+        Light(Color4f color);
+        ~Light();
 
-Light::~Light()
-{
-}
+        Color4f color;
+        enum light_type type;
 
-void Light::enable(video::Device *device)
-{
-    device->enableLight(this);
-}
-
-void Light::disable(video::Device *device)
-{
-    device->disableLight(this);
-}
-
-void Light::update(video::Device *device)
-{
-    device->updateLight(this);
-}
+        void enable(video::Device *device);
+        void disable(video::Device *device);
+        void update(video::Device *device);
+};
 
 }; // namespace huge
+
+#endif
 

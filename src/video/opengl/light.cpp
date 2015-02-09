@@ -20,14 +20,13 @@
 	@author Michael Sippel <micha@infinitycoding.de>
  */
 
-#include "video/device.h"
-#include "video/opengl.h"
-
-#include "light.h"
-
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
+
+#include <huge/video/device.h>
+#include <huge/video/opengl/device.h>
+#include <huge/light.h>
 
 namespace huge
 {
@@ -83,6 +82,7 @@ void GL_Light::update(void)
     glLightfv(this->gl_id, GL_POSITION, (GLfloat*) &this->position.data);
 }
 
-};
-};
+}; // namespace video
+
+}; // namespace huge
 

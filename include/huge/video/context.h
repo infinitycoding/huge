@@ -1,5 +1,5 @@
-#ifndef _video_device_context_h_
-#define _video_device_context_h_
+#ifndef _huge_video_context_h_
+#define _huge_video_context_h_
 /*
         Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -39,8 +39,9 @@ class Context
         static thread_local Context *current;
 };
 
-};
-};
+}; // namespace video
+
+}; // namespace huge
 
 #endif
 

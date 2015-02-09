@@ -1,6 +1,7 @@
 #include <stdio.h>
-#include "huge.h"
-#include "video/opengl.h"
+
+#include <huge.h>
+#include <huge/video/opengl.h>
 
 #include <GL/glew.h> // should not be used
 

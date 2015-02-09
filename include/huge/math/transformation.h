@@ -22,8 +22,8 @@
 	@author Michael Sippel <micha@infinitycoding.de>
  */
 
-#include "math/vector.h"
-#include "video/device.h"
+#include <huge/math/vector.h>
+#include <huge/video/device.h>
 
 namespace huge
 {
@@ -92,9 +92,9 @@ typedef Transformation3<float> Transformation3f;
 typedef Transformation2<double> Transformation2d;
 typedef Transformation3<double> Transformation3d;
 
-};
+}; // namespace huge
 
-#include "math/transformation_impl.h"
+#include "transformation_impl.h"
 
 #endif
 

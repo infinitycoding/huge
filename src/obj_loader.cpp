@@ -24,9 +24,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "math/vector.h"
-#include "object.h"
-#include "list.h"
+#include <huge/math/vector.h>
+#include <huge/object.h>
+#include <huge/list.h>
 
 namespace huge
 {
@@ -254,7 +254,7 @@ List<Mesh*> *load_obj(const char *path)
 }
 
 
-};
+}; // namespace loader
 
-};
+}; // namespace huge
 
