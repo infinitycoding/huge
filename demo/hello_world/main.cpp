@@ -74,32 +74,20 @@ int main(int argc, char **argv)
     glEnable(GL_COLOR_MATERIAL);
 
     dev1->clearColor(Color4d(0.0, 0.0, 0.4, 1.0f));
-    /*
-        GLuint program = glCreateProgram();
-        GLuint vsh_id = glCreateShader(GL_VERTEX_SHADER);
-        GLuint fsh_id = glCreateShader(GL_FRAGMENT_SHADER);
 
-        int vsh_len = strlen(vsh_source);
-        int fsh_len = strlen(fsh_source);
+    video::GLSL_Program *program = new video::GLSL_Program();
+    video::GLSL_Shader *vshader = new video::GLSL_Shader(GL_VERTEX_SHADER, vsh_source, strlen(vsh_source));
+    video::GLSL_Shader *fshader = new video::GLSL_Shader(GL_FRAGMENT_SHADER, fsh_source, strlen(fsh_source));
+    program->attach(vshader);
+    program->attach(fshader);
+    program->link();
+    program->use();
 
-        glShaderSource(vsh_id, 1, (const GLchar**) &vsh_source, &vsh_len);
-        glShaderSource(fsh_id, 1, (const GLchar**) &fsh_source, &fsh_len);
+    glDisable(GL_LIGHTING);
 
-        glCompileShader(vsh_id);
-        glCompileShader(fsh_id);
-
-        glAttachShader(program, vsh_id);
-        glAttachShader(program, fsh_id);
-        glLinkProgram(program);
-
-        glUseProgram(program);
-    */
-
-    glEnable(GL_LIGHTING);
-
-    Light *light = new Light(Color4f(1.0f, 0.6f, 0.6f, 1.0f));
-    light->update(dev1);
-    light->enable(dev1);
+    //Light *light = new Light(Color4f(1.0f, 0.6f, 0.6f, 1.0f));
+    //light->update(dev1);
+    //light->enable(dev1);
 
     // mesh
     List<Mesh*> *meshes = loader::load_obj("test.obj");

@@ -20,6 +20,7 @@
 
 #include "opengl/device.h"
 #include "opengl/light.h"
+#include "opengl/shader.h"
 
 #endif
 
