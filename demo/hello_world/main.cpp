@@ -17,7 +17,7 @@ varying vec4 FrontColor;\
 void main(void) {\
   normal         = normalize(gl_NormalMatrix * gl_Normal);\
   v              = vec3(gl_ModelViewMatrix * gl_Vertex);\
-  lightvec       = normalize(vec3(-4.0, 5.0, 3.0) - v);\
+  lightvec       = normalize(gl_LightSource[0].position.xyz - v);\
  \
   gl_TexCoord[0] = gl_MultiTexCoord0;\
   FrontColor     = gl_Color;\
@@ -39,9 +39,9 @@ void main(void) {\
   vec3 Eye       = normalize(-v);\
   vec3 Reflected = normalize(reflect( -lightvec, normal)); \
  \
-  vec4 IAmbient  = 0.1 * gl_FrontMaterial.ambient;\
-  vec4 IDiffuse  = 0.8 * max(dot(normal, lightvec), 0.0) * gl_FrontMaterial.diffuse;\
-  vec4 ISpecular = 1.0 * pow(max(dot(Reflected, Eye), 0.0), gl_FrontMaterial.shininess) * gl_FrontMaterial.specular;\
+  vec4 IAmbient  = gl_LightSource[0].ambient * gl_FrontMaterial.ambient;\
+  vec4 IDiffuse  = gl_LightSource[0].diffuse * max(dot(normal, lightvec), 0.0) * gl_FrontMaterial.diffuse;\
+  vec4 ISpecular = gl_LightSource[0].specular * pow(max(dot(Reflected, Eye), 0.0), gl_FrontMaterial.shininess) * gl_FrontMaterial.specular;\
  \
   gl_FragColor   = IAmbient + IDiffuse + ISpecular;\
 }"
@@ -63,6 +63,7 @@ int main(int argc, char **argv)
     video::Device *dev1 = new video::OpenGLDevice(context1);
     video::Device *dev2 = new video::OpenGLDevice(context2);
 
+    // gl
     dev1->context->activate();
     if(glewInit() != GLEW_OK)
     {
@@ -75,6 +76,8 @@ int main(int argc, char **argv)
 
     dev1->clearColor(Color4d(0.0, 0.0, 0.4, 1.0f));
 
+    // shaders
+    glDisable(GL_LIGHTING);
     video::GLSL_Program *program = new video::GLSL_Program();
     video::GLSL_Shader *vshader = new video::GLSL_Shader(GL_VERTEX_SHADER, vsh_source, strlen(vsh_source));
     video::GLSL_Shader *fshader = new video::GLSL_Shader(GL_FRAGMENT_SHADER, fsh_source, strlen(fsh_source));
@@ -83,11 +86,12 @@ int main(int argc, char **argv)
     program->link();
     program->use();
 
-    glDisable(GL_LIGHTING);
-
-    //Light *light = new Light(Color4f(1.0f, 0.6f, 0.6f, 1.0f));
-    //light->update(dev1);
-    //light->enable(dev1);
+    // lights
+    Light *light = new Light(Color4f(1.0f, 0.6f, 0.6f, 1.0f));
+    light->translate(Vector3f(-4.0f, 5.0f, 3.0f));
+    light->useTransformation(dev1);
+    light->update(dev1);
+    light->enable(dev1);
 
     // mesh
     List<Mesh*> *meshes = loader::load_obj("test.obj");
