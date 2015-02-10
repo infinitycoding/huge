@@ -77,6 +77,9 @@ class Transformation3
 
         void useTransformation(video::Device *device);
 
+    protected:
+        bool invert;
+
     private:
         Vector<3, T> *translation_;
         Vector<4, T> *rotation_;

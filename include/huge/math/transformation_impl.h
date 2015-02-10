@@ -116,6 +116,7 @@ Transformation3<T>::Transformation3()
     this->translation_ = new Vector<3, T>((T) 0, (T) 0, (T) 0);
     this->rotation_ = new Vector<4, T>((T) 0, (T) 0, (T) 0, (T) 0);
     this->scaling_ = new Vector<3, T>((T) 1, (T) 1, (T) 1);
+    this->invert = false;
 }
 
 template <typename T>
@@ -186,9 +187,18 @@ inline void Transformation3<T>::parent_scaling(Transformation3<T>& parent)
 template <typename T>
 inline void Transformation3<T>::useTransformation(video::Device *device)
 {
-    device->rotate(Vector<3, T>(this->rotation().data[0], this->rotation().data[1], this->rotation().data[2]), this->rotation().data[3]);
-    device->translate(this->translation());
-    device->scale(this->scaling());
+    if(!this->invert)
+    {
+        device->rotate(Vector<3, T>(this->rotation().data[0], this->rotation().data[1], this->rotation().data[2]), this->rotation().data[3]);
+        device->translate(this->translation());
+        device->scale(this->scaling());
+    }
+    else
+    {
+        device->rotate(Vector<3, T>(this->rotation().data[0], this->rotation().data[1], this->rotation().data[2]), -this->rotation().data[3]);
+        device->translate(this->translation()*Vector3f(-1.0f, -1.0f, -1.0f));
+        device->scale(Vector3f(1.0f, 1.0f, 1.0f)/this->scaling());
+    }
 }
 
 

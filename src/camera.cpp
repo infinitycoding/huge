@@ -29,21 +29,25 @@ namespace huge
 Camera::Camera()
     : fov(90.0f), near_clip(1.0f), far_clip(1000.0f)
 {
+    this->invert = true;
 }
 
 Camera::Camera(double fov_)
     : fov(fov_), near_clip(1.0f), far_clip(1000.0f)
 {
+    this->invert = true;
 }
 
 Camera::Camera(double near_clip_, double far_clip_)
     : fov(90.0f), near_clip(near_clip_), far_clip(far_clip_)
 {
+    this->invert = true;
 }
 
 Camera::Camera(double fov_, double near_clip_, double far_clip_)
     : fov(fov_), near_clip(near_clip_), far_clip(far_clip_)
 {
+    this->invert = true;
 }
 
 Camera::~Camera()

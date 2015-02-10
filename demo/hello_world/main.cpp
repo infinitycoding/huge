@@ -120,11 +120,11 @@ int main(int argc, char **argv)
     Camera *cam2 = new Camera();
     Viewport *view1 = new Viewport(Vector2i(0, 0), Vector2i(800, 600), cam1);
     Viewport *view2 = new Viewport(Vector2i(0, 0), Vector2i(400, 300), cam2);
-    cam1->translate(Vector3f(0.0f, -5.0f, -4.0f));
-    cam1->rotation() = Vector4f(1.0f, 0.0f, 0.0f, 30.0f);
+    cam1->translate(Vector3f(0.0f, 5.0f, 4.0f));
+    cam1->rotation() = Vector4f(1.0f, 0.0f, 0.0f, -30.0f);
 
-    cam2->translate(Vector3f(0.0f, 2.0f, -5.0f));
-    cam2->rotation() = Vector4f(1.0f, 0.0f, 0.0f, -10.0f);
+    cam2->translate(Vector3f(0.0f, -2.0f, 5.0f));
+    cam2->rotation() = Vector4f(1.0f, 0.0f, 0.0f, 10.0f);
 
     dev1->useViewport(view1);
     dev2->useViewport(view2);
@@ -156,11 +156,14 @@ int main(int argc, char **argv)
         // clear buffers
         dev1->clear(video::COLOR_BUFFER_BIT | video::DEPTH_BUFFER_BIT);
         dev2->clear(video::COLOR_BUFFER_BIT | video::DEPTH_BUFFER_BIT);
+
+        // transform
         dev1->pushMatrix();
         dev2->pushMatrix();
         dev1->useTransformation(*cam1);
         dev2->useTransformation(*cam2);
 
+        // light
         dev1->pushMatrix();
         light->useTransformation(dev1);
         light->update(dev1);
