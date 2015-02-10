@@ -4,6 +4,7 @@
 #include <huge/video/opengl.h>
 
 #include <GL/glew.h> // should not be used
+#include <GL/gl.h>
 
 using namespace huge;
 
@@ -74,7 +75,7 @@ int main(int argc, char **argv)
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     glEnable(GL_COLOR_MATERIAL);
-    glDisable(GL_LIGHTING);
+    glEnable(GL_TEXTURE_2D);
     dev1->clearColor(Color4d(0.0, 0.0, 0.4, 1.0f));
 
     // shaders
@@ -96,6 +97,11 @@ int main(int argc, char **argv)
     // mesh
     List<Mesh*> *meshes = loader::load_obj("test.obj");
     Mesh *mesh = meshes->popBack();
+
+    // texture
+    Texture *tex = loader::load_texture("texture.png");
+    video::GL_Texture *gl_tex = new video::GL_Texture(GL_TEXTURE_2D);
+    gl_tex->load(tex);
 
     // Objects
     Object *objects[6];

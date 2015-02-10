@@ -1,5 +1,3 @@
-#ifndef _huge_h_
-#define _huge_h_
 /*
         Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -18,29 +16,28 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "huge/camera.h"
-#include "huge/color.h"
-#include "huge/light.h"
-#include "huge/list.h"
-#include "huge/sdl.h"
-#include "huge/viewport.h"
-#include "huge/video/context.h"
-#include "huge/video/device.h"
-#include "huge/video/device_object.h"
-#include "huge/material/texture.h"
-#include "huge/math/matrix.h"
-#include "huge/math/transformation.h"
-#include "huge/math/vector.h"
-#include "huge/object/face.h"
-#include "huge/object/mesh.h"
-#include "huge/object/object.h"
+/*
+	@author Michael Sippel <micha@infinitycoding.de>
+ */
+
+#include <huge/material/texture.h>
 
 namespace huge
 {
 
-void test(void);
+Texture::Texture()
+{
+}
 
-};
+Texture::Texture(Vector2i size_, unsigned int bpp_, uint8_t *data_)
+    : size(size_), bpp(bpp_), data(data_)
+{
+}
 
-#endif
+Texture::~Texture()
+{
+}
+
+
+}; // namespace huge
 
