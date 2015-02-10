@@ -23,6 +23,7 @@
 #include <huge/object/object.h>
 #include <huge/object/mesh.h>
 #include <huge/video/device.h>
+#include <huge/material/material.h>
 
 namespace huge
 {
@@ -42,6 +43,16 @@ Object::Object(Mesh *mesh_, Vector3f trans)
     this->translation() = trans;
 }
 
+Object::Object(Mesh *mesh_, Material *material_)
+    : mesh(mesh_), material(material_)
+{
+}
+
+Object::Object(Mesh *mesh_, Material *material_, Vector3f trans)
+    : mesh(mesh_), material(material_)
+{
+    this->translation() = trans;
+}
 
 Object::~Object()
 {
@@ -49,6 +60,11 @@ Object::~Object()
 
 void Object::renderImmediate(video::Device *device)
 {
+    if(this->material != NULL)
+    {
+        this->material->useOld(device);
+    }
+
     device->pushMatrix();
     this->useTransformation(device);
     this->mesh->renderImmediate(device);

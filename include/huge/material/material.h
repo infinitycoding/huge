@@ -1,5 +1,5 @@
-#ifndef _huge_object_h_
-#define _huge_object_h_
+#ifndef _huge_material_h_
+#define _huge_material_h_
 /*
         Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -9,7 +9,7 @@
         the Free Software Foundation, either version 3 of the License, or
         any later version.
 
-        HUGE is distributed in the hope that it will be useful,
+        The Universe Kernel is distributed in the hope that it will be useful,
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
         GNU General Public License for more details.
@@ -18,30 +18,28 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <huge/list.h>
-#include <huge/material/material.h>
-#include <huge/math/vector.h>
-#include <huge/math/transformation.h>
+#include <huge/color.h>
 #include <huge/video/device.h>
-#include <huge/object/mesh.h>
 
 namespace huge
 {
 
-class Object : public Transformation3f
+class Material
 {
     public:
-        Object();
-        Object(Mesh *mesh_);
-        Object(Mesh *mesh_, Vector3f trans);
-        Object(Mesh *mesh_, Material *material_);
-        Object(Mesh *mesh_, Material *material_, Vector3f trans);
-        ~Object();
+        Material();
+        Material(Color4f color_);
+        Material(Color4f color_, float roughness_);
+        Material(Color4f color_, Color4f emission_);
+        Material(Color4f color_, Color4f emission_, float roughness_);
+        ~Material();
 
-        Mesh *mesh;
-        Material *material;
+        Color4f color;
+        Color4f emission;
+        float roughness;
 
-        void renderImmediate(video::Device *device);
+        void use(video::Device *device);
+        void useOld(video::Device *device);
 };
 
 }; // namespace huge

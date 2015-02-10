@@ -74,7 +74,6 @@ int main(int argc, char **argv)
 
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
-    glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_TEXTURE_2D);
     dev1->clearColor(Color4d(0.0, 0.0, 0.4, 1.0f));
 
@@ -91,9 +90,7 @@ int main(int argc, char **argv)
 
     // lights
     Light *light = new Light(Color4f(1.0f, 1.0f, 1.0f, 1.0f));
-    light->translate(Vector3f(-4.0f, 5.0f, 3.0f));
-    light->useTransformation(dev1);
-    light->update(dev1);
+    light->translate(Vector3f(-4.0f, 3.0f, -2.0f));
     light->enable(dev1);
 
     // mesh
@@ -109,30 +106,28 @@ int main(int argc, char **argv)
 
     glUniform1i(location, gl_tex->gl_id);
 
-    // Objects
+    // objects
     Object *objects[6];
-    objects[0] = new Object(mesh, Vector3f(-3.0f, 0.0f, 0.0f));
-    objects[1] = new Object(mesh, Vector3f( 0.0f, 0.0f, 0.0f));
-    objects[2] = new Object(mesh, Vector3f( 3.0f, 0.0f, 0.0f));
-    objects[3] = new Object(mesh, Vector3f(-3.0f, 0.0f,-3.0f));
-    objects[4] = new Object(mesh, Vector3f( 0.0f, 0.0f,-3.0f));
-    objects[5] = new Object(mesh, Vector3f( 3.0f, 0.0f,-3.0f));
+    objects[0] = new Object(mesh, new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 0.0f), Vector3f(-3.0f, 0.0f, 0.0f));
+    objects[1] = new Object(mesh, new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 0.2f), Vector3f( 0.0f, 0.0f, 0.0f));
+    objects[2] = new Object(mesh, new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 0.4f), Vector3f( 3.0f, 0.0f, 0.0f));
+    objects[3] = new Object(mesh, new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 1.0f), Vector3f(-3.0f, 0.0f,-3.0f));
+    objects[4] = new Object(mesh, new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 0.8f), Vector3f( 0.0f, 0.0f,-3.0f));
+    objects[5] = new Object(mesh, new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 0.6f), Vector3f( 3.0f, 0.0f,-3.0f));
 
     // perspective
     Camera *cam1 = new Camera();
     Camera *cam2 = new Camera();
     Viewport *view1 = new Viewport(Vector2i(0, 0), Vector2i(800, 600), cam1);
     Viewport *view2 = new Viewport(Vector2i(0, 0), Vector2i(400, 300), cam2);
-    cam1->translate(Vector3f(0.0f, -2.0f, -7.0f));
-    cam2->translate(Vector3f(0.0f,  2.0f, -5.0f));
-    cam2->rotation() = Vector4f(0.0f, 1.0f, 0.0f, 20.0f);
+    cam1->translate(Vector3f(0.0f, -5.0f, -4.0f));
+    cam1->rotation() = Vector4f(1.0f, 0.0f, 0.0f, 30.0f);
 
-    // use cameras transformation
+    cam2->translate(Vector3f(0.0f, 2.0f, -5.0f));
+    cam2->rotation() = Vector4f(1.0f, 0.0f, 0.0f, -10.0f);
+
     dev1->useViewport(view1);
-    dev1->useTransformation(*cam1);
-
     dev2->useViewport(view2);
-    dev2->useTransformation(*cam2);
 
     // main loop
     while(1)
@@ -161,6 +156,15 @@ int main(int argc, char **argv)
         // clear buffers
         dev1->clear(video::COLOR_BUFFER_BIT | video::DEPTH_BUFFER_BIT);
         dev2->clear(video::COLOR_BUFFER_BIT | video::DEPTH_BUFFER_BIT);
+        dev1->pushMatrix();
+        dev2->pushMatrix();
+        dev1->useTransformation(*cam1);
+        dev2->useTransformation(*cam2);
+
+        dev1->pushMatrix();
+        light->useTransformation(dev1);
+        light->update(dev1);
+        dev1->popMatrix();
 
         // set vertex color
         dev1->color(Color4ub(0xff, 0xff, 0xff, 0xff));
@@ -172,6 +176,9 @@ int main(int argc, char **argv)
             objects[i]->renderImmediate(dev1);
 
         mesh->renderImmediate(dev2);
+
+        dev1->popMatrix();
+        dev2->popMatrix();
 
         // swap windows
         dev1->context->activate();

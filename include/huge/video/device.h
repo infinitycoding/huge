@@ -31,6 +31,7 @@ namespace huge
 template <typename T> class Transformation2;
 template <typename T> class Transformation3;
 class Light;
+class Material;
 class Viewport;
 
 namespace video
@@ -157,6 +158,13 @@ class Device
         DUMMY(void enableLight(Light *light));
         DUMMY(void disableLight(Light *light));
         DUMMY(void updateLight(Light *light));
+
+        // material
+        DUMMY(void material_ambient(Color4f c));
+        DUMMY(void material_diffuse(Color4f c));
+        DUMMY(void material_specular(Color4f c));
+        DUMMY(void material_emission(Color4f c));
+        DUMMY(void material_shininess(float v));
 
     private:
         virtual void not_supported(const char *str);

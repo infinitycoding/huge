@@ -26,6 +26,7 @@
 #include <GL/gl.h>
 
 #include <huge/light.h>
+#include <huge/material/material.h>
 #include <huge/math/vector.h>
 #include <huge/video/device.h>
 #include <huge/video/opengl/light.h>
@@ -104,6 +105,13 @@ class OpenGLDevice : public Device
         void enableLight(Light *light);
         void disableLight(Light *light);
         void updateLight(Light *light);
+
+        // material
+        void material_ambient(Color4f c);
+        void material_diffuse(Color4f c);
+        void material_specular(Color4f c);
+        void material_emission(Color4f c);
+        void material_shininess(float v);
 
     private:
         void not_supported(const char *str);

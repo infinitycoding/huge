@@ -27,6 +27,9 @@
 #include <huge/video/device.h>
 #include <huge/video/opengl/device.h>
 
+#include <huge/light.h>
+#include <huge/material/material.h>
+
 namespace huge
 {
 
@@ -151,12 +154,12 @@ void OpenGLDevice::translate(Vector3d v)
 void OpenGLDevice::rotate(Vector3f v, float angle)
 {
     ACTIVATE;
-    glRotatef(v.data[0], v.data[1], v.data[2], angle);
+    glRotatef(angle, v.data[0], v.data[1], v.data[2]);
 }
 void OpenGLDevice::rotate(Vector3d v, double angle)
 {
     ACTIVATE;
-    glRotated(v.data[0], v.data[1], v.data[2], angle);
+    glRotated(angle, v.data[0], v.data[1], v.data[2]);
 }
 
 void OpenGLDevice::scale(Vector3f v)
@@ -345,6 +348,37 @@ void OpenGLDevice::updateLight(Light *light)
     gll->update();
 };
 
+// material data
+
+void OpenGLDevice::material_ambient(Color4f c)
+{
+    ACTIVATE;
+    glMaterialfv(GL_FRONT, GL_AMBIENT, (GLfloat*) &c.data);
+}
+
+void OpenGLDevice::material_diffuse(Color4f c)
+{
+    ACTIVATE;
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, (GLfloat*) &c.data);
+}
+
+void OpenGLDevice::material_specular(Color4f c)
+{
+    ACTIVATE;
+    glMaterialfv(GL_FRONT, GL_SPECULAR, (GLfloat*) &c.data);
+}
+
+void OpenGLDevice::material_emission(Color4f c)
+{
+    ACTIVATE;
+    glMaterialfv(GL_FRONT, GL_EMISSION, (GLfloat*) &c.data);
+}
+
+void OpenGLDevice::material_shininess(float v)
+{
+    ACTIVATE;
+    glMaterialfv(GL_FRONT, GL_SHININESS, (GLfloat*) &v);
+}
 
 void OpenGLDevice::not_supported(const char *str)
 {

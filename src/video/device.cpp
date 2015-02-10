@@ -22,6 +22,7 @@
 
 #include <huge/video/device.h>
 #include <huge/viewport.h>
+#include <huge/material/material.h>
 
 namespace huge
 {
