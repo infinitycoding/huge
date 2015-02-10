@@ -58,7 +58,7 @@ class GLSL_Program
         void link(void);
         void use(void);
 
-    private:
+        //private:
         GLuint gl_id;
 };
 

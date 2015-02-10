@@ -204,7 +204,7 @@ List<Mesh*> *load_obj(const char *path)
                                 break;
                         }
                     }
-                    faces[num_faces] = new Face(num_values, face_vertices);
+                    faces[num_faces] = new Face(num_values, face_vertices, face_coords);
                 }
                 num_faces ++;
             }

@@ -40,6 +40,11 @@ Face::Face(int num_vertices_, int *vertices_)
 {
 }
 
+Face::Face(int num_vertices_, int *vertices_, int *texcoords_)
+    : num_vertices(num_vertices_), vertices(vertices_), texcoords(texcoords_)
+{
+}
+
 Face::~Face()
 {
 }

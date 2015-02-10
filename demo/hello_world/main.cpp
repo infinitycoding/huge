@@ -44,7 +44,7 @@ void main(void) {\
   vec4 IDiffuse  = gl_LightSource[0].diffuse * max(dot(normal, lightvec), 0.0) * gl_FrontMaterial.diffuse;\
   vec4 ISpecular = gl_LightSource[0].specular * pow(max(dot(Reflected, Eye), 0.0), gl_FrontMaterial.shininess) * gl_FrontMaterial.specular;\
  \
-  gl_FragColor   = IAmbient + IDiffuse + ISpecular;\
+  gl_FragColor   = vec4((IAmbient + IDiffuse) * texture2D(Texture0, vec2(gl_TexCoord[0])) + ISpecular);\
 }"
 };
 
@@ -87,8 +87,10 @@ int main(int argc, char **argv)
     program->link();
     program->use();
 
+    GLuint location = glGetUniformLocation(program->gl_id, "Texture0");
+
     // lights
-    Light *light = new Light(Color4f(1.0f, 0.6f, 0.6f, 1.0f));
+    Light *light = new Light(Color4f(1.0f, 1.0f, 1.0f, 1.0f));
     light->translate(Vector3f(-4.0f, 5.0f, 3.0f));
     light->useTransformation(dev1);
     light->update(dev1);
@@ -102,6 +104,10 @@ int main(int argc, char **argv)
     Texture *tex = loader::load_texture("texture.png");
     video::GL_Texture *gl_tex = new video::GL_Texture(GL_TEXTURE_2D);
     gl_tex->load(tex);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);//TODO
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);//TODO
+
+    glUniform1i(location, gl_tex->gl_id);
 
     // Objects
     Object *objects[6];

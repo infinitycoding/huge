@@ -208,6 +208,13 @@ void OpenGLDevice::normal(Vector3d v)
     glNormal3dv((GLdouble*) &v.data);
 }
 
+// texcoord data
+void OpenGLDevice::texcoord(Vector2f v)
+{
+    ACTIVATE;
+    glTexCoord2fv((GLfloat*) &v.data);
+}
+
 // color data
 void OpenGLDevice::color(Color3b c)
 {

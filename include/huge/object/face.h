@@ -32,6 +32,7 @@ class Face
     public:
         Face();
         Face(int num_vertices_, int *vertices_);
+        Face(int num_vertices_, int *vertices_, int *texcoords_);
         ~Face();
 
     private:

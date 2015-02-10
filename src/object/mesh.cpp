@@ -102,14 +102,27 @@ void Mesh::renderImmediate(video::Device *device)
 
         for(j = 0; j < face->num_vertices; j++)
         {
-            int id = face->vertices[j];
-            if(id < this->num_vertices)
+            if(face->texcoords != NULL)
             {
-                if(this->normals != NULL)
-                    device->normal(this->normals[id]);
+                int id = face->texcoords[j];
+                if(id < this->num_texcoords)
+                {
+                    if(this->texcoords != NULL)
+                        device->texcoord(this->texcoords[id]);
+                }
+            }
 
-                if(this->vertices != NULL)
-                    device->vertex(this->vertices[id]);
+            if(face->vertices != NULL)
+            {
+                int id = face->vertices[j];
+                if(id < this->num_vertices)
+                {
+                    if(this->normals != NULL)
+                        device->normal(this->normals[id]);
+
+                    if(this->vertices != NULL)
+                        device->vertex(this->vertices[id]);
+                }
             }
         }
 

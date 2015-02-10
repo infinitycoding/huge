@@ -131,6 +131,9 @@ class Device
         DUMMY(void normal(Vector3f v));
         DUMMY(void normal(Vector3d v));
 
+        // texcoord data
+        DUMMY(void texcoord(Vector2f v));
+
         // color data
         DUMMY(void color(Color3b c));
         DUMMY(void color(Color3ub c));

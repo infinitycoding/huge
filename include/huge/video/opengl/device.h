@@ -79,6 +79,9 @@ class OpenGLDevice : public Device
         void normal(Vector3i v);
         void normal(Vector3f v);
 
+        // texcoord data
+        void texcoord(Vector2f v);
+
         // color data
         void color(Color3b c);
         void color(Color4b c);
