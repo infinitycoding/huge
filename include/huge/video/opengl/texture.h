@@ -41,7 +41,7 @@ class GL_Texture
         void load(GLint level, GLint bpp, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *data);
         void bind();
 
-        //private:
+    private:
         GLuint gl_id;
         GLenum target;
 };

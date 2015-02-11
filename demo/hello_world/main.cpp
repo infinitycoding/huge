@@ -86,7 +86,7 @@ int main(int argc, char **argv)
     program->link();
     program->use();
 
-    GLuint location = glGetUniformLocation(program->gl_id, "Texture0");
+    GLuint location = program->getUniformLocation("Texture0");
 
     // lights
     Light *light = new Light(Color4f(1.0f, 1.0f, 1.0f, 1.0f));
@@ -101,10 +101,8 @@ int main(int argc, char **argv)
     Texture *tex = loader::load_texture("texture.png");
     video::GL_Texture *gl_tex = new video::GL_Texture(GL_TEXTURE_2D);
     gl_tex->load(tex);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);//TODO
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);//TODO
 
-    glUniform1i(location, gl_tex->gl_id);
+    glUniform1i(location, 0);
 
     // objects
     Object *objects[6];

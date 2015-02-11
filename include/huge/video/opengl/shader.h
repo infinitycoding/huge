@@ -58,7 +58,9 @@ class GLSL_Program
         void link(void);
         void use(void);
 
-        //private:
+        GLuint getUniformLocation(const char *name);
+
+    private:
         GLuint gl_id;
 };
 

@@ -122,6 +122,10 @@ void GLSL_Program::use(void)
     glUseProgram(this->gl_id);
 }
 
+GLuint GLSL_Program::getUniformLocation(const char *name)
+{
+    return glGetUniformLocation(this->gl_id, (const GLchar*) name);
+}
 
 }; // namespace video
 

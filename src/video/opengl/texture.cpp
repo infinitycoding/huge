@@ -75,6 +75,9 @@ void GL_Texture::load(GLint level, GLint bpp, GLsizei width, GLsizei height, GLi
 {
     this->bind();
     glTexImage2D(this->target, level, bpp, width, height, border, format, type, data);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);//TODO
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);//TODO
 }
 
 void GL_Texture::bind(void)
