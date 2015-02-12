@@ -87,7 +87,7 @@ int main(int argc, char **argv)
     program->use();
 
     GLuint location = program->getUniformLocation("Texture0");
-	glUniform1i(location, 0);
+    glUniform1i(location, 0);
 
     // lights
     Light *light = new Light(Color4f(1.0f, 1.0f, 1.0f, 1.0f));
@@ -102,13 +102,17 @@ int main(int argc, char **argv)
     Texture *tex = loader::load_texture("texture.png");
 
     // objects
+    List<struct texture_mapping> *textures = new List<struct texture_mapping>();
+    struct texture_mapping mapping = {0, tex};
+    textures->pushBack(mapping);
+
     Object *objects[6];
-    objects[0] = new Object(mesh, new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 0.0f), Vector3f(-3.0f, 0.0f, 0.0f));
-    objects[1] = new Object(mesh, new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 0.2f), Vector3f( 0.0f, 0.0f, 0.0f));
-    objects[2] = new Object(mesh, new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 0.4f), Vector3f( 3.0f, 0.0f, 0.0f));
-    objects[3] = new Object(mesh, new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 1.0f), Vector3f(-3.0f, 0.0f,-3.0f));
-    objects[4] = new Object(mesh, new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 0.8f), Vector3f( 0.0f, 0.0f,-3.0f));
-    objects[5] = new Object(mesh, new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 0.6f), Vector3f( 3.0f, 0.0f,-3.0f));
+    objects[0] = new Object(mesh, new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 0.0f, textures), Vector3f(-3.0f, 0.0f, 0.0f));
+    objects[1] = new Object(mesh, new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 0.2f, textures), Vector3f( 0.0f, 0.0f, 0.0f));
+    objects[2] = new Object(mesh, new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 0.4f, textures), Vector3f( 3.0f, 0.0f, 0.0f));
+    objects[3] = new Object(mesh, new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 1.0f, textures), Vector3f(-3.0f, 0.0f,-3.0f));
+    objects[4] = new Object(mesh, new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 0.8f, textures), Vector3f( 0.0f, 0.0f,-3.0f));
+    objects[5] = new Object(mesh, new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 0.6f, textures), Vector3f( 3.0f, 0.0f,-3.0f));
 
     // perspective
     Camera *cam1 = new Camera();
@@ -169,8 +173,6 @@ int main(int argc, char **argv)
         dev2->color(Color4ub(0x44, 0x55, 0x11, 0xff));
 
         // render mesh
-		dev1->bindTexture(0, tex);
-
         int i;
         for(i = 0; i < 6; i++)
             objects[i]->renderImmediate(dev1);

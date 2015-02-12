@@ -20,6 +20,7 @@
 	@author Michael Sippel <micha@infinitycoding.de>
  */
 
+#include <huge/list.h>
 #include <huge/material/material.h>
 #include <huge/video/device.h>
 
@@ -31,6 +32,7 @@ Material::Material()
     this->color = Color4f(1.0f, 1.0f, 1.0f, 1.0f);
     this->emission = Color4f(0.0f, 0.0f, 0.0f, 1.0f);
     this->roughness = 0.8f;
+    this->textures = NULL;
 }
 
 Material::Material(Color4f color_)
@@ -38,10 +40,18 @@ Material::Material(Color4f color_)
 {
     this->emission = Color4f();
     this->roughness = 0.8f;
+    this->textures = NULL;
 }
 
 Material::Material(Color4f color_, float roughness_)
     :color(color_), roughness(roughness_)
+{
+    this->emission = Color4f(0.0f, 0.0f, 0.0f, 1.0f);
+    this->textures = NULL;
+}
+
+Material::Material(Color4f color_, float roughness_, List<struct texture_mapping> *textures_)
+    :color(color_), roughness(roughness_), textures(textures_)
 {
     this->emission = Color4f(0.0f, 0.0f, 0.0f, 1.0f);
 }
@@ -50,11 +60,13 @@ Material::Material(Color4f color_, Color4f emission_)
     :color(color_), emission(emission_)
 {
     this->roughness = 0.8f;
+    this->textures = NULL;
 }
 
 Material::Material(Color4f color_, Color4f emission_, float roughness_)
     :color(color_), emission(emission_), roughness(roughness_)
 {
+    this->textures = NULL;
 }
 
 
@@ -62,8 +74,27 @@ Material::~Material()
 {
 }
 
+void Material::bindTextures(video::Device *device)
+{
+    if(this->textures != NULL)
+    {
+        ListIterator<struct texture_mapping> it = ListIterator<struct texture_mapping>(this->textures);
+        it.setFirst();
+
+        while(!it.isLast())
+        {
+            struct texture_mapping mapping = it.getCurrent();
+            device->bindTexture(mapping.layer, mapping.texture);
+
+            it.next();
+        }
+    }
+}
+
 void Material::useOld(video::Device *device)
 {
+    this->bindTextures(device);
+
     Color4f diffuse = this->color;
     diffuse *= this->roughness;
     Color4f specular = this->color;

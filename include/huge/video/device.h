@@ -93,29 +93,29 @@ class Device
         void *getTypeObject(void *obj);
         void addTypeObject(void *abstract, void *specific);
 
-		template <typename T1, typename T2>
-		T1 *deviceObject(T2 *a)
-		{
-			T1 *s = (T1*) this->getDeviceObject((void*) a);
-			if(s == NULL)
-			{
-				s = new T1(a);
-				this->addDeviceObject((void*) a, (void*) s);
-			}
-			return s;
-		}
+        template <typename T1, typename T2>
+        T1 *deviceObject(T2 *a)
+        {
+            T1 *s = (T1*) this->getDeviceObject((void*) a);
+            if(s == NULL)
+            {
+                s = new T1(a);
+                this->addDeviceObject((void*) a, (void*) s);
+            }
+            return s;
+        }
 
-		template <typename T1, typename T2>
-		T1 *typeObject(T2 *a)
-		{
-			T1 *s = (T1*) this->getTypeObject((void*) a);
-			if(s == NULL)
-			{
-				s = new T1(a);
-				this->addTypeObject((void*) a, (void*) s);
-			}
-			return s;
-		}
+        template <typename T1, typename T2>
+        T1 *typeObject(T2 *a)
+        {
+            T1 *s = (T1*) this->getTypeObject((void*) a);
+            if(s == NULL)
+            {
+                s = new T1(a);
+                this->addTypeObject((void*) a, (void*) s);
+            }
+            return s;
+        }
 
         //
         // wrappers for better use
@@ -201,8 +201,8 @@ class Device
         DUMMY(void material_emission(Color4f c));
         DUMMY(void material_shininess(float v));
 
-		// texture
-		DUMMY(void bindTexture(unsigned int layer, Texture *texture));
+        // texture
+        DUMMY(void bindTexture(unsigned int layer, Texture *texture));
 
     private:
         virtual void not_supported(const char *str);

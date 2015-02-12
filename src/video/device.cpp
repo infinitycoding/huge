@@ -72,19 +72,19 @@ void* Device::getDeviceObject(void *obj)
 
 void* Device::getTypeObject(void *obj)
 {
-        ListIterator<struct abstraction_entry> it = ListIterator<struct abstraction_entry>(this->type_objects());
-        it.setFirst();
+    ListIterator<struct abstraction_entry> it = ListIterator<struct abstraction_entry>(this->type_objects());
+    it.setFirst();
 
-        while(!it.isLast())
+    while(!it.isLast())
+    {
+        struct abstraction_entry entry = it.getCurrent();
+        if(entry.abstract == obj)
         {
-            struct abstraction_entry entry = it.getCurrent();
-            if(entry.abstract == obj)
-            {
-                return entry.specific;
-            }
-
-            it.next();
+            return entry.specific;
         }
+
+        it.next();
+    }
 
     return NULL;
 }
@@ -100,11 +100,11 @@ void Device::addDeviceObject(void *abstract, void *specific)
 
 void Device::addTypeObject(void *abstract, void *specific)
 {
-        struct abstraction_entry entry;
-        entry.abstract = abstract;
-        entry.specific = specific;
+    struct abstraction_entry entry;
+    entry.abstract = abstract;
+    entry.specific = specific;
 
-        this->type_objects()->pushBack(entry);
+    this->type_objects()->pushBack(entry);
 };
 
 

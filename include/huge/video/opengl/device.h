@@ -116,8 +116,8 @@ class OpenGLDevice : public Device
         void material_emission(Color4f c);
         void material_shininess(float v);
 
-		// texture
-		void bindTexture(unsigned int layer, Texture *texture);
+        // texture
+        void bindTexture(unsigned int layer, Texture *texture);
 
     private:
         void not_supported(const char *str);

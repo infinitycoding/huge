@@ -44,8 +44,8 @@ GL_Light::GL_Light()
 
 GL_Light::GL_Light(Light *light)
 {
-	GL_Light();
-	this->set(light);
+    GL_Light();
+    this->set(light);
 }
 
 GL_Light::~GL_Light()

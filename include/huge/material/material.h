@@ -26,12 +26,19 @@
 namespace huge
 {
 
+struct texture_mapping
+{
+    unsigned int layer;
+    Texture *texture;
+};
+
 class Material
 {
     public:
         Material();
         Material(Color4f color_);
         Material(Color4f color_, float roughness_);
+        Material(Color4f color_, float roughness_, List<struct texture_mapping> *textures_);
         Material(Color4f color_, Color4f emission_);
         Material(Color4f color_, Color4f emission_, float roughness_);
         ~Material();
@@ -40,10 +47,12 @@ class Material
         Color4f emission;
         float roughness;
 
-		Texture *color_tex; // TODO: multitexturing (with lists)
+        List<struct texture_mapping> *textures;
 
         void use(video::Device *device);
         void useOld(video::Device *device);
+
+        void bindTextures(video::Device *device);
 };
 
 }; // namespace huge
