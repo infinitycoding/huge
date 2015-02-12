@@ -20,6 +20,7 @@
 	@author Michael Sippel <micha@infinitycoding.de>
  */
 
+#include <stdio.h>
 #include <GL/glew.h>
 #include <GL/gl.h>
 
@@ -41,6 +42,14 @@ GL_Texture::GL_Texture(GLenum target_)
     : target(target_)
 {
     GL_Texture();
+}
+
+GL_Texture::GL_Texture(Texture *texture)
+{
+	GL_Texture();
+
+	this->target = GL_TEXTURE_2D;
+	this->load(texture);
 }
 
 GL_Texture::~GL_Texture()

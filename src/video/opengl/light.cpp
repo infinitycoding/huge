@@ -26,6 +26,7 @@
 
 #include <huge/video/device.h>
 #include <huge/video/opengl/device.h>
+#include <huge/video/opengl/light.h>
 #include <huge/light.h>
 
 namespace huge
@@ -39,6 +40,12 @@ unsigned int GL_Light::light_counter = 0;
 GL_Light::GL_Light()
 {
     this->gl_id = GL_LIGHT0 + (GLuint) GL_Light::light_counter++;
+}
+
+GL_Light::GL_Light(Light *light)
+{
+	GL_Light();
+	this->set(light);
 }
 
 GL_Light::~GL_Light()

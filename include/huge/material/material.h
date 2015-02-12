@@ -21,6 +21,8 @@
 #include <huge/color.h>
 #include <huge/video/device.h>
 
+#include <huge/material/texture.h>
+
 namespace huge
 {
 
@@ -37,6 +39,8 @@ class Material
         Color4f color;
         Color4f emission;
         float roughness;
+
+		Texture *color_tex; // TODO: multitexturing (with lists)
 
         void use(video::Device *device);
         void useOld(video::Device *device);

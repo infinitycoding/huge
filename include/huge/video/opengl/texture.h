@@ -34,6 +34,7 @@ class GL_Texture
     public:
         GL_Texture();
         GL_Texture(GLenum target_);
+		GL_Texture(Texture *texture);
         ~GL_Texture();
 
         void load(Texture *texture);

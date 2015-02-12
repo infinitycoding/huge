@@ -27,9 +27,9 @@
 
 #include <huge/light.h>
 #include <huge/material/material.h>
+#include <huge/material/texture.h>
 #include <huge/math/vector.h>
 #include <huge/video/device.h>
-#include <huge/video/opengl/light.h>
 
 namespace huge
 {
@@ -46,7 +46,7 @@ class OpenGLDevice : public Device
 
         static const enum device_type type = OPENGL_DEVICE;
 
-        List<struct abstraction_entry> *gl_objects;
+        static List<struct abstraction_entry>* gl_objects;
         inline List<struct abstraction_entry>*& type_objects(void);
 
         // buffers
@@ -116,10 +116,11 @@ class OpenGLDevice : public Device
         void material_emission(Color4f c);
         void material_shininess(float v);
 
+		// texture
+		void bindTexture(unsigned int layer, Texture *texture);
+
     private:
         void not_supported(const char *str);
-
-        inline GL_Light *getLight(Light *light);
 };
 
 }; // namespace video

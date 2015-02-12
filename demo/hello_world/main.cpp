@@ -87,6 +87,7 @@ int main(int argc, char **argv)
     program->use();
 
     GLuint location = program->getUniformLocation("Texture0");
+	glUniform1i(location, 0);
 
     // lights
     Light *light = new Light(Color4f(1.0f, 1.0f, 1.0f, 1.0f));
@@ -99,10 +100,6 @@ int main(int argc, char **argv)
 
     // texture
     Texture *tex = loader::load_texture("texture.png");
-    video::GL_Texture *gl_tex = new video::GL_Texture(GL_TEXTURE_2D);
-    gl_tex->load(tex);
-
-    glUniform1i(location, 0);
 
     // objects
     Object *objects[6];
@@ -158,8 +155,8 @@ int main(int argc, char **argv)
         // transform
         dev1->pushMatrix();
         dev2->pushMatrix();
-        dev1->useTransformation(*cam1);
-        dev2->useTransformation(*cam2);
+        dev1->transform(*cam1);
+        dev2->transform(*cam2);
 
         // light
         dev1->pushMatrix();
@@ -172,6 +169,8 @@ int main(int argc, char **argv)
         dev2->color(Color4ub(0x44, 0x55, 0x11, 0xff));
 
         // render mesh
+		dev1->bindTexture(0, tex);
+
         int i;
         for(i = 0; i < 6; i++)
             objects[i]->renderImmediate(dev1);

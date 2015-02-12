@@ -33,20 +33,12 @@ namespace video
 Device::Device()
 {
     this->device_objects = new List<struct abstraction_entry>();
-    if(this->type_objects() != NULL)
-    {
-        this->type_objects() = new List<struct abstraction_entry>();
-    }
 }
 
 Device::Device(video::Context *context_)
     : context(context_)
 {
-    this->device_objects = new List<struct abstraction_entry>();
-    if(this->type_objects() != NULL)
-    {
-        this->type_objects() = new List<struct abstraction_entry>();
-    }
+    Device();
 }
 
 Device::~Device()
@@ -80,8 +72,6 @@ void* Device::getDeviceObject(void *obj)
 
 void* Device::getTypeObject(void *obj)
 {
-    if(this->type_objects() != NULL)
-    {
         ListIterator<struct abstraction_entry> it = ListIterator<struct abstraction_entry>(this->type_objects());
         it.setFirst();
 
@@ -95,7 +85,6 @@ void* Device::getTypeObject(void *obj)
 
             it.next();
         }
-    }
 
     return NULL;
 }
@@ -111,14 +100,11 @@ void Device::addDeviceObject(void *abstract, void *specific)
 
 void Device::addTypeObject(void *abstract, void *specific)
 {
-    if(this->type_objects() != NULL)
-    {
         struct abstraction_entry entry;
         entry.abstract = abstract;
         entry.specific = specific;
 
         this->type_objects()->pushBack(entry);
-    }
 };
 
 

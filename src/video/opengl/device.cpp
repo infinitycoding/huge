@@ -26,6 +26,8 @@
 
 #include <huge/video/device.h>
 #include <huge/video/opengl/device.h>
+#include <huge/video/opengl/light.h>
+#include <huge/video/opengl/texture.h>
 
 #include <huge/light.h>
 #include <huge/material/material.h>
@@ -52,6 +54,8 @@ static GLenum gl_matrix_mode[] =
 {
     GL_MODELVIEW, GL_PROJECTION, GL_TEXTURE, GL_COLOR
 };
+
+List<struct abstraction_entry> *OpenGLDevice::gl_objects = new List<struct abstraction_entry>();
 
 OpenGLDevice::OpenGLDevice()
 {
@@ -321,34 +325,22 @@ void OpenGLDevice::color(Color4d c)
 }
 
 // light data
-GL_Light *OpenGLDevice::getLight(Light *light)
-{
-    GL_Light *gl_light = (GL_Light*) this->getDeviceObject((void*)light);
-    if(gl_light == NULL)
-    {
-        gl_light = new GL_Light();
-        this->addDeviceObject((void*)light, (void*) gl_light);
-    }
-
-    return gl_light;
-}
-
 void OpenGLDevice::enableLight(Light *light)
 {
     ACTIVATE;
-    this->getLight(light)->enable();
+    this->deviceObject<GL_Light, Light>(light)->enable();
 };
 
 void OpenGLDevice::disableLight(Light *light)
 {
     ACTIVATE;
-    this->getLight(light)->disable();
+    this->deviceObject<GL_Light, Light>(light)->disable();
 };
 
 void OpenGLDevice::updateLight(Light *light)
 {
     ACTIVATE;
-    GL_Light *gll = this->getLight(light);
+    GL_Light *gll = this->deviceObject<GL_Light, Light>(light);
     gll->set(light);
     gll->update();
 };
@@ -383,6 +375,16 @@ void OpenGLDevice::material_shininess(float v)
 {
     ACTIVATE;
     glMaterialfv(GL_FRONT, GL_SHININESS, (GLfloat*) &v);
+}
+
+// texture
+void OpenGLDevice::bindTexture(unsigned int layer, Texture *texture)
+{
+	ACTIVATE;
+	glActiveTexture(GL_TEXTURE0 + layer);
+	glEnable(GL_TEXTURE_2D);
+	this->typeObject<GL_Texture, Texture>(texture)->bind();
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 }
 
 void OpenGLDevice::not_supported(const char *str)
