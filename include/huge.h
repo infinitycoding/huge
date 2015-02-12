@@ -26,7 +26,6 @@
 #include "huge/viewport.h"
 #include "huge/video/context.h"
 #include "huge/video/device.h"
-#include "huge/video/device_object.h"
 #include "huge/material/texture.h"
 #include "huge/math/matrix.h"
 #include "huge/math/transformation.h"

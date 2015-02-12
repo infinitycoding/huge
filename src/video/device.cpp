@@ -30,40 +30,44 @@ namespace huge
 namespace video
 {
 
-unsigned int DeviceObject::object_counter = 0;
-DeviceObject::DeviceObject()
-{
-    this->id = DeviceObject::object_counter++;
-}
-
-DeviceObject::~DeviceObject()
-{
-}
-
 Device::Device()
 {
-    this->objects = new List<struct device_object_entry>();
+    this->device_objects = new List<struct abstraction_entry>();
+    if(this->type_objects() != NULL)
+    {
+        this->type_objects() = new List<struct abstraction_entry>();
+    }
 }
 
 Device::Device(video::Context *context_)
     : context(context_)
 {
-    this->objects = new List<struct device_object_entry>();
+    this->device_objects = new List<struct abstraction_entry>();
+    if(this->type_objects() != NULL)
+    {
+        this->type_objects() = new List<struct abstraction_entry>();
+    }
 }
 
 Device::~Device()
 {
 }
 
-void* Device::getObject(DeviceObject *obj)
+inline List<struct abstraction_entry>*& Device::type_objects(void)
 {
-    ListIterator<struct device_object_entry> it = ListIterator<struct device_object_entry>(this->objects);
+    List<struct abstraction_entry>* null = NULL;
+    return null;
+}
+
+void* Device::getDeviceObject(void *obj)
+{
+    ListIterator<struct abstraction_entry> it = ListIterator<struct abstraction_entry>(this->device_objects);
     it.setFirst();
 
     while(!it.isLast())
     {
-        struct device_object_entry entry = it.getCurrent();
-        if(entry.abstract->id == obj->id)
+        struct abstraction_entry entry = it.getCurrent();
+        if(entry.abstract == obj)
         {
             return entry.specific;
         }
@@ -74,14 +78,49 @@ void* Device::getObject(DeviceObject *obj)
     return NULL;
 }
 
-void Device::addObject(DeviceObject *abstract, void *specific)
+void* Device::getTypeObject(void *obj)
 {
-    struct device_object_entry entry;
+    if(this->type_objects() != NULL)
+    {
+        ListIterator<struct abstraction_entry> it = ListIterator<struct abstraction_entry>(this->type_objects());
+        it.setFirst();
+
+        while(!it.isLast())
+        {
+            struct abstraction_entry entry = it.getCurrent();
+            if(entry.abstract == obj)
+            {
+                return entry.specific;
+            }
+
+            it.next();
+        }
+    }
+
+    return NULL;
+}
+
+void Device::addDeviceObject(void *abstract, void *specific)
+{
+    struct abstraction_entry entry;
     entry.abstract = abstract;
     entry.specific = specific;
 
-    this->objects->pushBack(entry);
+    this->device_objects->pushBack(entry);
 };
+
+void Device::addTypeObject(void *abstract, void *specific)
+{
+    if(this->type_objects() != NULL)
+    {
+        struct abstraction_entry entry;
+        entry.abstract = abstract;
+        entry.specific = specific;
+
+        this->type_objects()->pushBack(entry);
+    }
+};
+
 
 inline void Device::not_supported(const char *str)
 {

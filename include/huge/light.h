@@ -25,7 +25,6 @@
 #include <huge/color.h>
 #include <huge/math/transformation.h>
 #include <huge/video/device.h>
-#include <huge/video/device_object.h>
 
 namespace huge
 {
@@ -37,7 +36,7 @@ enum light_type
     SPOT
 };
 
-class Light : public Transformation3f, public video::DeviceObject
+class Light : public Transformation3f
 {
     public:
         Light();

@@ -46,6 +46,9 @@ class OpenGLDevice : public Device
 
         static const enum device_type type = OPENGL_DEVICE;
 
+        List<struct abstraction_entry> *gl_objects;
+        inline List<struct abstraction_entry>*& type_objects(void);
+
         // buffers
         void clear(bitfield_t buffers);
         void clearColor(Color4d col);

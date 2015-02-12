@@ -22,7 +22,6 @@
 #include <huge/color.h>
 #include <huge/list.h>
 #include <huge/math/vector.h>
-#include <huge/video/device_object.h>
 #include <huge/video/context.h>
 
 namespace huge
@@ -68,6 +67,12 @@ enum matrix_mode
 typedef unsigned int bitfield_t;
 
 
+struct abstraction_entry
+{
+    void *abstract;
+    void *specific;
+};
+
 class Device
 {
     public:
@@ -78,9 +83,13 @@ class Device
         static const enum device_type type = NULL_DEVICE;
         Context *context;
 
-        List<struct device_object_entry> *objects;
-        void *getObject(DeviceObject *obj);
-        void addObject(DeviceObject *abstract, void *specific);
+        List<struct abstraction_entry> *device_objects;
+        virtual inline List<struct abstraction_entry>*& type_objects(void);
+
+        void *getDeviceObject(void *obj);
+        void *getTypeObject(void *obj);
+        void addDeviceObject(void *abstract, void *specific);
+        void addTypeObject(void *abstract, void *specific);
 
         //
         // wrappers for better use

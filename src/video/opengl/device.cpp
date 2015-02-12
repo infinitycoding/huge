@@ -66,6 +66,11 @@ OpenGLDevice::~OpenGLDevice()
 {
 }
 
+inline List<struct abstraction_entry>*& OpenGLDevice::type_objects(void)
+{
+    return this->gl_objects;
+}
+
 #define ACTIVATE	this->context->activate();
 
 // buffers
@@ -318,11 +323,11 @@ void OpenGLDevice::color(Color4d c)
 // light data
 GL_Light *OpenGLDevice::getLight(Light *light)
 {
-    GL_Light *gl_light = (GL_Light*) this->getObject((DeviceObject*)light);
+    GL_Light *gl_light = (GL_Light*) this->getDeviceObject((void*)light);
     if(gl_light == NULL)
     {
         gl_light = new GL_Light();
-        this->addObject((DeviceObject*)light, (void*) gl_light);
+        this->addDeviceObject((void*)light, (void*) gl_light);
     }
 
     return gl_light;
