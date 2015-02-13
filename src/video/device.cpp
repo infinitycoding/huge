@@ -38,17 +38,11 @@ Device::Device()
 Device::Device(video::Context *context_)
     : context(context_)
 {
-    Device();
+    this->device_objects = new List<struct abstraction_entry>();
 }
 
 Device::~Device()
 {
-}
-
-inline List<struct abstraction_entry>*& Device::type_objects(void)
-{
-    List<struct abstraction_entry>* null = NULL;
-    return null;
 }
 
 void* Device::getDeviceObject(void *obj)

@@ -54,7 +54,7 @@ class GL_Light
 
     private:
         static unsigned int light_counter;
-        GLuint gl_id;
+        GLenum gl_id;
 };
 
 }; // namespace video

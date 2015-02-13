@@ -117,6 +117,8 @@ class OpenGLDevice : public Device
         void material_shininess(float v);
 
         // texture
+        void enableTexture(unsigned int layer);
+        void disableTexture(unsigned int layer);
         void bindTexture(unsigned int layer, Texture *texture);
 
     private:

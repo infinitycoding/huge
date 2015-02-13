@@ -224,7 +224,8 @@ void OpenGLDevice::normal(Vector3d v)
 void OpenGLDevice::texcoord(Vector2f v)
 {
     ACTIVATE;
-    glTexCoord2fv((GLfloat*) &v.data);
+    glMultiTexCoord2fv(GL_TEXTURE0, (GLfloat*) &v.data);
+    glMultiTexCoord2fv(GL_TEXTURE1, (GLfloat*) &v.data);
 }
 
 // color data
@@ -378,13 +379,26 @@ void OpenGLDevice::material_shininess(float v)
 }
 
 // texture
-void OpenGLDevice::bindTexture(unsigned int layer, Texture *texture)
+void OpenGLDevice::enableTexture(unsigned int layer)
 {
     ACTIVATE;
     glActiveTexture(GL_TEXTURE0 + layer);
     glEnable(GL_TEXTURE_2D);
-    this->typeObject<GL_Texture, Texture>(texture)->bind();
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+}
+
+void OpenGLDevice::disableTexture(unsigned int layer)
+{
+    ACTIVATE;
+    glActiveTexture(GL_TEXTURE0 + layer);
+    glDisable(GL_TEXTURE_2D);
+}
+
+void OpenGLDevice::bindTexture(unsigned int layer, Texture *texture)
+{
+    ACTIVATE;
+    glActiveTexture(GL_TEXTURE0 + layer);
+    this->typeObject<GL_Texture, Texture>(texture)->bind();
 }
 
 void OpenGLDevice::not_supported(const char *str)

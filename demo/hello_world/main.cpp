@@ -74,7 +74,6 @@ int main(int argc, char **argv)
 
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
-    glEnable(GL_TEXTURE_2D);
     dev1->clearColor(Color4d(0.0, 0.0, 0.4, 1.0f));
 
     // shaders
@@ -91,7 +90,7 @@ int main(int argc, char **argv)
 
     // lights
     Light *light = new Light(Color4f(1.0f, 1.0f, 1.0f, 1.0f));
-    light->translate(Vector3f(-4.0f, 3.0f, -2.0f));
+    light->translation() = Vector3f(-6.0f, 5.0f, -2.0f);
     light->enable(dev1);
 
     // mesh
@@ -103,8 +102,8 @@ int main(int argc, char **argv)
 
     // objects
     List<struct texture_mapping> *textures = new List<struct texture_mapping>();
-    struct texture_mapping mapping = {0, tex};
-    textures->pushBack(mapping);
+    textures->pushBack({0, tex});
+    dev1->enableTexture(0);
 
     Object *objects[6];
     objects[0] = new Object(mesh, new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 0.0f, textures), Vector3f(-3.0f, 0.0f, 0.0f));
@@ -127,6 +126,8 @@ int main(int argc, char **argv)
 
     dev1->useViewport(view1);
     dev2->useViewport(view2);
+
+    printf("begin main loop..\n");
 
     // main loop
     while(1)

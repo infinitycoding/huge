@@ -44,7 +44,7 @@ GL_Light::GL_Light()
 
 GL_Light::GL_Light(Light *light)
 {
-    GL_Light();
+    this->gl_id = GL_LIGHT0 + (GLuint) GL_Light::light_counter++;
     this->set(light);
 }
 

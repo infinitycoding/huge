@@ -41,12 +41,12 @@ GL_Texture::GL_Texture()
 GL_Texture::GL_Texture(GLenum target_)
     : target(target_)
 {
-    GL_Texture();
+    glGenTextures(1, &this->gl_id);
 }
 
 GL_Texture::GL_Texture(Texture *texture)
 {
-    GL_Texture();
+    glGenTextures(1, &this->gl_id);
 
     this->target = GL_TEXTURE_2D;
     this->load(texture);

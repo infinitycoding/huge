@@ -67,7 +67,6 @@ enum matrix_mode
 
 typedef unsigned int bitfield_t;
 
-
 struct abstraction_entry
 {
     void *abstract;
@@ -85,7 +84,7 @@ class Device
         Context *context;
 
         List<struct abstraction_entry> *device_objects;
-        virtual inline List<struct abstraction_entry>*& type_objects(void);
+        virtual inline List<struct abstraction_entry>*& type_objects(void) = 0;
 
         void *getDeviceObject(void *obj);
         void addDeviceObject(void *abstract, void *specific);
@@ -202,6 +201,8 @@ class Device
         DUMMY(void material_shininess(float v));
 
         // texture
+        DUMMY(void enableTexture(unsigned int layer));
+        DUMMY(void disableTexture(unsigned int layer));
         DUMMY(void bindTexture(unsigned int layer, Texture *texture));
 
     private:
