@@ -18,6 +18,7 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <cstdio>
 #include <stddef.h>
 
 namespace huge
@@ -209,11 +210,13 @@ size_t List<T>::size()
     size_t s = 0;
     lock = true;
 
-    ListIterator<T> i = new ListIterator<T>(this);
-    while(!i->isLast())
+    ListIterator<T> i = ListIterator<T>(this);
+    while(!i.isLast())
     {
+        
         s++;
-        i->next();
+        i.next();
+	printf("loop\n");
     }
 
     lock = false;
@@ -316,7 +319,7 @@ template <typename T>
 ListIterator<T>::ListIterator(List<T> *L)
 {
     Instance = L;
-    currentNode = L->dummy;
+    currentNode = L->dummy->next;
 }
 
 template <typename T>
