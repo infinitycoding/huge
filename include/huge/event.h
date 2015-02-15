@@ -89,7 +89,7 @@ class EventHandle
         List<EventManager*> managers;
 };
 
-class EventManager : EventHandle
+class EventManager : public EventHandle
 {
     public:
         EventManager() {}
@@ -114,7 +114,6 @@ class EventManager : EventHandle
         virtual bool check(const EventDevice *device);
 
 
-    private:
         bool isroot;
         List<EventHandle*> recipients;
 };

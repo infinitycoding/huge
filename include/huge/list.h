@@ -120,8 +120,7 @@ class ListNode
 
 #define foreach(LIST,NAME,TYPE) \
 	ListIterator<TYPE> Iterator = ListIterator<TYPE>(LIST); \
-	TYPE NAME; \
-	for(NAME = Iterator.getCurrent(); !Iterator.isLast(); NAME = Iterator.getAndNext())
+	for(TYPE NAME = Iterator.getCurrent(); !Iterator.isLast(); NAME = Iterator.getAndNext())
 
 }; // namespace huge
 

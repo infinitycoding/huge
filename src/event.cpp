@@ -42,6 +42,7 @@ void EventHandle::handleQuit() {}
 
 
 EventManager::EventManager(bool root)
+: EventHandle()
 {
     recipients = List<EventHandle*>();
     isroot = root;
@@ -77,6 +78,7 @@ void EventManager::fetchEvents()
                     dev.id = 0;
                     dev.name = "default keyboard";
                     dev.type = keyboard;
+		    
                     foreach(&recipients,recipient,EventHandle*)
                     {
                         printf("sending to recipient\n");
@@ -144,6 +146,7 @@ void EventManager::fetchEvents()
 
                 case SDL_MOUSEWHEEL:
                 {
+		    exit(0);
                     dev.id = event.wheel.which;
                     dev.name = "default mouse";
                     dev.type = mouse;
@@ -236,12 +239,12 @@ void EventManager::fetchEvents()
 
 void EventManager::registerHandle(EventHandle *handle)
 {
-    recipients.pushFront(handle);
+    recipients.pushBack(handle);
 }
 
 void EventManager::registerHandle(EventManager *handle)
 {
-    recipients.pushFront(dynamic_cast<EventHandle *>(handle));
+    recipients.pushBack(dynamic_cast<EventHandle *>(handle));
 }
 
 bool EventManager::removeHandle(EventHandle *handle)
