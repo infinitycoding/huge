@@ -34,21 +34,22 @@ namespace video
 {
 
 GL_Texture::GL_Texture()
+    : gl_target(GL_TEXTURE_2D)
 {
-    glGenTextures(1, &this->gl_id);
+    this->create();
 }
 
-GL_Texture::GL_Texture(GLenum target_)
-    : target(target_)
+GL_Texture::GL_Texture(GLenum target)
+    : gl_target(target)
 {
-    glGenTextures(1, &this->gl_id);
+    this->create();
 }
 
-GL_Texture::GL_Texture(Texture *texture)
+GL_Texture::GL_Texture(Texture2ub *texture)
 {
-    glGenTextures(1, &this->gl_id);
+    this->create();
 
-    this->target = GL_TEXTURE_2D;
+    this->gl_target = GL_TEXTURE_2D;
     this->load(texture);
 }
 
@@ -57,7 +58,12 @@ GL_Texture::~GL_Texture()
     glDeleteTextures(1, &this->gl_id);
 }
 
-void GL_Texture::load(Texture *texture)
+inline void GL_Texture::create(void)
+{
+    glGenTextures(1, &this->gl_id);
+}
+
+void GL_Texture::load(Texture2ub *texture)
 {
     this->load((GLint) texture->bpp, (GLsizei) texture->size.x(), (GLsizei) texture->size.y(), (const GLvoid*) texture->data);
 }
@@ -83,15 +89,15 @@ void GL_Texture::load(GLint bpp, GLsizei width, GLsizei height, const GLvoid *da
 void GL_Texture::load(GLint level, GLint bpp, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *data)
 {
     this->bind();
-    glTexImage2D(this->target, level, bpp, width, height, border, format, type, data);
+    glTexImage2D(this->gl_target, level, bpp, width, height, border, format, type, data);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);//TODO
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);//TODO
+    glTexParameteri(this->gl_target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);//TODO
+    glTexParameteri(this->gl_target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);//TODO
 }
 
 void GL_Texture::bind(void)
 {
-    glBindTexture(this->target, this->gl_id);
+    glBindTexture(this->gl_target, this->gl_id);
 }
 
 }; // namespace video

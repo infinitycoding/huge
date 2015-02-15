@@ -192,6 +192,10 @@ typedef Vector<2, int> Vector2i;
 typedef Vector<3, int> Vector3i;
 typedef Vector<4, int> Vector4i;
 
+typedef Vector<2, unsigned int> Vector2ui;
+typedef Vector<3, unsigned int> Vector3ui;
+typedef Vector<4, unsigned int> Vector4ui;
+
 typedef Vector<2, float> Vector2f;
 typedef Vector<3, float> Vector3f;
 typedef Vector<4, float> Vector4f;

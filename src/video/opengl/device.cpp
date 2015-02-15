@@ -394,11 +394,11 @@ void OpenGLDevice::disableTexture(unsigned int layer)
     glDisable(GL_TEXTURE_2D);
 }
 
-void OpenGLDevice::bindTexture(unsigned int layer, Texture *texture)
+void OpenGLDevice::bindTexture(unsigned int layer, Texture2ub *texture)
 {
     ACTIVATE;
     glActiveTexture(GL_TEXTURE0 + layer);
-    this->typeObject<GL_Texture, Texture>(texture)->bind();
+    this->typeObject<GL_Texture, Texture2ub>(texture)->bind();
 }
 
 void OpenGLDevice::not_supported(const char *str)

@@ -119,7 +119,7 @@ class OpenGLDevice : public Device
         // texture
         void enableTexture(unsigned int layer);
         void disableTexture(unsigned int layer);
-        void bindTexture(unsigned int layer, Texture *texture);
+        void bindTexture(unsigned int layer, Texture2ub *texture);
 
     private:
         void not_supported(const char *str);

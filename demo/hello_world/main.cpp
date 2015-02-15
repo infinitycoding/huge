@@ -98,7 +98,7 @@ int main(int argc, char **argv)
     Mesh *mesh = meshes->popBack();
 
     // texture
-    Texture *tex = loader::load_texture("texture.png");
+    Texture2ub *tex = loader::load_texture("texture.png");
 
     // objects
     List<struct texture_mapping> *textures = new List<struct texture_mapping>();

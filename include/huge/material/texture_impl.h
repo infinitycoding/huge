@@ -1,3 +1,5 @@
+#ifndef _huge_texture_impl_h_
+#define _huge_texture_impl_h_
 /*
         Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -16,28 +18,31 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*
-	@author Michael Sippel <micha@infinitycoding.de>
- */
-
+#include <stdint.h>
 #include <huge/material/texture.h>
 
 namespace huge
 {
 
-Texture::Texture()
+template <unsigned int N, typename T>
+Texture<N, T>::Texture()
 {
 }
 
-Texture::Texture(Vector2i size_, unsigned int bpp_, uint8_t *data_)
+template <unsigned int N, typename T>
+Texture<N, T>::Texture(Vector<N, size_t> size_, unsigned int bpp_, T *data_)
     : size(size_), bpp(bpp_), data(data_)
 {
 }
 
-Texture::~Texture()
+template <unsigned int N, typename T>
+Texture<N, T>::~Texture()
 {
 }
 
+};
 
-}; // namespace huge
+#include "texture_impl.h"
+
+#endif
 

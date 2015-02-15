@@ -33,18 +33,20 @@ class GL_Texture
 {
     public:
         GL_Texture();
-        GL_Texture(GLenum target_);
-        GL_Texture(Texture *texture);
+        GL_Texture(GLenum target);
+        GL_Texture(Texture2ub *texture);
         ~GL_Texture();
 
-        void load(Texture *texture);
+        void load(Texture2ub *texture);
         void load(GLint bpp, GLsizei width, GLsizei height, const GLvoid *data);
         void load(GLint level, GLint bpp, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *data);
         void bind();
 
     private:
+        inline void create(void);
+
         GLuint gl_id;
-        GLenum target;
+        GLenum gl_target;
 };
 
 };

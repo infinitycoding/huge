@@ -24,24 +24,30 @@
 namespace huge
 {
 
+template <unsigned int N, typename T>
 class Texture
 {
     public:
         Texture();
-        Texture(Vector2i size_, unsigned int bpp_, uint8_t *data_);
+        Texture(Vector<N, size_t> size_, unsigned int bpp_, T *data_);
         ~Texture();
 
-        Vector2i size;
+        Vector<N, size_t> size;
         unsigned int bpp;
-        uint8_t *data;
+        T *data;
 };
+
+typedef Texture<2, unsigned char> Texture2ub;
+typedef Texture<2, float> Texture2f;
 
 namespace loader
 {
-Texture *load_texture(const char *path);
+Texture2ub *load_texture(const char *path);
 };
 
 };
+
+#include "texture_impl.h"
 
 #endif
 

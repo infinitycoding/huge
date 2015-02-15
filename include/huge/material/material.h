@@ -29,7 +29,7 @@ namespace huge
 struct texture_mapping
 {
     unsigned int layer;
-    Texture *texture;
+    Texture2ub *texture;
 };
 
 class Material

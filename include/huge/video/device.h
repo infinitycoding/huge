@@ -32,7 +32,7 @@ template <typename T> class Transformation3;
 class Light;
 class Material;
 class Viewport;
-class Texture;
+template <unsigned int N, typename T> class Texture;
 
 namespace video
 {
@@ -203,7 +203,7 @@ class Device
         // texture
         DUMMY(void enableTexture(unsigned int layer));
         DUMMY(void disableTexture(unsigned int layer));
-        DUMMY(void bindTexture(unsigned int layer, Texture *texture));
+        DUMMY(void bindTexture(unsigned int layer, Texture<2, unsigned char> *texture));
 
     private:
         virtual void not_supported(const char *str);

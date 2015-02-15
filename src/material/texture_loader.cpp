@@ -31,7 +31,7 @@ namespace loader
 {
 
 // TODO
-Texture *load_texture(const char *path)
+Texture2ub *load_texture(const char *path)
 {
     SDL_Surface *surface = IMG_Load(path);
     unsigned int width = surface->w;
@@ -53,7 +53,7 @@ Texture *load_texture(const char *path)
             }
         }
     }
-    return new Texture(Vector2i(width, height), bpp, data);
+    return new Texture2ub(Vector<2, size_t>(width, height), bpp, data);
 }
 
 }; // namespace loader
