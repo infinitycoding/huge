@@ -97,8 +97,6 @@ int main(int argc, char **argv)
     List<Mesh*> *meshes = loader::load_obj("test.obj");
     Mesh *mesh = meshes->popBack();
 
-	video::GL_RenderInstance *inst = new video::GL_RenderInstance(mesh);
-
     // texture
     Texture2ub *tex = sdl::load_texture("texture.png");
 
@@ -115,7 +113,7 @@ int main(int argc, char **argv)
     objects[4] = new Object(mesh, new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 0.8f, textures), Vector3f( 0.0f, 0.0f,-3.0f));
     objects[5] = new Object(mesh, new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 0.6f, textures), Vector3f( 3.0f, 0.0f,-3.0f));
 
-	Material *mat = new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 1.0f, textures);
+    Material *mat = new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 1.0f, textures);
 
 
     // perspective
@@ -179,14 +177,11 @@ int main(int argc, char **argv)
         dev2->color(Color4ub(0x44, 0x55, 0x11, 0xff));
 
         // render mesh
-        //int i;
-        //for(i = 0; i < 6; i++)
-        //    objects[i]->renderImmediate(dev1);
-		dev1->context->activate();
-		mat->useOld(dev1);
-		inst->render();
+        int i;
+        for(i = 0; i < 6; i++)
+            objects[i]->render(dev1);
 
-        mesh->renderImmediate(dev2);
+        dev2->renderMesh(mesh);
 
         dev1->popMatrix();
         dev2->popMatrix();

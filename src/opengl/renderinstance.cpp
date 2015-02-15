@@ -52,7 +52,7 @@ GL_RenderInstance::GL_RenderInstance(Mesh *mesh)
     Vector3f *normal_buf = (Vector3f*) calloc(num_vertices, sizeof(Vector3f));
     Vector2f *texcoord_buf = (Vector2f*) calloc(num_vertices, sizeof(Vector2f));
 
-	// triangulate mesh
+    // triangulate mesh
     int cur_index = 0;
     int cur_vertex = 0;
     for(i = 0; i < mesh->num_faces; i++)
@@ -92,33 +92,33 @@ GL_RenderInstance::GL_RenderInstance(Mesh *mesh)
         }
     }
 
-	this->indices = new GL_Buffer(GL_ELEMENT_ARRAY_BUFFER);
-	this->vertices = new GL_Buffer(GL_ARRAY_BUFFER);
-	this->normals = new GL_Buffer(GL_ARRAY_BUFFER);
-	this->texcoords = new GL_Buffer(GL_ARRAY_BUFFER);
+    this->indices = new GL_Buffer(GL_ELEMENT_ARRAY_BUFFER);
+    this->vertices = new GL_Buffer(GL_ARRAY_BUFFER);
+    this->normals = new GL_Buffer(GL_ARRAY_BUFFER);
+    this->texcoords = new GL_Buffer(GL_ARRAY_BUFFER);
 
     this->indices->loadData(this->num_indices*sizeof(unsigned int), index_buf, GL_STATIC_DRAW);
     this->vertices->loadData(num_vertices*sizeof(Vector3f), vertex_buf, GL_STATIC_DRAW);
     this->normals->loadData(num_vertices*sizeof(Vector3f), normal_buf, GL_STATIC_DRAW);
     this->texcoords->loadData(num_vertices*sizeof(Vector2f), texcoord_buf, GL_STATIC_DRAW);
 
-	glGenVertexArrays(1, &this->vao_id);
-	glBindVertexArray(this->vao_id);
+    glGenVertexArrays(1, &this->vao_id);
+    glBindVertexArray(this->vao_id);
 
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_NORMAL_ARRAY);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	this->normals->bind();
-	glNormalPointer(GL_FLOAT, 0, NULL);
+    this->normals->bind();
+    glNormalPointer(GL_FLOAT, 0, NULL);
 
-	this->vertices->bind();
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
+    this->vertices->bind();
+    glVertexPointer(3, GL_FLOAT, 0, NULL);
 
-	this->texcoords->bind();
-	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+    this->texcoords->bind();
+    glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 
-	glBindVertexArray(0);
+    glBindVertexArray(0);
 }
 
 GL_RenderInstance::~GL_RenderInstance()
@@ -131,10 +131,10 @@ GL_RenderInstance::~GL_RenderInstance()
 
 void GL_RenderInstance::render(void)
 {
-	glBindVertexArray(this->vao_id);
+    glBindVertexArray(this->vao_id);
 
-	this->indices->bind();
-	glDrawElements(GL_TRIANGLES, this->num_indices, GL_UNSIGNED_INT, NULL);
+    this->indices->bind();
+    glDrawElements(GL_TRIANGLES, this->num_indices, GL_UNSIGNED_INT, NULL);
 }
 
 }; // namespace video

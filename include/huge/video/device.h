@@ -33,6 +33,7 @@ class Light;
 class Material;
 class Viewport;
 template <unsigned int N, typename T> class Texture;
+class Mesh;
 
 namespace video
 {
@@ -204,6 +205,9 @@ class Device
         DUMMY(void enableTexture(unsigned int layer));
         DUMMY(void disableTexture(unsigned int layer));
         DUMMY(void bindTexture(unsigned int layer, Texture<2, unsigned char> *texture));
+
+        // mesh rendering
+        DUMMY(void renderMesh(Mesh *mesh));
 
     private:
         virtual void not_supported(const char *str);

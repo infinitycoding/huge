@@ -41,6 +41,7 @@ class Object : public Transformation3f
         Mesh *mesh;
         Material *material;
 
+        void render(video::Device *device);
         void renderImmediate(video::Device *device);
 };
 

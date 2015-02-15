@@ -121,6 +121,8 @@ class OpenGLDevice : public Device
         void disableTexture(unsigned int layer);
         void bindTexture(unsigned int layer, Texture2ub *texture);
 
+        void renderMesh(Mesh *mesh);
+
     private:
         void not_supported(const char *str);
 };

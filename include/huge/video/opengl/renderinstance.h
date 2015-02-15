@@ -41,8 +41,8 @@ class GL_RenderInstance
         void render(void);
 
     private:
-		GLuint vao_id;
-		unsigned int num_indices;
+        GLuint vao_id;
+        unsigned int num_indices;
         GL_Buffer *indices;
         GL_Buffer *vertices;
         GL_Buffer *normals;

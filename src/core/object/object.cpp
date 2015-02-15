@@ -58,6 +58,19 @@ Object::~Object()
 {
 }
 
+void Object::render(video::Device *device)
+{
+    if(this->material != NULL)
+    {
+        this->material->useOld(device);
+    }
+
+    device->pushMatrix();
+    this->useTransformation(device);
+    device->renderMesh(this->mesh);
+    device->popMatrix();
+}
+
 void Object::renderImmediate(video::Device *device)
 {
     if(this->material != NULL)

@@ -28,9 +28,11 @@
 #include <huge/video/opengl/device.h>
 #include <huge/video/opengl/light.h>
 #include <huge/video/opengl/texture.h>
+#include <huge/video/opengl/renderinstance.h>
 
 #include <huge/light.h>
 #include <huge/material/material.h>
+#include <huge/object/mesh.h>
 
 namespace huge
 {
@@ -398,7 +400,13 @@ void OpenGLDevice::bindTexture(unsigned int layer, Texture2ub *texture)
 {
     ACTIVATE;
     glActiveTexture(GL_TEXTURE0 + layer);
-    this->typeObject<GL_Texture, Texture2ub>(texture)->bind();
+    this->deviceObject<GL_Texture, Texture2ub>(texture)->bind();
+}
+
+void OpenGLDevice::renderMesh(Mesh *mesh)
+{
+    ACTIVATE;
+    this->deviceObject<GL_RenderInstance, Mesh>(mesh)->render();
 }
 
 void OpenGLDevice::not_supported(const char *str)
