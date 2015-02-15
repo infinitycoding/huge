@@ -1,5 +1,3 @@
-#ifndef _huge_texture_h_
-#define _huge_texture_h_
 /*
         Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -18,36 +16,56 @@
         along with HUGE. If not, see <http://www.gnu.org/licenses/>.
 */
 
+/*
+	@author Michael Sippel <micha@infinitycoding.de>
+ */
+
+#include <GL/glew.h>
+#include <GL/gl.h>
 #include <stdint.h>
-#include <huge/math/vector.h>
+
+#include <huge/video/opengl/buffer.h>
 
 namespace huge
 {
 
-template <unsigned int N, typename T>
-class Texture
+namespace video
 {
-    public:
-        Texture();
-        Texture(Vector<N, size_t> size_, unsigned int bpp_, T *data_);
-        ~Texture();
 
-        Vector<N, size_t> size;
-        unsigned int bpp;
-        T *data;
-};
-
-typedef Texture<2, unsigned char> Texture2ub;
-typedef Texture<2, float> Texture2f;
-
-namespace loader
+GL_Buffer::GL_Buffer()
+    : gl_target(GL_ARRAY_BUFFER)
 {
-Texture2ub *load_texture(const char *path);
-};
+    this->create();
+}
 
-};
+GL_Buffer::GL_Buffer(GLenum target)
+    : gl_target(target)
+{
+    this->create();
+}
 
-#include "texture_impl.h"
+GL_Buffer::~GL_Buffer()
+{
+    glDeleteBuffers(1, &this->gl_id);
+}
 
-#endif
+inline void GL_Buffer::create(void)
+{
+    glGenBuffers(1, &this->gl_id);
+}
+
+void GL_Buffer::bind(void)
+{
+    glBindBuffer(this->gl_target, this->gl_id);
+}
+
+void GL_Buffer::loadData(size_t size, const void *data, GLenum usage)
+{
+    this->bind();
+    glBufferData(this->gl_target, size, data, usage);
+}
+
+}; // namespace video
+
+}; // namespace huge
 

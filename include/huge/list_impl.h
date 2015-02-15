@@ -213,10 +213,10 @@ size_t List<T>::size()
     ListIterator<T> i = ListIterator<T>(this);
     while(!i.isLast())
     {
-        
+
         s++;
         i.next();
-	printf("loop\n");
+        printf("loop\n");
     }
 
     lock = false;

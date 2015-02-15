@@ -71,7 +71,7 @@ inline GLenum genFormat(unsigned int bpp)
             break;
     }
 
-	return format;
+    return format;
 }
 
 void GL_Texture::load(unsigned int bpp, Vector<1, size_t> size, GLenum type, const void *data)
@@ -92,7 +92,7 @@ void GL_Texture::load(unsigned int bpp, Vector<3, size_t> size, GLenum type, con
 void GL_Texture::load(unsigned int level, unsigned int bpp, Vector<1, size_t> size, int border, GLenum format, GLenum type, const void *data)
 {
     this->bind();
-	glTexImage1D(this->gl_target, level, bpp, (GLuint) size.data[0], border, format, type, data);
+    glTexImage1D(this->gl_target, level, bpp, (GLuint) size.data[0], border, format, type, data);
     glTexParameteri(this->gl_target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);//TODO
     glTexParameteri(this->gl_target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);//TODO
 }
@@ -100,7 +100,7 @@ void GL_Texture::load(unsigned int level, unsigned int bpp, Vector<1, size_t> si
 void GL_Texture::load(unsigned int level, unsigned int bpp, Vector<2, size_t> size, int border, GLenum format, GLenum type, const void *data)
 {
     this->bind();
-	glTexImage2D(this->gl_target, level, bpp, (GLuint) size.x(), (GLuint) size.y(), border, format, type, data);
+    glTexImage2D(this->gl_target, level, bpp, (GLuint) size.x(), (GLuint) size.y(), border, format, type, data);
     glTexParameteri(this->gl_target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);//TODO
     glTexParameteri(this->gl_target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);//TODO
 }
@@ -108,7 +108,7 @@ void GL_Texture::load(unsigned int level, unsigned int bpp, Vector<2, size_t> si
 void GL_Texture::load(unsigned int level, unsigned int bpp, Vector<3, size_t> size, int border, GLenum format, GLenum type, const void *data)
 {
     this->bind();
-	glTexImage3D(this->gl_target, level, bpp, (GLuint) size.x(), (GLuint) size.y(), (GLuint) size.z(), border, format, type, data);
+    glTexImage3D(this->gl_target, level, bpp, (GLuint) size.x(), (GLuint) size.y(), (GLuint) size.z(), border, format, type, data);
     glTexParameteri(this->gl_target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);//TODO
     glTexParameteri(this->gl_target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);//TODO
 }

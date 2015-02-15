@@ -1,5 +1,5 @@
-#ifndef _huge_texture_h_
-#define _huge_texture_h_
+#ifndef _huge_opengl_buffer_h_
+#define _huge_opengl_buffer_h_
 /*
         Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -18,36 +18,40 @@
         along with HUGE. If not, see <http://www.gnu.org/licenses/>.
 */
 
+/*
+	@author Michael Sippel <micha@infinitycoding.de>
+ */
+
+#include <GL/glew.h>
+#include <GL/gl.h>
 #include <stdint.h>
-#include <huge/math/vector.h>
 
 namespace huge
 {
 
-template <unsigned int N, typename T>
-class Texture
+namespace video
+{
+
+class GL_Buffer
 {
     public:
-        Texture();
-        Texture(Vector<N, size_t> size_, unsigned int bpp_, T *data_);
-        ~Texture();
+        GL_Buffer();
+        GL_Buffer(GLenum target);
+        ~GL_Buffer();
 
-        Vector<N, size_t> size;
-        unsigned int bpp;
-        T *data;
+        void bind(void);
+        void loadData(size_t size, const void *data, GLenum usage);
+
+    private:
+        inline void create(void);
+
+        GLuint gl_id;
+        GLenum gl_target;
 };
 
-typedef Texture<2, unsigned char> Texture2ub;
-typedef Texture<2, float> Texture2f;
+}; // namespace video
 
-namespace loader
-{
-Texture2ub *load_texture(const char *path);
-};
-
-};
-
-#include "texture_impl.h"
+}; // namespace huge
 
 #endif
 

@@ -18,6 +18,7 @@
         along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "opengl/buffer.h"
 #include "opengl/device.h"
 #include "opengl/light.h"
 #include "opengl/shader.h"
