@@ -21,6 +21,7 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 
+#include <huge/math/vector.h>
 #include <huge/material/texture.h>
 
 namespace huge
@@ -38,9 +39,13 @@ class GL_Texture
         ~GL_Texture();
 
         void load(Texture2ub *texture);
-        void load(GLint bpp, GLsizei width, GLsizei height, const GLvoid *data);
-        void load(GLint level, GLint bpp, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *data);
-        void bind();
+        void load(unsigned int bpp, Vector<1, size_t> size, GLenum type, const void *data);
+        void load(unsigned int bpp, Vector<2, size_t> size, GLenum type, const void *data);
+        void load(unsigned int bpp, Vector<3, size_t> size, GLenum type, const void *data);
+        void load(unsigned int level, unsigned int bpp, Vector<1, size_t> size, int border, GLenum format, GLenum type, const void *data);
+        void load(unsigned int level, unsigned int bpp, Vector<2, size_t> size, int border, GLenum format, GLenum type, const void *data);
+        void load(unsigned int level, unsigned int bpp, Vector<3, size_t> size, int border, GLenum format, GLenum type, const void *data);
+        void bind(void);
 
     private:
         inline void create(void);

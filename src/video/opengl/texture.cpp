@@ -58,17 +58,7 @@ GL_Texture::~GL_Texture()
     glDeleteTextures(1, &this->gl_id);
 }
 
-inline void GL_Texture::create(void)
-{
-    glGenTextures(1, &this->gl_id);
-}
-
-void GL_Texture::load(Texture2ub *texture)
-{
-    this->load((GLint) texture->bpp, (GLsizei) texture->size.x(), (GLsizei) texture->size.y(), (const GLvoid*) texture->data);
-}
-
-void GL_Texture::load(GLint bpp, GLsizei width, GLsizei height, const GLvoid *data)
+inline GLenum genFormat(unsigned int bpp)
 {
     GLenum format;
     switch(bpp)
@@ -79,20 +69,58 @@ void GL_Texture::load(GLint bpp, GLsizei width, GLsizei height, const GLvoid *da
         case 4:
             format = GL_RGBA;
             break;
-        default:
-            return;
     }
 
-    this->load(0, bpp, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+	return format;
 }
 
-void GL_Texture::load(GLint level, GLint bpp, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *data)
+void GL_Texture::load(unsigned int bpp, Vector<1, size_t> size, GLenum type, const void *data)
+{
+    this->load(0, bpp, size, 0, genFormat(bpp), type, data);
+}
+
+void GL_Texture::load(unsigned int bpp, Vector<2, size_t> size, GLenum type, const void *data)
+{
+    this->load(0, bpp, size, 0, genFormat(bpp), type, data);
+}
+
+void GL_Texture::load(unsigned int bpp, Vector<3, size_t> size, GLenum type, const void *data)
+{
+    this->load(0, bpp, size, 0, genFormat(bpp), type, data);
+}
+
+void GL_Texture::load(unsigned int level, unsigned int bpp, Vector<1, size_t> size, int border, GLenum format, GLenum type, const void *data)
 {
     this->bind();
-    glTexImage2D(this->gl_target, level, bpp, width, height, border, format, type, data);
-
+	glTexImage1D(this->gl_target, level, bpp, (GLuint) size.data[0], border, format, type, data);
     glTexParameteri(this->gl_target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);//TODO
     glTexParameteri(this->gl_target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);//TODO
+}
+
+void GL_Texture::load(unsigned int level, unsigned int bpp, Vector<2, size_t> size, int border, GLenum format, GLenum type, const void *data)
+{
+    this->bind();
+	glTexImage2D(this->gl_target, level, bpp, (GLuint) size.x(), (GLuint) size.y(), border, format, type, data);
+    glTexParameteri(this->gl_target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);//TODO
+    glTexParameteri(this->gl_target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);//TODO
+}
+
+void GL_Texture::load(unsigned int level, unsigned int bpp, Vector<3, size_t> size, int border, GLenum format, GLenum type, const void *data)
+{
+    this->bind();
+	glTexImage3D(this->gl_target, level, bpp, (GLuint) size.x(), (GLuint) size.y(), (GLuint) size.z(), border, format, type, data);
+    glTexParameteri(this->gl_target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);//TODO
+    glTexParameteri(this->gl_target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);//TODO
+}
+
+inline void GL_Texture::create(void)
+{
+    glGenTextures(1, &this->gl_id);
+}
+
+void GL_Texture::load(Texture2ub *texture)
+{
+    this->load(texture->bpp, texture->size, GL_UNSIGNED_BYTE, (void*) texture->data);
 }
 
 void GL_Texture::bind(void)
