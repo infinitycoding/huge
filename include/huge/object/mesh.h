@@ -35,10 +35,8 @@ class Mesh
         ~Mesh();
 
         void calc_normals(void);
-
         void renderImmediate(video::Device *device);
 
-    private:
         int num_vertices;
         Vector3f *vertices;
         Vector3f *normals;

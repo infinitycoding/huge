@@ -1,5 +1,5 @@
-#ifndef _huge_face_h_
-#define _huge_face_h_
+#ifndef _huge_opengl_renderinstance_h_
+#define _huge_opengl_renderinstance_h_
 /*
         Copyright 2012-2015 Infinitycoding all rights reserved
         This file is part of the HugeUniversalGameEngine.
@@ -15,31 +15,41 @@
         GNU General Public License for more details.
 
         You should have received a copy of the GNU General Public License
-        along with the Universe Kernel. If not, see <http://www.gnu.org/licenses/>.
+        along with HUGE. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <huge/math/vector.h>
+/*
+	@author Michael Sippel <micha@infinitycoding.de>
+ */
+
+#include <huge/object/mesh.h>
+#include <huge/video/opengl/buffer.h>
 
 namespace huge
 {
 
-class Mesh;
-
-class Face
+namespace video
 {
-        friend class Mesh;
 
+class GL_RenderInstance
+{
     public:
-        Face();
-        Face(int num_vertices_, int *vertices_);
-        Face(int num_vertices_, int *vertices_, int *texcoords_);
-        ~Face();
+        GL_RenderInstance();
+        GL_RenderInstance(Mesh *mesh);
+        ~GL_RenderInstance();
 
-        int num_vertices;
-        int *vertices;
-        int *texcoords;
-        Vector3f normal;
+        void render(void);
+
+    private:
+		GLuint vao_id;
+		unsigned int num_indices;
+        GL_Buffer *indices;
+        GL_Buffer *vertices;
+        GL_Buffer *normals;
+        GL_Buffer *texcoords;
 };
+
+}; // namespace video
 
 }; // namespace huge
 

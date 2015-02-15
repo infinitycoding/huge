@@ -21,6 +21,7 @@
 #include <SDL2/SDL.h>
 
 #include <huge/math/vector.h>
+#include <huge/material/texture.h>
 #include <huge/video/context.h>
 #include <huge/video/device.h>
 
@@ -81,6 +82,8 @@ class GLWindow : public Window
     private:
         void create(void);
 };
+
+Texture2ub *load_texture(const char *path);
 
 }; // namespace sdl
 

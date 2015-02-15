@@ -23,6 +23,7 @@
 #include "opengl/light.h"
 #include "opengl/shader.h"
 #include "opengl/texture.h"
+#include "opengl/renderinstance.h"
 
 #endif
 

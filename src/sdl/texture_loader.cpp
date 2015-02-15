@@ -27,7 +27,7 @@
 namespace huge
 {
 
-namespace loader
+namespace sdl
 {
 
 // TODO
@@ -56,7 +56,7 @@ Texture2ub *load_texture(const char *path)
     return new Texture2ub(Vector<2, size_t>(width, height), bpp, data);
 }
 
-}; // namespace loader
+}; // namespace sdl
 
 }; // namespace huge
 

@@ -40,11 +40,6 @@ class Texture
 typedef Texture<2, unsigned char> Texture2ub;
 typedef Texture<2, float> Texture2f;
 
-namespace loader
-{
-Texture2ub *load_texture(const char *path);
-};
-
 };
 
 #include "texture_impl.h"
