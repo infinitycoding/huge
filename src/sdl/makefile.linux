@@ -1,8 +1,8 @@
 SRCS = $(shell find -name '*.cpp')
 OBJS = $(addsuffix .o,$(basename $(SRCS)))
 
-INCLUDE = -I/usr/include/ -I../include
-HUGE = huge.a
+INCLUDE = -I/usr/include/ -I../../include
+HUGE_SDL = ../huge_sdl.a
 
 CC = g++
 CFLAGS = -Wall -std=c++11 $(INCLUDE)
@@ -13,9 +13,9 @@ all: $(OBJS) lib
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 lib: $(OBJS)
-	ar -rcs $(HUGE) $^
+	ar -rcs $(HUGE_SDL) $^
 
 clean:
 	rm $(OBJS)
-	rm $(HUGE)
+	rm $(HUGE_SDL)
 

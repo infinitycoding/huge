@@ -7,7 +7,7 @@ LIBRARIES = -lX11 -lSDL2 -lGLEW -lGL -lGLU -lm -lSDL2_image
 
 CC = g++
 CFLAGS = -Wall -std=c++11 $(INCLUDE)
-HUGE = ../../src/huge.a
+HUGE = ../../src/huge.a ../../src/huge_sdl.a ../../src/huge_opengl.a
 HW = helloworld
 
 $(HW): $(OBJS)
