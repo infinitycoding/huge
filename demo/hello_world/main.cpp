@@ -113,8 +113,8 @@ int main(int argc, char **argv)
     objects[4] = new Object(mesh, new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 0.8f, textures), Vector3f( 0.0f, 0.0f,-3.0f));
     objects[5] = new Object(mesh, new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 0.6f, textures), Vector3f( 3.0f, 0.0f,-3.0f));
 
-    Material *mat = new Material(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 1.0f, textures);
-
+    objects[0]->rotation() = Vector4f(0.0f, 1.0f, 0.0f, 0.0f);
+    objects[5]->rotation() = Vector4f(1.0f, 0.0f, 0.5f, 0.0f);
 
     // perspective
     Camera *cam1 = new Camera();
@@ -122,7 +122,7 @@ int main(int argc, char **argv)
     Viewport *view1 = new Viewport(Vector2i(0, 0), Vector2i(800, 600), cam1);
     Viewport *view2 = new Viewport(Vector2i(0, 0), Vector2i(400, 300), cam2);
     cam1->translate(Vector3f(0.0f, 5.0f, 4.0f));
-    cam1->rotation() = Vector4f(1.0f, 0.0f, 0.0f, -30.0f);
+    cam1->rotation() = Vector4f(1.0f, 0.0f, 0.0f, -25.0f);
 
     cam2->translate(Vector3f(0.0f, -2.0f, 5.0f));
     cam2->rotation() = Vector4f(1.0f, 0.0f, 0.0f, 10.0f);
@@ -180,6 +180,10 @@ int main(int argc, char **argv)
         int i;
         for(i = 0; i < 6; i++)
             objects[i]->render(dev1);
+        objects[0]->useTransformation(dev1);
+
+        objects[0]->rotation().w() += 1.0f;
+        objects[5]->rotation().w() -= 1.5f;
 
         dev2->renderMesh(mesh);
 

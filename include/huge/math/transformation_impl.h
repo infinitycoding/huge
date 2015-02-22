@@ -189,15 +189,15 @@ inline void Transformation3<T>::useTransformation(video::Device *device)
 {
     if(!this->invert)
     {
-        device->rotate(Vector<3, T>(this->rotation().data[0], this->rotation().data[1], this->rotation().data[2]), this->rotation().data[3]);
-        device->translate(this->translation());
         device->scale(this->scaling());
+        device->translate(this->translation());
+        device->rotate(Vector<3, T>(this->rotation().data[0], this->rotation().data[1], this->rotation().data[2]), this->rotation().data[3]);
     }
     else
     {
+        device->scale(Vector3f(1.0f, 1.0f, 1.0f)/this->scaling());
         device->rotate(Vector<3, T>(this->rotation().data[0], this->rotation().data[1], this->rotation().data[2]), -this->rotation().data[3]);
         device->translate(this->translation()*Vector3f(-1.0f, -1.0f, -1.0f));
-        device->scale(Vector3f(1.0f, 1.0f, 1.0f)/this->scaling());
     }
 }
 
