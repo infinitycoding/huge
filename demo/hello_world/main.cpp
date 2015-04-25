@@ -44,7 +44,7 @@ void main(void) {\
   vec4 IDiffuse  = gl_LightSource[0].diffuse * max(dot(normal, lightvec), 0.0) * gl_FrontMaterial.diffuse;\
   vec4 ISpecular = gl_LightSource[0].specular * pow(max(dot(Reflected, Eye), 0.0), gl_FrontMaterial.shininess) * gl_FrontMaterial.specular;\
  \
-  gl_FragColor   = vec4((IAmbient + IDiffuse) * texture2D(Texture0, vec2(gl_TexCoord[0])) + ISpecular);\
+  gl_FragColor = vec4((IAmbient + IDiffuse) * texture2D(Texture0, vec2(gl_TexCoord[0])) + ISpecular);\
 }"
 };
 
@@ -180,7 +180,6 @@ int main(int argc, char **argv)
         int i;
         for(i = 0; i < 6; i++)
             objects[i]->render(dev1);
-        objects[0]->useTransformation(dev1);
 
         objects[0]->rotation().w() += 1.0f;
         objects[5]->rotation().w() -= 1.5f;

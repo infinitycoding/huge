@@ -3,7 +3,7 @@ OBJS = $(addsuffix .o,$(basename $(SRCS)))
 
 INCLUDE = -I/usr/include/ -I../../include
 LIBDIR  = -L/usr/X11R6/lib
-LIBRARIES = -lX11 -lSDL2 -lGLEW -lGL -lGLU -lm -lSDL2_image
+LIBRARIES = -lX11 -lSDL2 -lSDL2_image -lGLEW -lGLU -lGL
 
 CC = g++
 CFLAGS = -Wall -std=c++11 $(INCLUDE)
